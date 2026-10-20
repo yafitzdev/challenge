@@ -3,7 +3,7 @@
 *.env
 !.env.example
 # Raw run output (conversations, generated code); results/ keeps the score summaries
-runs/
+/runs/
 node_modules/
 __pycache__/
 *.pyc

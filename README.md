@@ -41,4 +41,4 @@ python evaluation/validate.py
 
 | Step | Change | Run 1 | Run 2 | Run 3 | Decision |
 |---|---|---|---|---|---|
-| 00 baseline | plain Pi agent (read, bash, edit, write), 40 turns, 600 s, plain prompt | | | | |
+| [00 baseline](results/00_baseline/) | plain Pi agent (read, bash, edit, write), 40 turns, 600 s, plain prompt | 175 | 164 | 138 | starting point (mean 159.0 of 184) |
