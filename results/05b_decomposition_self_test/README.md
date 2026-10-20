@@ -29,5 +29,6 @@ while module sessions lose the overview (they do not see how the other modules w
 favor is geohash, the largest repo. The thesis is about weak models and large inputs; the place to test it is the
 weak model (Gemini 2.5 Flash Lite), where one long session failed most often.
 
-**Decision: keep decomposition as an option**, not as the default for the strong model. It costs no points
-against step 04 and about the same tokens (9.2 to 9.5 M per run), but it is 2 to 3 times slower.
+**Decision: keep, as the final harness.** It costs no points against step 04, uses about the same tokens (9.2 to
+9.5 M per run) and is 2 to 3 times slower; it is the design to build on for larger repositories and weaker
+models. The holdout check (step 06) runs with it.
