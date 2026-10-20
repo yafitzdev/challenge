@@ -39,6 +39,6 @@ python evaluation/validate.py
 
 ## Journey
 
-| Step | Change | Run 1 | Run 2 | Run 3 | Decision |
-|---|---|---|---|---|---|
-| [00 baseline](results/00_baseline/) | plain Pi agent (read, bash, edit, write), 40 turns, 600 s, plain prompt | 175 | 164 | 138 | starting point (mean 159.0 of 184) |
+| Step | Change | Run 1 | Run 2 | Decision |
+|---|---|---|---|---|
+| [00 baseline](results/00_baseline/) | plain Pi agent (read, bash, edit, write), 40 turns, 600 s, plain prompt | 175 | 164 | starting point (mean 169.5 of 184) |
