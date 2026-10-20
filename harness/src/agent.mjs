@@ -83,10 +83,11 @@ let turns = 0;
 let limit = null;
 let error = null;
 const started = Date.now();
-const timer = setTimeout(() => {
+const startTimer = (ms) => setTimeout(() => {
   limit = 'migration_timeout';
   void session.abort();
-}, cfg.migration_timeout_seconds * 1000);
+}, ms);
+let timer = startTimer(cfg.migration_timeout_seconds * 1000);
 // With loop_breaker, a tool call that fails N times with the same output and no file written in between gets a
 // harness note. Re-running a failing test after an edit is normal work, so any successful write or edit resets it.
 const callArgs = new Map();
@@ -127,8 +128,30 @@ session.subscribe((event) => {
 // left a repo with no code (results/00_baseline/README.md).
 const resumes = [];
 const RESUME_PROMPTS = { error: 'during_work/provider_error', length: 'during_work/output_limit' };
+// Not a lever, so it is on for every config: when the provider is rate-limited (HTTP 429), wait and send the agent
+// on. The wait does not count against the session's time limit. Gemini through OpenRouter was rate-limited upstream
+// even with one agent at a time (results/07_weak_model/README.md).
+const rateLimitWaits = [];
+let pausedMs = 0;
+const RATE_LIMIT_WAITS_SECONDS = [30, 60, 90, 120, 180];
+const sendPrompt = async (text) => {
+  await session.prompt(text);
+  while (!limit && rateLimitWaits.length < RATE_LIMIT_WAITS_SECONDS.length) {
+    const last = session.messages.filter(m => m.role === 'assistant').at(-1);
+    if (last?.stopReason !== 'error' || !String(last.errorMessage).includes('429')) return;
+    const wait = RATE_LIMIT_WAITS_SECONDS[rateLimitWaits.length];
+    rateLimitWaits.push({ at_turn: turns, wait_seconds: wait });
+    console.log(`Rate-limited at turn ${turns}: waiting ${wait} s`);
+    clearTimeout(timer);
+    const left = cfg.migration_timeout_seconds * 1000 - (Date.now() - started - pausedMs);
+    await new Promise(resolve => setTimeout(resolve, wait * 1000));
+    pausedMs += wait * 1000;
+    timer = startTimer(Math.max(left, 1000));
+    await session.prompt(prompt('during_work/provider_error'));
+  }
+};
 try {
-  await session.prompt(job.prompt);
+  await sendPrompt(job.prompt);
   while (resumes.length < (cfg.resume_after_errors || 0) && !limit && turns < cfg.max_assistant_turns) {
     const last = session.messages.filter(m => m.role === 'assistant').at(-1);
     const reason = last?.stopReason;
@@ -136,7 +159,7 @@ try {
     resumes.push({ at_turn: turns, reason, error: last.errorMessage ? String(last.errorMessage).slice(0, 200) : null });
     console.log(`Resume ${resumes.length} at turn ${turns}: ${reason}`);
     if (reason === 'error') await new Promise(resolve => setTimeout(resolve, 2000 * 2 ** (resumes.length - 1)));
-    await session.prompt(prompt(RESUME_PROMPTS[reason]));
+    await sendPrompt(prompt(RESUME_PROMPTS[reason]));
   }
 } catch (e) {
   error = redact(String(e));
@@ -158,7 +181,7 @@ try {
     elapsed_seconds: (Date.now() - started) / 1000, usage,
     requested_model: cfg.model, returned_model: last?.model || null,
     last_stop_reason: last?.stopReason || null,
-    resumes, loop_notes: loopNotes,
+    resumes, loop_notes: loopNotes, rate_limit_waits: rateLimitWaits,
     cost_usd: null, cost_note: 'Token usage only; no billing estimate.',
   });
   session.dispose();

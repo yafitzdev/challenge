@@ -1,0 +1,31 @@
+{
+  "version": "v2-07-gemini-single_session",
+  "provider": "openrouter",
+  "api_key_env": "OPENROUTER_API_KEY",
+  "model": "google/gemini-2.5-flash-lite",
+  "base_url": "https://openrouter.ai/api/v1",
+  "thinking": "off",
+  "max_output_tokens": 8192,
+  "max_assistant_turns": 40,
+  "migration_timeout_seconds": 600,
+  "tools": [
+    "read",
+    "bash",
+    "edit",
+    "write"
+  ],
+  "automatic_retries": 0,
+  "compaction": false,
+  "prompt_file": "task/start_in_candidate.txt",
+  "command_timeout_seconds": 120,
+  "resume_after_errors": 3,
+  "sandbox": true,
+  "start_in_candidate": true,
+  "candidate_link": true,
+  "loop_breaker": 3,
+  "retry": {
+    "attempts": 2,
+    "max_assistant_turns": 15,
+    "timeout_seconds": 300
+  }
+}

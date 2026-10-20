@@ -52,3 +52,7 @@ python evaluation/validate.py
 Holdout check ([06](results/06_holdout/)), 5 repos no step looked at, 184 tests: baseline 128 and 159 (mean 143.5),
 final harness (05b) 165 and 169 (mean 167.0), **+23.5**. The gain comes from no lost repo (a provider error left the
 baseline with no code on one repo) and from the largest repo (ElSql, 77-79 -> 86-87 of 97).
+
+Weak model ([07](results/07_weak_model/)), Gemini 2.5 Flash Lite, 1 run, 3 repos, 113 tests: baseline 15, one
+session with every fix 31, decomposition 44. On geohash, the largest repo: 0, 8, **24** of 41. With a weak model
+the decomposition thesis holds.
