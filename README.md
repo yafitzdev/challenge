@@ -48,3 +48,7 @@ python evaluation/validate.py
 | [04 retry](results/04_retry/) | a module whose public tests fail is rewritten by a fresh short session, up to 2 times, better version kept | 167 | 164 | no gain (mean 165.5): public tests the reference port also fails trigger the retries; kept as decomposition's failure path |
 | [05 decomposition](results/05_decomposition/) | a plan session, then one short session per module in dependency order; retry as failure path | 155 | 163 | worse (mean 159.0): modules without public tests have nothing to check against |
 | [05b + self-test](results/05b_decomposition_self_test/) | each module session also ports and runs the Java test of its class | 161 | 167 | equal to one session (mean 164.0), 2-3x slower; kept as an option |
+
+Holdout check ([06](results/06_holdout/)), 5 repos no step looked at, 184 tests: baseline 128 and 159 (mean 143.5),
+final harness (05b) 165 and 169 (mean 167.0), **+23.5**. The gain comes from no lost repo (a provider error left the
+baseline with no code on one repo) and from the largest repo (ElSql, 77-79 -> 86-87 of 97).

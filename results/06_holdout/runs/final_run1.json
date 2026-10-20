@@ -1,0 +1,274 @@
+{
+  "run": "06_holdout_final_run1",
+  "config": "v2-05b-decomposition-self-test",
+  "repos": [
+    "gcacace_android-signaturepad",
+    "bmwcarit_hmm-lib",
+    "tuenti_SmsRadar",
+    "AllenDowney_ThinkJavaCode",
+    "OpenGamma_ElSql"
+  ],
+  "successful_migrations": 2,
+  "raw_pass_rate": 0.889344262295082,
+  "passable_pass_rate": 0.8967391304347826,
+  "per_repo": [
+    {
+      "repo": "gcacace_android-signaturepad",
+      "agent_exit_code": 0,
+      "agent_seconds": 41.5,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 3,
+        "from_plan": 1,
+        "added_by_harness": 0,
+        "modules": [
+          "src/signaturepad/utils.py"
+        ]
+      },
+      "retries": [],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 18,
+      "tests_total": 18,
+      "raw_pass_rate": 1.0,
+      "passable_passed": 18,
+      "passable_total": 18,
+      "passable_pass_rate": 1.0,
+      "successful_migration": true
+    },
+    {
+      "repo": "bmwcarit_hmm-lib",
+      "agent_exit_code": 0,
+      "agent_seconds": 153.0,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 6,
+        "from_plan": 6,
+        "added_by_harness": 0,
+        "modules": [
+          "src/bmwcarit_hmm/transition.py",
+          "src/bmwcarit_hmm/utils.py",
+          "src/bmwcarit_hmm/sequence_state.py",
+          "src/bmwcarit_hmm/forward_backward_algorithm.py",
+          "src/bmwcarit_hmm/viterbi_algorithm.py"
+        ]
+      },
+      "retries": [],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 29,
+      "tests_total": 30,
+      "raw_pass_rate": 0.9666666666666667,
+      "passable_passed": 19,
+      "passable_total": 19,
+      "passable_pass_rate": 1.0,
+      "successful_migration": true
+    },
+    {
+      "repo": "tuenti_SmsRadar",
+      "agent_exit_code": 0,
+      "agent_seconds": 439.2,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 11,
+        "from_plan": 11,
+        "added_by_harness": 0,
+        "modules": [
+          "src/smsradar/sms.py",
+          "src/smsradar/sms_type.py",
+          "src/smsradar/sms_listener.py",
+          "src/smsradar/time_provider.py",
+          "src/smsradar/sms_storage.py",
+          "src/smsradar/shared_preferences_sms_storage.py",
+          "src/smsradar/sms_cursor_parser.py",
+          "src/smsradar/sms_observer.py",
+          "src/smsradar/sms_radar.py",
+          "src/smsradar/sms_radar_service.py"
+        ]
+      },
+      "retries": [
+        {
+          "module": "src/smsradar/sms.py",
+          "attempt": 1,
+          "before": 10,
+          "after": 10,
+          "total": 12,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms.py",
+          "attempt": 2,
+          "before": 10,
+          "after": 10,
+          "total": 12,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_cursor_parser.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 2,
+          "total": 2,
+          "kept": true
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 38,
+      "tests_total": 48,
+      "raw_pass_rate": 0.7916666666666666,
+      "passable_passed": 12,
+      "passable_total": 16,
+      "passable_pass_rate": 0.75,
+      "successful_migration": false
+    },
+    {
+      "repo": "AllenDowney_ThinkJavaCode",
+      "agent_exit_code": 0,
+      "agent_seconds": 128.5,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 6,
+        "from_plan": 6,
+        "added_by_harness": 0,
+        "modules": [
+          "src/ap01/series.py",
+          "src/ch01/hello.py",
+          "src/ch01/goodbye.py",
+          "src/ch03/convert.py",
+          "src/ch11/time.py",
+          "src/ch11/time_client.py"
+        ]
+      },
+      "retries": [],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 41,
+      "tests_total": 45,
+      "raw_pass_rate": 0.9111111111111111,
+      "passable_passed": 30,
+      "passable_total": 34,
+      "passable_pass_rate": 0.8823529411764706,
+      "successful_migration": false
+    },
+    {
+      "repo": "OpenGamma_ElSql",
+      "agent_exit_code": 0,
+      "agent_seconds": 893.1,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 29,
+        "from_plan": 29,
+        "added_by_harness": 0,
+        "modules": [
+          "src/opengamma/elsql/sql_params.py",
+          "src/opengamma/elsql/empty_sql_params.py",
+          "src/opengamma/elsql/map_sql_params.py",
+          "src/opengamma/elsql/spring_sql_params.py",
+          "src/opengamma/elsql/map_sql_parameter_source.py",
+          "src/opengamma/elsql/resource.py",
+          "src/opengamma/elsql/el_sql_config.py",
+          "src/opengamma/elsql/sql_fragment.py",
+          "src/opengamma/elsql/container_sql_fragment.py",
+          "src/opengamma/elsql/text_sql_fragment.py",
+          "src/opengamma/elsql/value_sql_fragment.py",
+          "src/opengamma/elsql/name_sql_fragment.py",
+          "src/opengamma/elsql/conditional_sql_fragment.py",
+          "src/opengamma/elsql/if_sql_fragment.py",
+          "src/opengamma/elsql/and_sql_fragment.py",
+          "src/opengamma/elsql/or_sql_fragment.py",
+          "src/opengamma/elsql/operator_sql_fragment.py",
+          "src/opengamma/elsql/equals_sql_fragment.py",
+          "src/opengamma/elsql/like_sql_fragment.py",
+          "src/opengamma/elsql/include_sql_fragment.py",
+          "src/opengamma/elsql/loop_sql_fragment.py",
+          "src/opengamma/elsql/where_sql_fragment.py",
+          "src/opengamma/elsql/paging_sql_fragment.py",
+          "src/opengamma/elsql/offset_fetch_sql_fragment.py",
+          "src/opengamma/elsql/el_sql_parser.py",
+          "src/opengamma/elsql/sql_fragments.py",
+          "src/opengamma/elsql/el_sql.py",
+          "src/opengamma/elsql/el_sql_bundle.py",
+          "src/opengamma/elsql/__init__.py"
+        ]
+      },
+      "retries": [
+        {
+          "module": "src/opengamma/elsql/__init__.py",
+          "attempt": 1,
+          "before": 7,
+          "after": 8,
+          "total": 11,
+          "kept": true
+        },
+        {
+          "module": "src/opengamma/elsql/__init__.py",
+          "attempt": 2,
+          "before": 8,
+          "after": 8,
+          "total": 11,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 91,
+      "tests_total": 103,
+      "raw_pass_rate": 0.883495145631068,
+      "passable_passed": 86,
+      "passable_total": 97,
+      "passable_pass_rate": 0.8865979381443299,
+      "successful_migration": false
+    }
+  ]
+}
