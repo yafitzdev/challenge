@@ -1,0 +1,44 @@
+.
+├── project_structure.txt         # This file: Describes project structure and instructions
+├── README.md                    # Project documentation (if required)
+├── requirements.txt             # Python dependencies
+├── run_tests.sh                 # One command to run all tests
+├── src/
+│   ├── __init__.py
+│   └── methodoverloading/
+│       ├── __init__.py
+│       ├── adder.py                         # Translated from Java Adder.java
+│       ├── example_overloading.py           # Translated from Java ExampleOverloading.java
+│       └── overloading_calculation2.py      # Translated from Java OverloadingCalculation2.java
+├── tests/
+│   ├── __init__.py
+│   └── original/
+│       ├── __init__.py
+│       ├── test_adder.py                         # Original test for Adder
+│       ├── test_example_overloading.py           # Original test for ExampleOverloading
+│       ├── test_manual_main.py                   # Manual main test
+│       └── test_overloading_calculation2.py      # Original test for OverloadingCalculation2
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_adder_public.py                      # Public test for Adder
+│   ├── test_example_overloading_public.py        # Public test for ExampleOverloading
+│   ├── test_manual_main_public.py                # Dummy public test (as in Java)
+│   └── test_overloading_calculation2_public.py   # Public test for OverloadingCalculation2
+
+Directory explanations:
+- src/: All source code modules (adapted from the Java source).
+- src/methodoverloading/: Contains main function and class implementations.
+- tests/original/: All translated original tests from Java's original tests.
+- public_tests/: All translated public tests from Java's public tests.
+- requirements.txt: Lists required dependencies (pytest).
+- run_tests.sh: Runs all tests (both original and public) with a single command.
+- project_structure.txt: This file.
+
+How to run tests:
+1. Install dependencies: `pip install -r requirements.txt`
+2. Run all tests: `./run_tests.sh` (ensure executable permission with `chmod +x run_tests.sh`)
+
+Notes:
+- Both original and public tests are discovered and run by pytest automatically.
+- Source files mimic the original Java class names and methods as closely as possible.
+- No placeholder or incomplete test code; all logic and assertions are fully translated from Java.

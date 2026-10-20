@@ -1,0 +1,50 @@
+project_root/
+├── src/
+│   └── iot_push/
+│       ├── __init__.py
+│       ├── dummy_module.py                         # Placeholder for source logic classes needed by tests
+├── tests/
+│   ├── __init__.py
+│   └── original/
+│       ├── __init__.py
+│       ├── test_mqtt_client_producer.py            # MqttClientProducerTest.java (integration only)
+│       ├── test_mqtt_client_consumer2.py           # MqttClientConsumerTest.java (integration only)
+│       ├── test_mqtt_client_consumer1.py           # MqttClientConsumerTest1.java (integration only)
+│       ├── test_spring.py                          # springTest.java (no logic, included as stub)
+│       ├── test_ip_utils.py                        # IpUtilsTest.java
+│       ├── test_mqtt_hander.py                     # MqttHanderTest.java
+│       ├── test_mqtt_handler_intf.py               # MqttHandlerIntfTest.java
+│       ├── test_server_mqtt_handler_service.py     # ServerMqttHandlerServiceTest.java
+│       ├── test_client_mqtt_handler_service.py     # ClientMqttHandlerServiceTest.java
+│       ├── test_exception.py                       # ExceptionTest.java
+│       ├── test_properties.py                      # PropertiesTest.java
+│       ├── test_enums.py                           # EnumsTest.java
+│       ├── test_executor_queue.py                  # ExecutorQueueTest.java
+│       ├── test_standard_thread_executor.py        # StandardThreadExecutorTest.java
+│       ├── test_scheduled.py                       # ScheduledTest.java
+│       ├── test_pool.py                            # PoolTest.java
+│       ├── test_default_thread_factory.py          # DefaultThreadFactoryTest.java
+│       └── helpers/
+│           ├── __init__.py
+│           └── mqtt_test_helpers.py                # MqttTestHelpers.java (helper stub)
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_ip_utils_public.py
+│   ├── test_mqtt_hander_public.py
+│   ├── test_client_mqtt_handler_service_public.py
+│   ├── test_server_mqtt_handler_service_public.py
+│   ├── test_mqtt_handler_intf_public.py
+│   ├── test_executor_queue_public.py
+│   └── test_default_thread_factory_public.py
+├── requirements.txt
+├── run_tests.sh
+├── README.md
+└── project_structure.txt
+
+Notes:
+- All `tests/original/` files translate their corresponding Java test logic, stubbing dependencies as needed.
+- All `public_tests/` files follow the public Java test logic and structure.
+- Main implementation classes (like IpUtils, MqttHander) have minimal stubs in `src/iot_push/dummy_module.py` to allow test execution without full application logic.
+- `requirements.txt` lists needed dependencies.
+- `run_tests.sh` runs all tests in both original and public directories.
+- `README.md` instructs usage.

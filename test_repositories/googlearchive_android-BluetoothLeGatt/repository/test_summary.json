@@ -1,0 +1,11 @@
+{
+  "project_name": "googlearchive_android-BluetoothLeGatt",
+  "language": "Java",
+  "coverage": {
+    "line": 64.7,
+    "branch": 53.3
+  },
+  "timestamp": "2025-06-19T20:02:52.630724",
+  "original_path": "/workspace/runnable_filter_cannot_run/Java/googlearchive_android-BluetoothLeGatt",
+  "test_result_path": "/workspace/test_enhancement_results/Java/googlearchive_android-BluetoothLeGatt"
+}

@@ -1,0 +1,47 @@
+{
+  "project_name": "aventrix_jnanoid",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:13:15.577273",
+  "original_path": "/workspace/verified_repos_v2/Java/aventrix_jnanoid",
+  "public_test_result_path": "/workspace/public_test_results/Java/aventrix_jnanoid",
+  "original_tests": {
+    "test_files": [
+      "src/test/java/com/aventrix/jnanoid/NanoIdUtilsTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 1,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "src/test/java/com/aventrix/jnanoid/NanoIdUtilsPublicTest.java",
+      "run_public_tests.sh",
+      "src/test/java/com/aventrix/jnanoid/NanoIdUtilsPublicTest.java",
+      "run_public_tests.sh",
+      "src/test/java/com/aventrix/jnanoid/NanoIdUtilsPublicTest.java",
+      "src/test/java/com/aventrix/jnanoid/NanoIdUtilsPublicTest.java"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 6,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "src/test/java/com/aventrix/jnanoid/NanoIdUtilsPublicTest.java",
+    "run_public_tests.sh",
+    "src/test/java/com/aventrix/jnanoid/NanoIdUtilsPublicTest.java",
+    "run_public_tests.sh",
+    "src/test/java/com/aventrix/jnanoid/NanoIdUtilsPublicTest.java",
+    "src/test/java/com/aventrix/jnanoid/NanoIdUtilsPublicTest.java"
+  ]
+}

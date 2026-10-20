@@ -1,0 +1,48 @@
+{
+  "project_name": "gcacace_android-signaturepad",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:15:14.584935",
+  "original_path": "/workspace/verified_repos_v2/Java/gcacace_android-signaturepad",
+  "public_test_result_path": "/workspace/public_test_results/Java/gcacace_android-signaturepad",
+  "original_tests": {
+    "test_files": [
+      "signature-pad/src/test/java/com/github/gcacace/signaturepad/utils/ControlTimedPointsTest.java",
+      "signature-pad/src/test/java/com/github/gcacace/signaturepad/utils/BezierTest.java",
+      "signature-pad/src/test/java/com/github/gcacace/signaturepad/utils/TimedPointTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 3,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "signature-pad/src/test/java/com/github/gcacace/signaturepad/utils/ControlTimedPointsPublicTest.java",
+      "signature-pad/src/test/java/com/github/gcacace/signaturepad/utils/BezierPublicTest.java",
+      "signature-pad/src/test/java/com/github/gcacace/signaturepad/utils/TimedPointPublicTest.java",
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 5,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "signature-pad/src/test/java/com/github/gcacace/signaturepad/utils/ControlTimedPointsPublicTest.java",
+    "signature-pad/src/test/java/com/github/gcacace/signaturepad/utils/BezierPublicTest.java",
+    "signature-pad/src/test/java/com/github/gcacace/signaturepad/utils/TimedPointPublicTest.java",
+    "run_public_tests.sh",
+    "run_tests.sh",
+    "run_public_tests.sh"
+  ]
+}

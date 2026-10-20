@@ -1,0 +1,11 @@
+{
+  "project_name": "1ssqq1lxr_iot_push",
+  "language": "Java",
+  "coverage": {
+    "line": 67.5,
+    "branch": 51.0
+  },
+  "timestamp": "2025-06-19T13:48:37.518559",
+  "original_path": "/workspace/runnable_filter_cannot_run/Java/1ssqq1lxr_iot_push",
+  "test_result_path": "/workspace/test_enhancement_results/Java/1ssqq1lxr_iot_push"
+}

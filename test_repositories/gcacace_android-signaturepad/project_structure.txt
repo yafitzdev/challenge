@@ -1,0 +1,36 @@
+Project Structure for Python port of gcacace_android-signaturepad
+
+├── requirements.txt                  # Python dependencies for the project (pytest)
+├── run_tests.sh                      # One-click script to run all tests using pytest
+├── src/
+│   └── signaturepad/
+│       └── utils.py                  # Python implementations of TimedPoint, ControlTimedPoints, Bezier
+├── tests/
+│   └── original/
+│       ├── test_bezier.py            # Full translation of BezierTest.java
+│       ├── test_control_timed_points.py # Full translation of ControlTimedPointsTest.java
+│       └── test_timed_point.py       # Full translation of TimedPointTest.java
+├── public_tests/
+│   ├── test_bezier_public.py         # Full translation of BezierPublicTest.java
+│   ├── test_control_timed_points_public.py # Full translation of ControlTimedPointsPublicTest.java
+│   └── test_timed_point_public.py    # Full translation of TimedPointPublicTest.java
+
+
+## Directory and File Explanations
+
+- requirements.txt: Specifies project dependencies, install with `pip install -r requirements.txt`
+- run_tests.sh: Simple script to run all tests. Usage: `./run_tests.sh`
+- src/signaturepad/utils.py: Python classes corresponding to signature pad util classes in Java (TimedPoint, ControlTimedPoints, Bezier)
+- tests/original/: Contains translations of all "original" (non-public) test cases from the Java project
+- public_tests/: Contains translations of all "public" test cases (used for public evaluation, same as *PublicTest.java counterparts)
+
+## Setup and Test Instructions
+
+1. Install Python 3.7 or later and pip.
+2. Install dependencies:
+    pip install -r requirements.txt
+3. Run all tests:
+    ./run_tests.sh
+   (Make sure run_tests.sh has executable permissions: chmod +x run_tests.sh)
+
+Tests in both `tests/original/` and `public_tests/` will be run, covering both internal and public test scenarios.

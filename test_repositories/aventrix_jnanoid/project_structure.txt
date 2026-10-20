@@ -1,0 +1,30 @@
+aventrix_jnanoid_python/
+├── src/
+│   └── jnanoid/
+│       ├── __init__.py
+│       └── nano_id_utils.py
+├── tests/
+│   ├── __init__.py
+│   └── original/
+│       ├── __init__.py
+│       └── test_nanoidutils.py
+├── public_tests/
+│   ├── __init__.py
+│   └── test_nanoidutils_public.py
+├── requirements.txt
+├── run_tests.sh
+└── project_structure.txt
+
+Directory explanations:
+- src/jnanoid/: Source implementation of NanoIdUtils and related code.
+- tests/original/: Original functional/unit tests (full code, edge and error handling).
+- public_tests/: Publicly released test cases for NanoIdUtils, matching the Java public tests.
+- requirements.txt: Lists required python packages/dependencies.
+- run_tests.sh: One-click shell script to run all tests using pytest.
+- project_structure.txt: This overview and documentation of the structure.
+
+Setup and testing instructions:
+1. Install dependencies: `pip install -r requirements.txt`
+2. Run all tests: `./run_tests.sh`
+3. To run only original tests: `pytest tests/original/`
+4. To run only public tests: `pytest public_tests/`

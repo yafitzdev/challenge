@@ -1,0 +1,16 @@
+bin
+target
+release
+*.iml
+*.ipr
+*.iws
+*~
+*.new
+*.old
+/.idea
+
+.project/*
+.classpath
+.settings/*
+.vscode
+.project

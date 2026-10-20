@@ -1,0 +1,65 @@
+{
+  "project_name": "1ssqq1lxr_iot_push",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:12:28.111918",
+  "original_path": "/workspace/verified_repos_v2/Java/1ssqq1lxr_iot_push",
+  "public_test_result_path": "/workspace/public_test_results/Java/1ssqq1lxr_iot_push",
+  "original_tests": {
+    "test_files": [
+      "iot_push_test/src/main/java/com/lxr/iot/paho/MqttClientProducerTest.java",
+      "iot_push_test/src/main/java/com/lxr/iot/paho/comsumer2/MqttClientConsumerTest.java",
+      "iot_push_client_starter_test/src/main/java/com/lxr/iot/spring/springTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/ip/IpUtilsTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/mqtt/MqttHanderTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/mqtt/MqttHandlerIntfTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/mqtt/ServerMqttHandlerServiceTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/mqtt/ClientMqttHandlerServiceTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/exception/ExceptionTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/properties/PropertiesTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/enums/EnumsTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/pool/ExecutorQueueTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/pool/StandardThreadExecutorTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/pool/ScheduledTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/pool/PoolTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/pool/DefaultThreadFactoryTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 16,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "iot_push_common/src/test/java/com/lxr/iot/ip/IpUtilsPublicTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/mqtt/MqttHanderPublicTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/mqtt/ClientMqttHandlerServicePublicTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/mqtt/ServerMqttHandlerServicePublicTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/mqtt/MqttHandlerIntfPublicTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/pool/ExecutorQueuePublicTest.java",
+      "iot_push_common/src/test/java/com/lxr/iot/pool/DefaultThreadFactoryPublicTest.java",
+      "iot_push_common/run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "iot_push_common/run_public_tests.sh"
+    ],
+    "total_public_test_files": 8,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "iot_push_common/src/test/java/com/lxr/iot/ip/IpUtilsPublicTest.java",
+    "iot_push_common/src/test/java/com/lxr/iot/mqtt/MqttHanderPublicTest.java",
+    "iot_push_common/src/test/java/com/lxr/iot/mqtt/ClientMqttHandlerServicePublicTest.java",
+    "iot_push_common/src/test/java/com/lxr/iot/mqtt/ServerMqttHandlerServicePublicTest.java",
+    "iot_push_common/src/test/java/com/lxr/iot/mqtt/MqttHandlerIntfPublicTest.java",
+    "iot_push_common/src/test/java/com/lxr/iot/pool/ExecutorQueuePublicTest.java",
+    "iot_push_common/src/test/java/com/lxr/iot/pool/DefaultThreadFactoryPublicTest.java",
+    "iot_push_common/run_public_tests.sh"
+  ]
+}

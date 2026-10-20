@@ -1,0 +1,11 @@
+{
+  "project_name": "bmwcarit_hmm-lib",
+  "language": "Java",
+  "coverage": {
+    "line": 53.8,
+    "branch": 51.6
+  },
+  "timestamp": "2025-06-19T08:45:06.960442",
+  "original_path": "/workspace/runnable_filter/Java/bmwcarit_hmm-lib",
+  "test_result_path": "/workspace/test_enhancement_results/Java/bmwcarit_hmm-lib"
+}

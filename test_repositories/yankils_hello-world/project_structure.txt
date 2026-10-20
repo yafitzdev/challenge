@@ -1,0 +1,25 @@
+yankils_hello-world-python/
+├── src/
+│   └── greeter.py
+├── tests/
+│   └── original/
+│       └── test_greeter.py
+├── public_tests/
+│   └── test_greeter_public.py
+├── requirements.txt
+├── run_tests.sh
+└── project_structure.txt
+
+Directory explanations:
+- src/: Source code directory. Contains greeter.py which implements the Greeter class and greet() method.
+- tests/original/: Contains tests translated from the Java project's original (non-public) test cases.
+- public_tests/: Contains translated public test cases (as per public_test_summary.json mapping).
+- requirements.txt: Python dependencies (pytest for running the tests).
+- run_tests.sh: Simple script to run all tests with one command (`./run_tests.sh`).
+- project_structure.txt: This file, describing the project layout, file roles, and usage.
+
+Setup & Testing Instructions:
+1. Install dependencies: `pip install -r requirements.txt`
+2. Run all tests: `./run_tests.sh`
+3. To run only original tests: `pytest tests/original/`
+4. To run only public tests: `pytest public_tests/`

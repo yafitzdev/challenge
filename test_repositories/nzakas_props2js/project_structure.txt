@@ -1,0 +1,32 @@
+nzakas_props2js Python Translation Project Structure
+
+.
+├── src/
+│   └── props2js/
+│       ├── __init__.py
+│       ├── property_converter.py      # Logic for property file conversions (JSON, JS, JSONP)
+│       └── props2js.py                # Main CLI runner for command-line usage
+├── tests/
+│   └── original/
+│       ├── __init__.py
+│       ├── test_props2js.py           # Translated from Props2JsTest.java (Original Test)
+│       └── test_property_converter.py # Translated from PropertyConverterTest.java (Original Test)
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_props2js_public.py        # Translated from Props2JsPublicTest.java (Public Test)
+│   └── test_property_converter_public.py # Translated from PropertyConverterPublicTest.java (Public Test)
+├── requirements.txt                   # Python dependencies (pytest)
+├── run_tests.sh                       # Simple script to run all tests
+└── project_structure.txt              # This structure description
+
+Directory/Files:
+- src/props2js/: Python module for implementing props2js and its utilities.
+- tests/original/: All original (private) test translations.
+- public_tests/: All public test translations.
+- requirements.txt: Lists Python dependencies needed (pytest).
+- run_tests.sh: Installs dependencies and runs all tests (original + public).
+- project_structure.txt: This documentation.
+
+Usage:
+1. Install Python 3 and pip.
+2. Run `./run_tests.sh` to install dependencies and run both original and public tests.

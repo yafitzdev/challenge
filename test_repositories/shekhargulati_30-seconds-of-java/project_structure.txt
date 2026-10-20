@@ -1,0 +1,29 @@
+.
+├── requirements.txt           # Python dependencies for testing (pytest)
+├── run_tests.sh               # Simple one-click test script (runs all tests)
+├── src/
+│   └── snippets.py            # Snippets class (to be implemented by user)
+├── tests/
+│   ├── __init__.py
+│   └── original/
+│       ├── __init__.py
+│       ├── test_snippets.py       # Translated from src/test/java/snippets/SnippetsTests.java
+│       └── test_snippets_edge.py  # Translated from src/test/java/snippets/SnippetsEdgeTests.java
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_snippets_public.py     # Translated from src/test/java/snippets/SnippetsPublicTests.java
+│   └── test_snippets_edge_public.py# Translated from src/test/java/snippets/SnippetsEdgePublicTests.java
+
+# Directory Explanations:
+# src/          : Source code (implement src/snippets.py for tests to pass)
+# tests/        : All original translated test cases (from src/test/java/...Tests.java)
+# public_tests/ : All public translated test cases (from ...PublicTests.java)
+# requirements.txt : Declares pytest dependency
+# run_tests.sh  : Bash script to run all tests using pytest
+
+# Usage Instructions:
+# 1. Install dependencies: `pip install -r requirements.txt`
+# 2. Implement all methods in src/snippets.py as per the original Java Snippets API.
+# 3. Run all tests (original and public) by executing: `./run_tests.sh`
+# 4. To run only original tests:    pytest tests/
+# 5. To run only public tests:      pytest public_tests/

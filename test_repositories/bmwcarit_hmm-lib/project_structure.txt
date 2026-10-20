@@ -1,0 +1,29 @@
+bmwcarit_hmm-lib-python/
+├── requirements.txt
+├── run_tests.sh
+├── test_translation_progress.json
+├── project_structure.txt
+├── src/
+│   └── bmwcarit_hmm/
+│       ├── __init__.py
+│       ├── transition.py
+│       ├── forward_backward_algorithm.py
+│       ├── sequence_state.py
+│       ├── utils.py
+│       └── viterbi_algorithm.py
+├── tests/
+│   ├── __init__.py
+│   └── original/
+│       ├── __init__.py
+│       ├── test_transition.py
+│       ├── test_forward_backward_algorithm.py
+│       ├── test_sequence_state.py
+│       ├── test_utils.py
+│       └── test_viterbi_algorithm.py
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_utils_public.py
+│   ├── test_transition_public.py
+│   ├── test_viterbi_algorithm_public.py
+│   ├── test_forward_backward_algorithm_public.py
+│   └── test_sequence_state_public.py

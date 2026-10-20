@@ -1,0 +1,11 @@
+{
+  "project_name": "awslabs_route53-infima",
+  "language": "Java",
+  "coverage": {
+    "line": 62.0,
+    "branch": 52.3
+  },
+  "timestamp": "2025-06-19T18:02:05.215507",
+  "original_path": "/workspace/runnable_filter_cannot_run/Java/awslabs_route53-infima",
+  "test_result_path": "/workspace/test_enhancement_results/Java/awslabs_route53-infima"
+}

@@ -1,0 +1,11 @@
+{
+  "project_name": "yinjihuan_netty-im",
+  "language": "Java",
+  "coverage": {
+    "line": 59.6,
+    "branch": 66.7
+  },
+  "timestamp": "2025-06-19T09:41:57.188560",
+  "original_path": "/workspace/runnable_filter/Java/yinjihuan_netty-im",
+  "test_result_path": "/workspace/test_enhancement_results/Java/yinjihuan_netty-im"
+}

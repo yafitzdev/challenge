@@ -1,0 +1,11 @@
+{
+  "project_name": "aventrix_jnanoid",
+  "language": "Java",
+  "coverage": {
+    "line": 100.0,
+    "branch": 100.0
+  },
+  "timestamp": "2025-06-23T10:12:24.973401",
+  "original_path": "/workspace/test_enhancement_results/Java/aventrix_jnanoid",
+  "test_result_path": "/workspace/test_enhancement_results_plus/Java/aventrix_jnanoid"
+}

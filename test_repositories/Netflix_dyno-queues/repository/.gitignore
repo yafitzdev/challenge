@@ -1,0 +1,18 @@
+dyno-queues-core/.settings
+dyno-queues-core/build
+build
+redis-3.0.7/
+redis-3.0.7.tar.gz
+
+*.iml
+.idea
+.gradle
+.classpath
+.project
+
+
+dyno-queues-core/out/
+dyno-queues-redis/out/
+
+# publishing secrets
+secrets/signing-key

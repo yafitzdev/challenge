@@ -1,0 +1,11 @@
+{
+  "project_name": "AllenDowney_ThinkJavaCode",
+  "language": "Java",
+  "coverage": {
+    "line": 89.0,
+    "branch": 64.0
+  },
+  "timestamp": "2025-06-19T14:05:38.349816",
+  "original_path": "/workspace/runnable_filter_cannot_run/Java/AllenDowney_ThinkJavaCode",
+  "test_result_path": "/workspace/test_enhancement_results/Java/AllenDowney_ThinkJavaCode"
+}

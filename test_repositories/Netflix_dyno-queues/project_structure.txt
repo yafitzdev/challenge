@@ -1,0 +1,62 @@
+Netflix_dyno_queues_python/
+├── src/
+│   ├── __init__.py
+│   └── dyno_queues/
+│       ├── __init__.py
+│       ├── message.py
+│       ├── shard_supplier.py
+│       ├── dyno_queue.py
+│       ├── redis_dyno_queue.py
+│       ├── redis_queues.py
+│       ├── default_sharding_strategy.py
+│       ├── custom_sharding_strategy.py
+│       └── ...                    # Additional class/module stubs as needed
+├── tests/
+│   ├── __init__.py
+│   └── original/
+│       ├── __init__.py
+│       ├── test_message.py
+│       ├── test_shard_supplier.py
+│       ├── test_test_message.py
+│       ├── test_consistent_aws_dyno_shard_supplier.py
+│       ├── test_redis_dyno_queue.py
+│       ├── test_default_sharding_strategy.py
+│       ├── test_base_queue.py
+│       ├── test_dyno_shard_supplier.py
+│       ├── test_custom_sharding_strategy.py
+│       ├── test_jedis.py
+│       ├── test_redis_dyno_queue_v2.py
+│       ├── test_multi_queue.py
+│       ├── test_dyno_jedis.py
+│       ├── test_benchmark_jedis.py
+│       ├── test_benchmark_no_pipelines.py
+│       └── test_benchmark_dyno_jedis.py
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_message_public.py
+│   ├── test_shard_supplier_public.py
+│   ├── test_consistent_aws_dyno_shard_supplier_public.py
+│   ├── test_redis_dyno_queue_public.py
+│   ├── test_default_sharding_strategy_public.py
+│   ├── test_dyno_shard_supplier_public.py
+│   ├── test_custom_sharding_strategy_public.py
+│   └── test_redis_dyno_queue_v2_public.py
+├── requirements.txt                   # Python dependencies (pytest, etc)
+├── run_tests.sh                       # Simple test runner script
+├── README.md
+└── project_structure.txt              # This file: describes the project tree and test organization
+
+# Directory explanations:
+src/:           Python implementation of Netflix Dyno Queues (translated stubs/modules).
+tests/:         All original ("non-public") translated tests from Java, as pytest modules.
+    original/:  Direct translation of original Java tests; structure flat for ease of use.
+public_tests/:  All public test cases, translated to pytest modules.
+requirements.txt:  Lists required libraries (pytest, etc).
+run_tests.sh:   Simple Bash script to execute all tests.
+README.md:      Basic usage and contribution info.
+project_structure.txt: This file, documenting the project tree and organization.
+
+# Setup:
+- Make sure you have Python 3.x installed.
+- Run `pip install -r requirements.txt` to install test dependencies.
+- To run all tests: `./run_tests.sh`

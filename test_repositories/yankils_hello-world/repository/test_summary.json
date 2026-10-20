@@ -1,0 +1,11 @@
+{
+  "project_name": "yankils_hello-world",
+  "language": "Java",
+  "coverage": {
+    "line": 100.0,
+    "branch": 100.0
+  },
+  "timestamp": "2025-06-23T17:04:35.024863",
+  "original_path": "/workspace/runnable_filter_cannot_run/Java/yankils_hello-world",
+  "test_result_path": "/workspace/test_enhancement_results_plus/Java/yankils_hello-world"
+}

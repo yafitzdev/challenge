@@ -1,0 +1,32 @@
+// Only add test dependencies and jacoco if not already present
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+test {
+    useJUnit()
+    finalizedBy jacocoTestReport
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}

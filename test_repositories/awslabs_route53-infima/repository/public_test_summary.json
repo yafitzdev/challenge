@@ -1,0 +1,52 @@
+{
+  "project_name": "awslabs_route53-infima",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:12:38.999294",
+  "original_path": "/workspace/verified_repos_v2/Java/awslabs_route53-infima",
+  "public_test_result_path": "/workspace/public_test_results/Java/awslabs_route53-infima",
+  "original_tests": {
+    "test_files": [
+      "src/test/java/com/amazonaws/services/route53/infima/SimpleSignatureShuffleSharderTest.java",
+      "src/test/java/com/amazonaws/services/route53/infima/OneDimensionalLatticeTest.java",
+      "src/test/java/com/amazonaws/services/route53/infima/LatticeTest.java",
+      "src/test/java/com/amazonaws/services/route53/infima/TwoDimensionalLatticeTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 4,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "src/test/java/com/amazonaws/services/route53/infima/SimpleSignatureShuffleSharderPublicTest.java",
+      "src/test/java/com/amazonaws/services/route53/infima/OneDimensionalLatticePublicTest.java",
+      "src/test/java/com/amazonaws/services/route53/infima/LatticePublicTest.java",
+      "src/test/java/com/amazonaws/services/route53/infima/TwoDimensionalLatticePublicTest.java",
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 6,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "src/test/java/com/amazonaws/services/route53/infima/SimpleSignatureShuffleSharderPublicTest.java",
+    "src/test/java/com/amazonaws/services/route53/infima/OneDimensionalLatticePublicTest.java",
+    "src/test/java/com/amazonaws/services/route53/infima/LatticePublicTest.java",
+    "src/test/java/com/amazonaws/services/route53/infima/TwoDimensionalLatticePublicTest.java",
+    "run_public_tests.sh",
+    "pom.xml",
+    "run_tests.sh",
+    "run_public_tests.sh"
+  ]
+}

@@ -1,0 +1,42 @@
+Project Directory Structure: Python port of Java yinjihuan_netty-im tests
+
+.
+├── README.md                    # Documentation and usage instructions
+├── requirements.txt             # All required Python dependencies (pytest, mock)
+├── run_tests.sh                 # Main test runner for all tests (one-click script)
+├── project_structure.txt        # This structure and explanations
+├── src/
+│   └── nettyim/
+│       ├── __init__.py
+│       ├── server.py
+│       ├── imserver_app.py
+│       ├── controller.py
+│       ├── connection_pool.py
+│       ├── handler.py
+│       └── http.py
+├── tests/
+│   └── original/
+│       ├── __init__.py
+│       ├── test_imserver_app.py
+│       ├── test_connection_pool.py
+│       ├── test_imserver.py
+│       ├── test_message_controller.py
+│       ├── test_netty_http_server.py
+│       └── test_server_po_handler.py
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_imserver_app_public.py
+│   ├── test_connection_pool_public.py
+│   ├── test_imserver_public.py
+│   ├── test_message_controller_public.py
+│   ├── test_netty_http_server_public.py
+│   └── test_server_po_handler_public.py
+
+Explanations:
+- src/nettyim/: Stubs/minimal implementations for all classes under test (so tests can run)
+- tests/original/: Python translations of all original (private) Java tests
+- public_tests/: Python translations of all public Java tests
+- __init__.py: Included in all packages to ensure importability
+- requirements.txt: All Python dependencies
+- run_tests.sh: Runs all tests simply via 'pytest'
+- README.md: Details on how to set up and run tests.

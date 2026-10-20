@@ -1,0 +1,11 @@
+{
+  "project_name": "Netflix_dyno-queues",
+  "language": "Java",
+  "coverage": {
+    "line": 67.5,
+    "branch": 60.0
+  },
+  "timestamp": "2025-06-20T01:07:09.300933",
+  "original_path": "/workspace/runnable_filter_cannot_run/Java/Netflix_dyno-queues",
+  "test_result_path": "/workspace/test_enhancement_results/Java/Netflix_dyno-queues"
+}

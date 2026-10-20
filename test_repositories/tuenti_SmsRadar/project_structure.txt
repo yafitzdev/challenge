@@ -1,0 +1,44 @@
+project_root/
+├── requirements.txt                   # Python dependencies
+├── run_tests.sh                       # Script to run all tests
+├── src/
+│   └── smsradar/
+│       ├── __init__.py                # Package init
+│       ├── sms.py                     # Sms and SmsType classes
+│       ├── shared_preferences_sms_storage.py  # Storage handling
+│       ├── sms_storage.py             # Storage for list of SMSs
+│       ├── sms_cursor_parser.py       # Parser logic for SMS rows
+│       ├── time_provider.py           # Current time/date provider
+│       ├── sms_listener.py            # SMS listener interface (for callback simulation)
+│       ├── sms_observer.py            # Observer for notifier logic
+│       └── sms_radar_service.py       # Stub for radar service (testable instance)
+├── tests/
+│   ├── __init__.py
+│   └── original/
+│       ├── __init__.py
+│       ├── test_shared_preferences_sms_storage.py
+│       ├── test_time_provider.py
+│       ├── test_sms_storage.py
+│       ├── test_sms_cursor_parser.py
+│       ├── test_sms_radar_service.py
+│       ├── test_sms_observer.py
+│       ├── test_sms_type.py
+│       └── test_sms.py
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_time_provider_public.py
+│   ├── test_sms_radar_service_public.py
+│   ├── test_sms_test_public.py
+│   ├── test_shared_preferences_sms_storage_public.py
+│   ├── test_sms_cursor_parser_public.py
+│   ├── test_sms_storage_public.py
+│   ├── test_sms_observer_public.py
+│   └── test_sms_type_public.py
+
+# Directory explanations:
+# - src/smsradar: All implementation code, stubs provided only as needed for test execution.
+# - tests/original: Full translation of all original Java test logic, using pytest conventions.
+# - public_tests: Public subset of tests with slightly different data/coverage as per Java public tests.
+# - requirements.txt: Python dependencies. Install with 'pip install -r requirements.txt'.
+# - run_tests.sh: Single-command test runner for all tests (original+public) using pytest.
+# To run all tests:  pip install -r requirements.txt && ./run_tests.sh

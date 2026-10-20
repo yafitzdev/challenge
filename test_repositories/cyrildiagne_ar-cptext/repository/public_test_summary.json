@@ -1,0 +1,51 @@
+{
+  "project_name": "cyrildiagne_ar-cptext",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:14:04.074386",
+  "original_path": "/workspace/verified_repos_v2/Java/cyrildiagne_ar-cptext",
+  "public_test_result_path": "/workspace/public_test_results/Java/cyrildiagne_ar-cptext",
+  "original_tests": {
+    "test_files": [
+      "mobile/app/src/test/java/app/arcopypaste/research/prototypes/text/DesktopHTTPClientTest.java",
+      "mobile/app/src/test/java/app/arcopypaste/research/prototypes/text/TextRecognitionTest.java",
+      "mobile/app/src/test/java/app/arcopypaste/research/prototypes/text/ImageUtilsTest.java"
+    ],
+    "test_scripts": [],
+    "total_original_test_files": 3,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "mobile/app/src/test/java/app/arcopypaste/research/prototypes/text/DesktopHTTPClientPublicTest.java",
+      "mobile/app/src/test/java/app/arcopypaste/research/prototypes/text/TextRecognitionPublicTest.java",
+      "mobile/app/src/test/java/app/arcopypaste/research/prototypes/text/ImageUtilsPublicTest.java",
+      "run_public_tests.sh",
+      "run_public_tests.sh",
+      "mobile/app/run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh",
+      "run_public_tests.sh",
+      "mobile/app/run_public_tests.sh"
+    ],
+    "total_public_test_files": 6,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "mobile/app/src/test/java/app/arcopypaste/research/prototypes/text/DesktopHTTPClientPublicTest.java",
+    "mobile/app/src/test/java/app/arcopypaste/research/prototypes/text/TextRecognitionPublicTest.java",
+    "mobile/app/src/test/java/app/arcopypaste/research/prototypes/text/ImageUtilsPublicTest.java",
+    "run_public_tests.sh",
+    "run_tests.sh",
+    "run_tests.sh",
+    "run_public_tests.sh",
+    "mobile/app/run_tests.sh",
+    "mobile/app/run_public_tests.sh"
+  ]
+}

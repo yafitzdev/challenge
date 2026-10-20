@@ -1,0 +1,44 @@
+{
+  "project_name": "nzakas_props2js",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:18:06.199045",
+  "original_path": "/workspace/verified_repos_v2/Java/nzakas_props2js",
+  "public_test_result_path": "/workspace/public_test_results/Java/nzakas_props2js",
+  "original_tests": {
+    "test_files": [
+      "tests/net/nczonline/web/props2js/Props2JsTest.java",
+      "tests/net/nczonline/web/props2js/PropertyConverterTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 2,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "tests/net/nczonline/web/props2js/Props2JsPublicTest.java",
+      "tests/net/nczonline/web/props2js/PropertyConverterPublicTest.java",
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 4,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "tests/net/nczonline/web/props2js/Props2JsPublicTest.java",
+    "tests/net/nczonline/web/props2js/PropertyConverterPublicTest.java",
+    "run_public_tests.sh",
+    "run_public_tests.sh"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "project_name": "googlearchive_android-BluetoothLeGatt",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:17:57.334767",
+  "original_path": "/workspace/verified_repos_v2/Java/googlearchive_android-BluetoothLeGatt",
+  "public_test_result_path": "/workspace/public_test_results/Java/googlearchive_android-BluetoothLeGatt",
+  "original_tests": {
+    "test_files": [
+      "Application/src/test/java/com/example/android/bluetoothlegatt/SampleGattAttributesTest.java",
+      "Application/src/test/java/com/example/android/bluetoothlegatt/SampleGattAttributesEdgeTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 2,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "Application/src/test/java/com/example/android/bluetoothlegatt/SampleGattAttributesPublicTest.java",
+      "Application/src/test/java/com/example/android/bluetoothlegatt/SampleGattAttributesEdgePublicTest.java",
+      "run_public_tests.sh",
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh",
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 5,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "Application/src/test/java/com/example/android/bluetoothlegatt/SampleGattAttributesPublicTest.java",
+    "Application/src/test/java/com/example/android/bluetoothlegatt/SampleGattAttributesEdgePublicTest.java",
+    "run_public_tests.sh",
+    "run_tests.sh",
+    "run_public_tests.sh",
+    "Application/build.gradle",
+    "build.gradle",
+    "gradle/wrapper/gradle-wrapper.properties",
+    "settings.gradle",
+    "run_public_tests.sh",
+    "run_tests.sh"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "project_name": "OpenGamma_ElSql",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-25T14:56:50.525864",
+  "original_path": "/workspace/verified_repos_v2/Java/OpenGamma_ElSql",
+  "public_test_result_path": "/workspace/public_test_results/Java/OpenGamma_ElSql",
+  "original_tests": {
+    "test_files": [
+      "src/test/java/com/opengamma/elsql/SpringSqlParamsTest.java",
+      "src/test/java/com/opengamma/elsql/ContainerSqlFragmentTest.java",
+      "src/test/java/com/opengamma/elsql/ElSqlBundleTest.java",
+      "src/test/java/com/opengamma/elsql/EqualsSqlFragmentTest.java",
+      "src/test/java/com/opengamma/elsql/ElSqlTest.java",
+      "src/test/java/com/opengamma/elsql/LineTest.java",
+      "src/test/java/com/opengamma/elsql/AndSqlFragmentTest.java",
+      "src/test/java/com/opengamma/elsql/FragmentTest.java",
+      "src/test/java/com/opengamma/elsql/EmptySqlParamsTest.java",
+      "src/test/java/com/opengamma/elsql/LoopSqlFragmentTest.java",
+      "src/test/java/com/opengamma/elsql/SqlFragmentsTest.java",
+      "src/test/java/com/opengamma/elsql/MapSqlParamsTest.java",
+      "src/test/java/com/opengamma/elsql/ValueSqlFragmentTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 13,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "src/test/java/com/opengamma/elsql/SpringSqlParamsPublicTest.java",
+      "src/test/java/com/opengamma/elsql/ContainerSqlFragmentPublicTest.java",
+      "src/test/java/com/opengamma/elsql/ElSqlBundlePublicTest.java",
+      "run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 4,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "src/test/java/com/opengamma/elsql/SpringSqlParamsPublicTest.java",
+    "src/test/java/com/opengamma/elsql/ContainerSqlFragmentPublicTest.java",
+    "src/test/java/com/opengamma/elsql/ElSqlBundlePublicTest.java",
+    "run_public_tests.sh",
+    "src/test/java/com/opengamma/elsql/AndSqlFragmentTest.java",
+    "src/test/java/com/opengamma/elsql/AndSqlFragmentTest.java"
+  ]
+}

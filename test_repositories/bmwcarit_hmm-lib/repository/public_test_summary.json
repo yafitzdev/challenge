@@ -1,0 +1,50 @@
+{
+  "project_name": "bmwcarit_hmm-lib",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-25T14:47:37.148860",
+  "original_path": "/workspace/verified_repos_v2/Java/bmwcarit_hmm-lib",
+  "public_test_result_path": "/workspace/public_test_results/Java/bmwcarit_hmm-lib",
+  "original_tests": {
+    "test_files": [
+      "src/test/java/com/bmw/hmm/TransitionTest.java",
+      "src/test/java/com/bmw/hmm/ForwardBackwardAlgorithmTest.java",
+      "src/test/java/com/bmw/hmm/SequenceStateTest.java",
+      "src/test/java/com/bmw/hmm/UtilsTest.java",
+      "src/test/java/com/bmw/hmm/ViterbiAlgorithmTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 5,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "src/test/java/com/bmw/hmm/TransitionPublicTest.java",
+      "src/test/java/com/bmw/hmm/SequenceStatePublicTest.java",
+      "src/test/java/com/bmw/hmm/ForwardBackwardAlgorithmPublicTest.java",
+      "run_public_tests.sh",
+      "src/test/java/com/bmw/hmm/UtilsPublicTest.java",
+      "src/test/java/com/bmw/hmm/ViterbiAlgorithmPublicTest.java"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 6,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "src/test/java/com/bmw/hmm/TransitionPublicTest.java",
+    "src/test/java/com/bmw/hmm/SequenceStatePublicTest.java",
+    "src/test/java/com/bmw/hmm/ForwardBackwardAlgorithmPublicTest.java",
+    "run_public_tests.sh",
+    "src/test/java/com/bmw/hmm/UtilsPublicTest.java",
+    "src/test/java/com/bmw/hmm/ViterbiAlgorithmPublicTest.java"
+  ]
+}

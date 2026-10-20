@@ -1,0 +1,11 @@
+{
+  "project_name": "gcacace_android-signaturepad",
+  "language": "Java",
+  "coverage": {
+    "line": 92.0,
+    "branch": 66.7
+  },
+  "timestamp": "2025-06-19T19:55:16.369318",
+  "original_path": "/workspace/runnable_filter_cannot_run/Java/gcacace_android-signaturepad",
+  "test_result_path": "/workspace/test_enhancement_results/Java/gcacace_android-signaturepad"
+}

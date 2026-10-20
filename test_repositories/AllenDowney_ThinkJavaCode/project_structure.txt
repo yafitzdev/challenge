@@ -1,0 +1,29 @@
+project_root/
+├── requirements.txt
+├── run_tests.sh
+├── project_structure.txt
+├── test_translation_progress.json
+├── tests/
+│   ├── __init__.py
+│   └── original/
+│       ├── __init__.py
+│       ├── test_series.py
+│       ├── test_series_fibonacci_edge.py
+│       ├── test_time_client.py
+│       ├── test_time_additional.py
+│       ├── test_time.py
+│       ├── test_hello_goodbye.py
+│       ├── test_convert.py
+│       ├── test_ch13_deck.py
+│       └── test_ch14_deck_hand.py
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_time_public.py
+│   ├── test_time_client_public.py
+│   ├── test_time_additional_public.py
+│   ├── test_hello_goodbye_public.py
+│   ├── test_series_public.py
+│   ├── test_series_fibonacci_edge_public.py
+│   ├── test_convert_public.py
+│   ├── test_ch14_public.py
+│   └── test_ch13_public.py

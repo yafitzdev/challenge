@@ -1,0 +1,57 @@
+{
+  "project_name": "yinjihuan_netty-im",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:20:57.143903",
+  "original_path": "/workspace/verified_repos_v2/Java/yinjihuan_netty-im",
+  "public_test_result_path": "/workspace/public_test_results/Java/yinjihuan_netty-im",
+  "original_tests": {
+    "test_files": [
+      "netty-im/netty-im-server/src/test/java/com/netty/im/server/ImServerAppTest.java",
+      "netty-im/netty-im-server/src/test/java/com/netty/im/server/core/ConnectionPoolTest.java",
+      "netty-im/netty-im-server/src/test/java/com/netty/im/server/core/ImServerTest.java",
+      "netty-im/netty-im-server/src/test/java/com/netty/im/server/api/MessageControllerTest.java",
+      "netty-im/netty-im-server/src/test/java/com/netty/im/server/http/NettyHttpServerTest.java",
+      "netty-im/netty-im-server/src/test/java/com/netty/im/server/handler/ServerPoHandlerTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 6,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "netty-im/netty-im-server/src/test/java/com/netty/im/server/ImServerAppPublicTest.java",
+      "netty-im/netty-im-server/src/test/java/com/netty/im/server/core/ConnectionPoolPublicTest.java",
+      "netty-im/netty-im-server/src/test/java/com/netty/im/server/core/ImServerPublicTest.java",
+      "run_public_tests.sh",
+      "netty-im/netty-im-server/src/test/java/com/netty/im/server/api/MessageControllerPublicTest.java",
+      "netty-im/netty-im-server/src/test/java/com/netty/im/server/http/NettyHttpServerPublicTest.java",
+      "netty-im/netty-im-server/src/test/java/com/netty/im/server/handler/ServerPoHandlerPublicTest.java",
+      "run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 8,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "netty-im/netty-im-server/src/test/java/com/netty/im/server/ImServerAppPublicTest.java",
+    "netty-im/netty-im-server/src/test/java/com/netty/im/server/core/ConnectionPoolPublicTest.java",
+    "netty-im/netty-im-server/src/test/java/com/netty/im/server/core/ImServerPublicTest.java",
+    "run_public_tests.sh",
+    "netty-im/netty-im-server/src/test/java/com/netty/im/server/api/MessageControllerPublicTest.java",
+    "netty-im/netty-im-server/src/test/java/com/netty/im/server/http/NettyHttpServerPublicTest.java",
+    "netty-im/netty-im-server/src/test/java/com/netty/im/server/handler/ServerPoHandlerPublicTest.java",
+    "run_public_tests.sh",
+    "netty-im/netty-im-server/pom.xml"
+  ]
+}

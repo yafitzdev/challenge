@@ -1,0 +1,34 @@
+{
+  "seed": 20261018,
+  "sanity": [
+    "yankils_hello-world",
+    "aventrix_jnanoid"
+  ],
+  "development": [
+    "shekhargulati_30-seconds-of-java",
+    "nzakas_props2js",
+    "tasomaniac_DelayedProgress",
+    "awslabs_route53-infima",
+    "kungfoo_geohash-java",
+    "tamir7_Contacts"
+  ],
+  "holdout": [
+    "gcacace_android-signaturepad",
+    "bmwcarit_hmm-lib",
+    "tuenti_SmsRadar",
+    "AllenDowney_ThinkJavaCode",
+    "OpenGamma_ElSql"
+  ],
+  "hard": [
+    "Suryakant-Bharti_Important-Java-Concepts",
+    "1ssqq1lxr_iot_push",
+    "Netflix_dyno-queues",
+    "yinjihuan_netty-im",
+    "cyrildiagne_ar-cptext",
+    "googlearchive_android-BluetoothLeGatt"
+  ],
+  "big": [
+    "commonmark-java",
+    "snakeyaml-engine"
+  ]
+}

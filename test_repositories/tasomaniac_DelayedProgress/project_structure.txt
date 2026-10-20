@@ -1,0 +1,43 @@
+Project Structure Explanation
+============================
+
+.
+├── requirements.txt                # Python package dependencies (pytest, pytest-mock)
+├── run_tests.sh                    # Simple test runner: executes all tests via pytest
+├── src/
+│   └── tasomaniac/
+│       └── android/
+│           └── widget/
+│               ├── delayed_progress_bar.py
+│               └── delayed_progress_dialog.py
+│                                       # Minimal stubs for DelayedProgressBar and DelayedProgressDialog.
+├── tests/
+│   ├── original/
+│   │   ├── test_delayed_progress_bar.py          # Translated original tests for DelayedProgressBar
+│   │   └── test_delayed_progress_dialog.py       # Translated original tests for DelayedProgressDialog
+├── public_tests/
+│   ├── test_delayed_progress_bar_public.py       # Public test suite for DelayedProgressBar
+│   └── test_delayed_progress_dialog_public.py    # Public test suite for DelayedProgressDialog
+
+Key Directories/Files
+---------------------
+- src/          : Contains minimal source stub modules for test import and instantiation.
+- tests/original/: Contains Python port of the original (non-public) Java test suites.
+- public_tests/ : Contains translated public Python test suites.
+- requirements.txt: List of dependencies (pytest, pytest-mock).
+- run_tests.sh  : Bash script to execute all tests using pytest.
+
+Instructions
+------------
+1. To install required dependencies:
+       pip install -r requirements.txt
+2. To run all tests:
+       ./run_tests.sh
+   (Ensure run_tests.sh is executable: chmod +x run_tests.sh)
+
+Notes
+-----
+- The classes in src/ are minimal stubs for test import only. Actual logic is not implemented, and tests
+  only simulate state transitions (no real timing or UI code).
+- All test logic, assertions, scenario coverage are ported exactly from Java to Python.
+- Both original and public tests are maintained in separate directories for clarity and grading purposes.

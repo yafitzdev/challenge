@@ -1,0 +1,38 @@
+{
+  "project_name": "yankils_hello-world",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": false,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:20:29.889433",
+  "original_path": "/workspace/verified_repos_v2/Java/yankils_hello-world",
+  "public_test_result_path": "/workspace/public_test_results/Java/yankils_hello-world",
+  "original_tests": {
+    "test_files": [],
+    "test_scripts": [],
+    "total_original_test_files": 0,
+    "found_existing_tests": false
+  },
+  "public_tests": {
+    "test_files": [
+      "server/src/test/java/com/example/GreeterPublicTest.java",
+      "server/run_public_tests.sh",
+      "server/run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "server/run_public_tests.sh",
+      "server/run_public_tests.sh"
+    ],
+    "total_public_test_files": 3,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "server/src/test/java/com/example/GreeterPublicTest.java",
+    "server/run_public_tests.sh",
+    "server/run_public_tests.sh",
+    "server/run_tests.sh"
+  ]
+}

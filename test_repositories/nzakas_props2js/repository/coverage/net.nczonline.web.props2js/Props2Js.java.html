@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Props2Js.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">net.nczonline.web.props2js</a> &gt; <span class="el_source">Props2Js.java</span></div><h1>Props2Js.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (c) 2011 Nicholas C. Zakas. All rights reserved.
+ * http://www.nczonline.net/
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package net.nczonline.web.props2js;
+
+import jargs.gnu.CmdLineParser;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.Writer;
+import java.util.Properties;
+
+
+<span class="nc" id="L38">public class Props2Js {</span>
+
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        
+        //default settings
+<span class="nc" id="L47">        boolean verbose = false;</span>
+<span class="nc" id="L48">        String outputFilename = null;</span>
+<span class="nc" id="L49">        ByteArrayOutputStream bytes = new ByteArrayOutputStream();</span>
+<span class="nc" id="L50">        Writer out = null;</span>
+<span class="nc" id="L51">        Reader in = null;</span>
+        
+        //initialize command line parser
+<span class="nc" id="L54">        CmdLineParser parser = new CmdLineParser();</span>
+<span class="nc" id="L55">        CmdLineParser.Option verboseOpt = parser.addBooleanOption('v', &quot;verbose&quot;);</span>
+<span class="nc" id="L56">        CmdLineParser.Option helpOpt = parser.addBooleanOption('h', &quot;help&quot;);</span>
+<span class="nc" id="L57">        CmdLineParser.Option outputFilenameOpt = parser.addStringOption('o', &quot;output&quot;);</span>
+<span class="nc" id="L58">        CmdLineParser.Option nameOpt = parser.addStringOption('n', &quot;name&quot;);</span>
+<span class="nc" id="L59">        CmdLineParser.Option outputTypeOpt = parser.addStringOption('t', &quot;to&quot;);</span>
+        
+        try {
+            
+            //parse the arguments
+<span class="nc" id="L64">            parser.parse(args);</span>
+
+            //figure out if the help option has been executed
+<span class="nc" id="L67">            Boolean help = (Boolean) parser.getOptionValue(helpOpt);</span>
+<span class="nc bnc" id="L68" title="All 4 branches missed.">            if (help != null &amp;&amp; help.booleanValue()) {</span>
+<span class="nc" id="L69">                usage();</span>
+<span class="nc" id="L70">                System.exit(0);</span>
+            } 
+            
+            //determine boolean options
+<span class="nc bnc" id="L74" title="All 2 branches missed.">            verbose = parser.getOptionValue(verboseOpt) != null;            </span>
+          
+            //get the file arguments
+<span class="nc" id="L77">            String[] fileArgs = parser.getRemainingArgs();</span>
+<span class="nc" id="L78">            String inputFilename = fileArgs[0];</span>
+
+<span class="nc bnc" id="L80" title="All 2 branches missed.">            if (fileArgs.length == 0) {</span>
+<span class="nc" id="L81">                throw new Exception(&quot;No input filename specified.&quot;);</span>
+            }
+
+<span class="nc" id="L84">            in = new InputStreamReader(new FileInputStream(inputFilename), &quot;UTF-8&quot;);</span>
+<span class="nc" id="L85">            Properties properties = new Properties();</span>
+<span class="nc" id="L86">            properties.load(in);</span>
+
+            //get output type
+<span class="nc" id="L89">            String outputType = (String) parser.getOptionValue(outputTypeOpt);</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">            if (outputType == null){</span>
+<span class="nc" id="L91">                outputType = &quot;json&quot;;</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">                if (verbose){</span>
+<span class="nc" id="L93">                    System.err.println(&quot;[INFO] No output type specified, defaulting to json.&quot;);</span>
+                }
+            } else {
+<span class="nc bnc" id="L96" title="All 2 branches missed.">                if (verbose){</span>
+<span class="nc" id="L97">                    System.err.println(&quot;[INFO] Output type set to &quot; + outputType + &quot;.&quot;);</span>
+                }
+            }
+
+            //get output filename
+<span class="nc" id="L102">            outputFilename = (String) parser.getOptionValue(outputFilenameOpt);            </span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">            if (outputFilename == null) {</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">                if (verbose){</span>
+<span class="nc" id="L105">                    System.err.println(&quot;[INFO] No output file specified, defaulting to stdout.&quot;);</span>
+                }                
+                
+<span class="nc" id="L108">                out = new OutputStreamWriter(System.out);</span>
+            } else {
+<span class="nc" id="L110">                File outputFile = new File(outputFilename);</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">                if (verbose){</span>
+<span class="nc" id="L112">                    System.err.println(&quot;[INFO] Output file is '&quot; + outputFile.getAbsolutePath() + &quot;'&quot;);</span>
+                }
+<span class="nc" id="L114">                out = new OutputStreamWriter(bytes, &quot;UTF-8&quot;);</span>
+            }            
+
+<span class="nc" id="L117">            String name = (String) parser.getOptionValue(nameOpt);</span>
+<span class="nc bnc" id="L118" title="All 4 branches missed.">            if (name == null &amp;&amp; !outputType.equalsIgnoreCase(&quot;json&quot;)){</span>
+<span class="nc" id="L119">                throw new Exception(&quot;Missing --name option.&quot;);</span>
+            }
+
+<span class="nc" id="L122">            String result = &quot;&quot;;</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">            if (outputType.equalsIgnoreCase(&quot;js&quot;)){</span>
+<span class="nc" id="L124">                result = PropertyConverter.convertToJavaScript(properties, name);</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">            } else if (outputType.equalsIgnoreCase(&quot;jsonp&quot;)){</span>
+<span class="nc" id="L126">                result = PropertyConverter.convertToJsonP(properties, name);</span>
+            } else {
+<span class="nc" id="L128">                result = PropertyConverter.convertToJson(properties);</span>
+            }
+
+<span class="nc" id="L131">            out.write(result);</span>
+            
+<span class="nc" id="L133">        } catch (CmdLineParser.OptionException e) {</span>
+<span class="nc" id="L134">            usage();</span>
+<span class="nc" id="L135">            System.exit(1);            </span>
+<span class="nc" id="L136">        } catch (Exception e) { </span>
+<span class="nc" id="L137">            System.err.println(&quot;[ERROR] &quot; + e.getMessage());</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            if (verbose){</span>
+<span class="nc" id="L139">                e.printStackTrace();</span>
+            }
+<span class="nc" id="L141">            System.exit(1);</span>
+        } finally {
+<span class="nc bnc" id="L143" title="All 2 branches missed.">            if (out != null) {</span>
+                try {
+<span class="nc" id="L145">                    out.close();</span>
+                    
+<span class="nc bnc" id="L147" title="All 2 branches missed.">                    if(bytes.size() &gt; 0) {</span>
+<span class="nc" id="L148">                        bytes.writeTo(new FileOutputStream(outputFilename));</span>
+                    }
+<span class="nc" id="L150">                } catch (IOException e) {</span>
+<span class="nc" id="L151">                    System.err.println(&quot;[ERROR] &quot; + e.getMessage());</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">                    if (verbose){</span>
+<span class="nc" id="L153">                        e.printStackTrace();</span>
+                    }
+<span class="nc" id="L155">                }</span>
+            }
+
+            try {
+<span class="nc" id="L159">                in.close();</span>
+<span class="nc" id="L160">            } catch (IOException e) {</span>
+<span class="nc" id="L161">                System.err.println(&quot;[ERROR] &quot; + e.getMessage());</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">                if (verbose){</span>
+<span class="nc" id="L163">                    e.printStackTrace();</span>
+                }
+<span class="nc" id="L165">            }</span>
+        }
+        
+<span class="nc" id="L168">    }</span>
+    
+    /**
+     * Outputs help information to the console.
+     */
+    private static void usage() {
+<span class="nc" id="L174">        System.out.println(</span>
+            &quot;\nUsage: java -jar props2js-x.y.z.jar [options] [input file]\n\n&quot;
+
+                        + &quot;Global Options\n&quot;
+                        + &quot;  -h, --help            Displays this information.\n&quot;
+                        + &quot;  -v, --verbose         Display informational messages and warnings.\n&quot;
+                        + &quot;  --name &lt;name&gt;         The variable/callback name.\n&quot;
+                        + &quot;  --to &lt;format&gt;         The output format: json (default), jsonp, or js.\n&quot;
+                        + &quot;  -o &lt;file&gt;             Place the output into &lt;file&gt;. Defaults to stdout.&quot;);
+<span class="nc" id="L183">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

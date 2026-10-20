@@ -1,0 +1,11 @@
+{
+  "project_name": "cyrildiagne_ar-cptext",
+  "language": "Java",
+  "coverage": {
+    "line": 55.0,
+    "branch": 52.1
+  },
+  "timestamp": "2025-06-19T18:54:52.268368",
+  "original_path": "/workspace/runnable_filter_cannot_run/Java/cyrildiagne_ar-cptext",
+  "test_result_path": "/workspace/test_enhancement_results/Java/cyrildiagne_ar-cptext"
+}

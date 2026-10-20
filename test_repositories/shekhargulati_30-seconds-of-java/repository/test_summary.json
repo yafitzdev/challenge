@@ -1,0 +1,11 @@
+{
+  "project_name": "shekhargulati_30-seconds-of-java",
+  "language": "Java",
+  "coverage": {
+    "line": 56.0,
+    "branch": 52.7
+  },
+  "timestamp": "2025-06-19T09:34:18.818021",
+  "original_path": "/workspace/runnable_filter/Java/shekhargulati_30-seconds-of-java",
+  "test_result_path": "/workspace/test_enhancement_results/Java/shekhargulati_30-seconds-of-java"
+}

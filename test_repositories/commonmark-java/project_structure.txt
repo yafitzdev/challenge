@@ -1,0 +1,15 @@
+project_root/
+├── src/
+│   └── commonmark/
+│       ├── __init__.py     # must define render_html(markdown: str) -> str
+│       └── ...             # the rest of the port; mirroring the Java packages is recommended
+├── tests/                  # hidden spec tests (not shown)
+└── public_tests/
+    └── test_spec_public.py
+
+Contract: the tests do `from src.commonmark import render_html` and compare render_html(markdown) with the
+exact HTML that the Java library produces with default options:
+    HtmlRenderer.builder().build().render(Parser.builder().build().parse(markdown))
+The tests are examples from the CommonMark spec (spec.txt is not provided). 65 of 652
+examples are public in public_tests/; the remaining 587 are hidden.
+Use the Python standard library only; no third-party packages are installed when the tests run.

@@ -1,0 +1,101 @@
+OpenGamma_ElSql/
+├── LICENSE.txt
+├── README.md
+├── SECURITY.md
+├── pom.xml
+├── project_structure.txt
+├── public_test_summary.json
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_ContainerSqlFragmentPublicTest.py
+│   ├── test_ElSqlBundlePublicTest.py
+│   └── test_SpringSqlParamsPublicTest.py
+├── requirements.txt
+├── run_public_tests.sh
+├── run_tests.sh
+├── src/
+│   ├── changes/
+│   │   └── changes.xml
+│   ├── main/
+│   │   ├── assembly/
+│   │   │   └── dist.xml
+│   │   └── java/
+│   │       └── com/
+│   │           └── opengamma/
+│   │               └── elsql/
+│   │                   ├── AndSqlFragment.java
+│   │                   ├── ConditionalSqlFragment.java
+│   │                   ├── ContainerSqlFragment.java
+│   │                   ├── ElSql.java
+│   │                   ├── ElSqlBundle.java
+│   │                   ├── ElSqlConfig.java
+│   │                   ├── ElSqlParser.java
+│   │                   ├── EmptySqlParams.java
+│   │                   ├── EqualsSqlFragment.java
+│   │                   ├── IfSqlFragment.java
+│   │                   ├── IncludeSqlFragment.java
+│   │                   ├── LikeSqlFragment.java
+│   │                   ├── LoopSqlFragment.java
+│   │                   ├── MapSqlParams.java
+│   │                   ├── NameSqlFragment.java
+│   │                   ├── OffsetFetchSqlFragment.java
+│   │                   ├── OperatorSqlFragment.java
+│   │                   ├── OrSqlFragment.java
+│   │                   ├── PagingSqlFragment.java
+│   │                   ├── SpringSqlParams.java
+│   │                   ├── SqlFragment.java
+│   │                   ├── SqlFragments.java
+│   │                   ├── SqlParams.java
+│   │                   ├── TextSqlFragment.java
+│   │                   ├── ValueSqlFragment.java
+│   │                   ├── WhereSqlFragment.java
+│   │                   └── package-info.java
+│   ├── opengamma/
+│   │   └── elsql/
+│   │       └── __init__.py
+│   └── test/
+│       ├── java/
+│       │   └── com/
+│       │       └── opengamma/
+│       │           └── elsql/
+│       │               ├── AndSqlFragmentTest.java
+│       │               ├── ContainerSqlFragmentPublicTest.java
+│       │               ├── ContainerSqlFragmentTest.java
+│       │               ├── ElSqlBundlePublicTest.java
+│       │               ├── ElSqlBundleTest.java
+│       │               ├── ElSqlTest.java
+│       │               ├── EmptySqlParamsTest.java
+│       │               ├── EqualsSqlFragmentTest.java
+│       │               ├── FragmentTest.java
+│       │               ├── LineTest.java
+│       │               ├── LoopSqlFragmentTest.java
+│       │               ├── MapSqlParamsTest.java
+│       │               ├── SpringSqlParamsPublicTest.java
+│       │               ├── SpringSqlParamsTest.java
+│       │               ├── SqlFragmentsTest.java
+│       │               └── ValueSqlFragmentTest.java
+│       └── resources/
+│           └── com/
+│               └── opengamma/
+│                   └── elsql/
+│                       ├── ElSql-HSQL.elsql
+│                       └── ElSql.elsql
+├── test_summary.json
+├── test_translation_progress.json
+└── tests/
+    ├── __init__.py
+    └── original/
+        ├── __init__.py
+        ├── test_AndSqlFragmentTest.py
+        ├── test_ContainerSqlFragmentTest.py
+        ├── test_ElSqlBundleTest.py
+        ├── test_ElSqlTest.py
+        ├── test_EmptySqlParamsTest.py
+        ├── test_EqualsSqlFragmentTest.py
+        ├── test_FragmentTest.py
+        ├── test_LineTest.py
+        ├── test_LoopSqlFragmentTest.py
+        ├── test_MapSqlParamsTest.py
+        ├── test_SpringSqlParamsTest.py
+        ├── test_SqlFragmentsTest.py
+        └── test_ValueSqlFragmentTest.py

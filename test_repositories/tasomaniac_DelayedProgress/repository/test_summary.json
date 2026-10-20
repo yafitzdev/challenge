@@ -1,0 +1,11 @@
+{
+  "project_name": "tasomaniac_DelayedProgress",
+  "language": "Java",
+  "coverage": {
+    "line": 65.0,
+    "branch": 52.0
+  },
+  "timestamp": "2025-06-23T12:52:13.243399",
+  "original_path": "/workspace/runnable_filter/Java/tasomaniac_DelayedProgress",
+  "test_result_path": "/workspace/test_enhancement_results_plus/Java/tasomaniac_DelayedProgress"
+}

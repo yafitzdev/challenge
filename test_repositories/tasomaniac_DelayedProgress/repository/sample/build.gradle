@@ -1,0 +1,19 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId 'com.tasomaniac.delayedprogress.sample'
+        minSdkVersion 14
+        targetSdkVersion rootProject.ext.compileSdkVersion
+        versionCode 1
+        versionName '1.0'
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile project(':library')
+}

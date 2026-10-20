@@ -1,0 +1,47 @@
+{
+  "project_name": "Suryakant-Bharti_Important-Java-Concepts",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:19:39.522922",
+  "original_path": "/workspace/verified_repos_v2/Java/Suryakant-Bharti_Important-Java-Concepts",
+  "public_test_result_path": "/workspace/public_test_results/Java/Suryakant-Bharti_Important-Java-Concepts",
+  "original_tests": {
+    "test_files": [
+      "src/test/java/methodoverloading/OverloadingCalculation2Test.java",
+      "src/test/java/methodoverloading/ExampleOverloadingTest.java",
+      "src/test/java/methodoverloading/AdderTest.java",
+      "src/test/java/methodoverloading/ManualMainTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 4,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "src/test/java/methodoverloading/AdderPublicTest.java",
+      "src/test/java/methodoverloading/ExampleOverloadingPublicTest.java",
+      "src/test/java/methodoverloading/OverloadingCalculation2PublicTest.java",
+      "src/test/java/methodoverloading/ManualMainPublicTest.java",
+      "run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 5,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "src/test/java/methodoverloading/AdderPublicTest.java",
+    "src/test/java/methodoverloading/ExampleOverloadingPublicTest.java",
+    "src/test/java/methodoverloading/OverloadingCalculation2PublicTest.java",
+    "src/test/java/methodoverloading/ManualMainPublicTest.java",
+    "run_public_tests.sh"
+  ]
+}

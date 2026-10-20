@@ -1,0 +1,93 @@
+{
+  "project_name": "tuenti_SmsRadar",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:21:18.592603",
+  "original_path": "/workspace/verified_repos_v2/Java/tuenti_SmsRadar",
+  "public_test_result_path": "/workspace/public_test_results/Java/tuenti_SmsRadar",
+  "original_tests": {
+    "test_files": [
+      "library/src/main/test/com/tuenti/smsradar/SharedPreferencesSmsStorageTest.java",
+      "library/src/main/test/com/tuenti/smsradar/TimeProviderTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsStorageTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsCursorParserTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsRadarServiceTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsObserverTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsTypeTest.java",
+      "library/src/test/java/com/tuenti/smsradar/SharedPreferencesSmsStorageTest.java",
+      "library/src/test/java/com/tuenti/smsradar/SmsTest.java",
+      "library/src/test/java/com/tuenti/smsradar/TimeProviderTest.java",
+      "library/src/test/java/com/tuenti/smsradar/SmsStorageTest.java",
+      "library/src/test/java/com/tuenti/smsradar/SmsTypeTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 12,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "library/src/main/test/com/tuenti/smsradar/SharedPreferencesSmsStoragePublicTest.java",
+      "library/src/main/test/com/tuenti/smsradar/TimeProviderPublicTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsStoragePublicTest.java",
+      "run_public_tests.sh",
+      "library/src/main/test/com/tuenti/smsradar/SmsCursorParserPublicTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsTypePublicTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsObserverPublicTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsRadarServicePublicTest.java",
+      "run_public_tests.sh",
+      "run_public_tests.sh",
+      "library/src/main/test/com/tuenti/smsradar/SmsTestPublicTest.java",
+      "run_public_tests.sh",
+      "library/src/main/test/com/tuenti/smsradar/SmsStoragePublicTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SharedPreferencesSmsStoragePublicTest.java",
+      "library/src/main/test/com/tuenti/smsradar/TimeProviderPublicTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsTypePublicTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsTestPublicTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsCursorParserPublicTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsObserverPublicTest.java",
+      "library/src/main/test/com/tuenti/smsradar/SmsRadarServicePublicTest.java"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh",
+      "run_public_tests.sh",
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 20,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "library/src/main/test/com/tuenti/smsradar/SharedPreferencesSmsStoragePublicTest.java",
+    "library/src/main/test/com/tuenti/smsradar/TimeProviderPublicTest.java",
+    "library/src/main/test/com/tuenti/smsradar/SmsStoragePublicTest.java",
+    "run_public_tests.sh",
+    "library/src/main/test/com/tuenti/smsradar/SmsCursorParserPublicTest.java",
+    "library/src/main/test/com/tuenti/smsradar/SmsTypePublicTest.java",
+    "library/src/main/test/com/tuenti/smsradar/SmsObserverPublicTest.java",
+    "library/src/main/test/com/tuenti/smsradar/SmsRadarServicePublicTest.java",
+    "library/pom.xml",
+    "library/pom.xml",
+    "run_tests.sh",
+    "run_public_tests.sh",
+    "library/pom.xml",
+    "run_tests.sh",
+    "run_public_tests.sh",
+    "library/src/main/test/com/tuenti/smsradar/SmsTestPublicTest.java",
+    "run_public_tests.sh",
+    "library/src/main/test/com/tuenti/smsradar/SmsStoragePublicTest.java",
+    "library/src/main/test/com/tuenti/smsradar/SharedPreferencesSmsStoragePublicTest.java",
+    "library/src/main/test/com/tuenti/smsradar/TimeProviderPublicTest.java",
+    "library/src/main/test/com/tuenti/smsradar/SmsTypePublicTest.java",
+    "library/src/main/test/com/tuenti/smsradar/SmsTestPublicTest.java",
+    "library/src/main/test/com/tuenti/smsradar/SmsCursorParserPublicTest.java",
+    "library/src/main/test/com/tuenti/smsradar/SmsObserverPublicTest.java",
+    "library/src/main/test/com/tuenti/smsradar/SmsRadarServicePublicTest.java"
+  ]
+}

@@ -1,0 +1,38 @@
+Project Structure:
+
+.
+├── src/
+│   └── contacts/
+│       ├── __init__.py                   # marks package
+│       ├── address.py                    # Address class for contact addresses
+│       ├── email.py                      # Email class for contact emails
+│       ├── event.py                      # Event class for contact events
+│       └── phonenumber.py                # PhoneNumber class for contact phone numbers
+├── tests/
+│   └── original/
+│       ├── test_address.py               # Original Address tests (from AddressTest.java)
+│       ├── test_constants.py             # Java test constants ported to Python for use in tests
+│       ├── test_email.py                 # Original Email tests (from EmailTest.java)
+│       ├── test_event.py                 # Original Event tests (from EventTest.java)
+│       └── test_phonenumber.py           # Original PhoneNumber tests (from PhoneNumberTest.java)
+├── public_tests/
+│   ├── test_address_public.py            # Public Address tests (from AddressPublicTest.java)
+│   ├── test_email_public.py              # Public Email tests (from EmailPublicTest.java)
+│   ├── test_event_public.py              # Public Event tests (from EventPublicTest.java)
+│   └── test_phonenumber_public.py        # Public PhoneNumber tests (from PhoneNumberPublicTest.java)
+├── requirements.txt                      # Python dependencies (pytest)
+├── run_tests.sh                          # Run all tests (original + public) with pytest
+└── project_structure.txt                 # This file: project structure and explanations
+
+Directory explanations:
+- src/contacts:       Implementation of Address, Email, Event, and PhoneNumber classes.
+- tests/original:     Original (private) test cases translated from Java.
+- public_tests:       Public test cases translated from Java public tests.
+- requirements.txt:   List of dependencies (install with pip install -r requirements.txt).
+- run_tests.sh:       Runs both original and public tests using pytest.
+- project_structure.txt: This documentation file.
+
+Setup and Testing Instructions:
+1. Create a virtual environment (optional but recommended)
+2. pip install -r requirements.txt
+3. Run all tests with: ./run_tests.sh

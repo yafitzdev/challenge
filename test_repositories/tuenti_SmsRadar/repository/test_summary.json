@@ -1,0 +1,11 @@
+{
+  "project_name": "tuenti_SmsRadar",
+  "language": "Java",
+  "coverage": {
+    "line": 100.0,
+    "branch": 100.0
+  },
+  "timestamp": "2025-06-20T03:47:15.289533",
+  "original_path": "/workspace/runnable_filter_cannot_run/Java/tuenti_SmsRadar",
+  "test_result_path": "/workspace/test_enhancement_results/Java/tuenti_SmsRadar"
+}

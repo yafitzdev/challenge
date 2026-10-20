@@ -1,0 +1,11 @@
+{
+  "project_name": "tamir7_Contacts",
+  "language": "Java",
+  "coverage": {
+    "line": 88.2,
+    "branch": 75.0
+  },
+  "timestamp": "2025-06-23T13:31:51.749165",
+  "original_path": "/workspace/runnable_filter/Java/tamir7_Contacts",
+  "test_result_path": "/workspace/test_enhancement_results_plus/Java/tamir7_Contacts"
+}

@@ -1,0 +1,39 @@
+{
+  "project_name": "shekhargulati_30-seconds-of-java",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": false,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:19:32.107065",
+  "original_path": "/workspace/verified_repos_v2/Java/shekhargulati_30-seconds-of-java",
+  "public_test_result_path": "/workspace/public_test_results/Java/shekhargulati_30-seconds-of-java",
+  "original_tests": {
+    "test_files": [],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 0,
+    "found_existing_tests": false
+  },
+  "public_tests": {
+    "test_files": [
+      "src/test/java/snippets/SnippetsPublicTests.java",
+      "src/test/java/snippets/SnippetsEdgePublicTests.java",
+      "run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 3,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "src/test/java/snippets/SnippetsPublicTests.java",
+    "src/test/java/snippets/SnippetsEdgePublicTests.java",
+    "run_public_tests.sh",
+    "src/test/java/snippets/SnippetsEdgeTests.java"
+  ]
+}

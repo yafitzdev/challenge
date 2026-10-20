@@ -1,0 +1,63 @@
+{
+  "project_name": "Netflix_dyno-queues",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:18:47.649240",
+  "original_path": "/workspace/verified_repos_v2/Java/Netflix_dyno-queues",
+  "public_test_result_path": "/workspace/public_test_results/Java/Netflix_dyno-queues",
+  "original_tests": {
+    "test_files": [
+      "dyno-queues-core/src/test/java/com/netflix/dyno/queues/MessageTest.java",
+      "dyno-queues-core/src/test/java/com/netflix/dyno/queues/ShardSupplierTest.java",
+      "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/shard/ConsistentAWSDynoShardSupplierTest.java",
+      "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/RedisDynoQueueTest.java",
+      "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/DefaultShardingStrategyTest.java",
+      "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/DynoShardSupplierTest.java",
+      "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/CustomShardingStrategyTest.java",
+      "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/v2/RedisDynoQueueTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 8,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "dyno-queues-core/src/test/java/com/netflix/dyno/queues/MessagePublicTest.java",
+      "dyno-queues-core/src/test/java/com/netflix/dyno/queues/ShardSupplierPublicTest.java",
+      "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/shard/ConsistentAWSDynoShardSupplierPublicTest.java",
+      "run_public_tests.sh",
+      "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/RedisDynoQueuePublicTest.java",
+      "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/DefaultShardingStrategyPublicTest.java",
+      "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/DynoShardSupplierPublicTest.java",
+      "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/CustomShardingStrategyPublicTest.java",
+      "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/v2/RedisDynoQueuePublicTest.java",
+      "run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 10,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "dyno-queues-core/src/test/java/com/netflix/dyno/queues/MessagePublicTest.java",
+    "dyno-queues-core/src/test/java/com/netflix/dyno/queues/ShardSupplierPublicTest.java",
+    "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/shard/ConsistentAWSDynoShardSupplierPublicTest.java",
+    "run_public_tests.sh",
+    "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/RedisDynoQueuePublicTest.java",
+    "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/DefaultShardingStrategyPublicTest.java",
+    "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/DynoShardSupplierPublicTest.java",
+    "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/CustomShardingStrategyPublicTest.java",
+    "dyno-queues-redis/src/test/java/com/netflix/dyno/queues/redis/v2/RedisDynoQueuePublicTest.java",
+    "run_public_tests.sh",
+    "run_tests.sh"
+  ]
+}

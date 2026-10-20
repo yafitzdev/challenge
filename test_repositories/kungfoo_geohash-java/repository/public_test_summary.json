@@ -1,0 +1,61 @@
+{
+  "project_name": "kungfoo_geohash-java",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:16:57.714096",
+  "original_path": "/workspace/verified_repos_v2/Java/kungfoo_geohash-java",
+  "public_test_result_path": "/workspace/public_test_results/Java/kungfoo_geohash-java",
+  "original_tests": {
+    "test_files": [
+      "src/test/java/ch/hsr/geohash/GeoHashCircleQueryTest.java",
+      "src/test/java/ch/hsr/geohash/GeoHashTest.java",
+      "src/test/java/ch/hsr/geohash/GeoHashBoundingBoxSearchTest.java",
+      "src/test/java/ch/hsr/geohash/BoundingBoxTest.java",
+      "src/test/java/ch/hsr/geohash/WGS84PointTest.java",
+      "src/test/java/ch/hsr/geohash/util/LongUtilTest.java",
+      "src/test/java/ch/hsr/geohash/util/BoundingBoxGeoHashIteratorTest.java",
+      "src/test/java/ch/hsr/geohash/util/BoundingBoxSamplerTest.java",
+      "src/test/java/ch/hsr/geohash/util/DoubleUtilTest.java",
+      "src/test/java/ch/hsr/geohash/util/GeoHashSizeTableTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 10,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "src/test/java/ch/hsr/geohash/WGS84PointPublicTest.java",
+      "src/test/java/ch/hsr/geohash/BoundingBoxPublicTest.java",
+      "src/test/java/ch/hsr/geohash/util/DoubleUtilPublicTest.java",
+      "src/test/java/ch/hsr/geohash/util/LongUtilPublicTest.java",
+      "run_public_tests.sh",
+      "src/test/java/ch/hsr/geohash/util/BoundingBoxGeoHashIteratorPublicTest.java",
+      "src/test/java/ch/hsr/geohash/util/DoubleUtilPublicTest.java",
+      "src/test/java/ch/hsr/geohash/util/BoundingBoxSamplerPublicTest.java",
+      "src/test/java/ch/hsr/geohash/util/GeoHashSizeTablePublicTest.java"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 9,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "src/test/java/ch/hsr/geohash/WGS84PointPublicTest.java",
+    "src/test/java/ch/hsr/geohash/BoundingBoxPublicTest.java",
+    "src/test/java/ch/hsr/geohash/util/DoubleUtilPublicTest.java",
+    "src/test/java/ch/hsr/geohash/util/LongUtilPublicTest.java",
+    "run_public_tests.sh",
+    "src/test/java/ch/hsr/geohash/util/BoundingBoxGeoHashIteratorPublicTest.java",
+    "src/test/java/ch/hsr/geohash/util/DoubleUtilPublicTest.java",
+    "src/test/java/ch/hsr/geohash/util/BoundingBoxSamplerPublicTest.java",
+    "src/test/java/ch/hsr/geohash/util/GeoHashSizeTablePublicTest.java"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "project_name": "kungfoo_geohash-java",
+  "language": "Java",
+  "coverage": {
+    "line": 60.0,
+    "branch": 56.0
+  },
+  "timestamp": "2025-06-19T09:19:59.500514",
+  "original_path": "/workspace/runnable_filter/Java/kungfoo_geohash-java",
+  "test_result_path": "/workspace/test_enhancement_results/Java/kungfoo_geohash-java"
+}

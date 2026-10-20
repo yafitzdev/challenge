@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PropertyConverter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">net.nczonline.web.props2js</a> &gt; <span class="el_source">PropertyConverter.java</span></div><h1>PropertyConverter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (c) 2011 Nicholas C. Zakas. All rights reserved.
+ * http://www.nczonline.net/
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+ 
+package net.nczonline.web.props2js;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * @author Nicholas C. Zakas
+ */
+<span class="nc" id="L35">public class PropertyConverter {</span>
+
+<span class="nc" id="L37">    private static Pattern floatPattern = Pattern.compile( &quot;^[0-9]+(\\.[0-9]+)?$&quot; );</span>
+<span class="nc" id="L38">    private static Pattern intPattern = Pattern.compile( &quot;^[0-9]+$&quot; );</span>
+
+    /**
+     * Converts the properties object into a JSON string.
+     * @param properties The properties object to convert.
+     * @return A JSON string representing the object.
+     */
+    public static String convertToJson(Properties properties){
+<span class="nc" id="L46">        JsonObject json = new JsonObject();</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        for (Object key: properties.keySet()){</span>
+<span class="nc" id="L48">            String value = properties.getProperty(key.toString());</span>
+<span class="nc bnc" id="L49" title="All 4 branches missed.">            if (value.equals(&quot;true&quot;) || value.equals(&quot;false&quot;)){</span>
+<span class="nc" id="L50">                json.addProperty(key.toString(), Boolean.parseBoolean(value));</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            } else if (intPattern.matcher(value).matches()){</span>
+<span class="nc" id="L52">                json.addProperty(key.toString(), Integer.parseInt(value));</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">            } else if (floatPattern.matcher(value).matches()){</span>
+<span class="nc" id="L54">                json.addProperty(key.toString(), Float.parseFloat(value));</span>
+            } else {
+<span class="nc" id="L56">                json.addProperty(key.toString(), value);</span>
+            }
+<span class="nc" id="L58">        }</span>
+
+<span class="nc" id="L60">        return new Gson().toJson(json);</span>
+    }
+
+    /**
+     * Converts the properties object into a JSONP string, of the form
+     * callback(json);
+     * @param properties The properties object to convert.
+     * @param callback The name of the callback to call.
+     * @return A JSONP string representing the object.
+     */
+    public static String convertToJsonP(Properties properties, String callback){
+<span class="nc" id="L71">        return callback + &quot;(&quot; + convertToJson(properties) + &quot;);&quot;;</span>
+    }
+
+    /**
+     * Converts the properties object into a JavaScript string, of the form
+     * var variable = json; or object.property = json;
+     * @param properties The properties object to convert.
+     * @param variable The name of the variable to store the object.
+     * @return A JavaScript string representing the object.
+     */
+    public static String convertToJavaScript(Properties properties, String variable){
+<span class="nc" id="L82">        String result = variable + &quot;=&quot; + convertToJson(properties) + &quot;;&quot;;</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (!variable.contains(&quot;.&quot;)){</span>
+<span class="nc" id="L84">            result = &quot;var &quot; + result;</span>
+        }
+<span class="nc" id="L86">        return result;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

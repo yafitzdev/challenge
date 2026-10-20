@@ -1,0 +1,2 @@
+# Keep every file byte for byte as committed: the frozen evaluator hashes them (evaluation/manifest.json).
+* -text

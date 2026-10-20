@@ -1,0 +1,51 @@
+{
+  "project_name": "tamir7_Contacts",
+  "language": "Java",
+  "test_results": {
+    "existing_tests_found": true,
+    "public_tests_generated": true,
+    "existing_tests_passed": true,
+    "public_tests_passed": true
+  },
+  "timestamp": "2025-06-23T20:19:34.836337",
+  "original_path": "/workspace/verified_repos_v2/Java/tamir7_Contacts",
+  "public_test_result_path": "/workspace/public_test_results/Java/tamir7_Contacts",
+  "original_tests": {
+    "test_files": [
+      "contacts/src/test/java/com/github/tamir7/contacts/EmailTest.java",
+      "contacts/src/test/java/com/github/tamir7/contacts/EventTest.java",
+      "contacts/src/test/java/com/github/tamir7/contacts/PhoneNumberTest.java",
+      "contacts/src/test/java/com/github/tamir7/contacts/AddressTest.java"
+    ],
+    "test_scripts": [
+      "run_tests.sh"
+    ],
+    "total_original_test_files": 4,
+    "found_existing_tests": true
+  },
+  "public_tests": {
+    "test_files": [
+      "contacts/src/test/java/com/github/tamir7/contacts/EmailPublicTest.java",
+      "contacts/src/test/java/com/github/tamir7/contacts/EventPublicTest.java",
+      "contacts/src/test/java/com/github/tamir7/contacts/PhoneNumberPublicTest.java",
+      "contacts/src/test/java/com/github/tamir7/contacts/AddressPublicTest.java",
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "test_scripts": [
+      "run_public_tests.sh",
+      "run_public_tests.sh"
+    ],
+    "total_public_test_files": 6,
+    "generated_public_tests": true
+  },
+  "created_files": [
+    "contacts/src/test/java/com/github/tamir7/contacts/EmailPublicTest.java",
+    "contacts/src/test/java/com/github/tamir7/contacts/EventPublicTest.java",
+    "contacts/src/test/java/com/github/tamir7/contacts/PhoneNumberPublicTest.java",
+    "contacts/src/test/java/com/github/tamir7/contacts/AddressPublicTest.java",
+    "run_public_tests.sh",
+    "run_tests.sh",
+    "run_public_tests.sh"
+  ]
+}

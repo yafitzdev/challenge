@@ -1,0 +1,11 @@
+{
+  "project_name": "nzakas_props2js",
+  "language": "Java",
+  "coverage": {
+    "line": 63.2,
+    "branch": 61.0
+  },
+  "timestamp": "2025-06-19T23:28:48.301822",
+  "original_path": "/workspace/runnable_filter_cannot_run/Java/nzakas_props2js",
+  "test_result_path": "/workspace/test_enhancement_results/Java/nzakas_props2js"
+}

@@ -1,0 +1,10 @@
+# API keys: copy .env.example to .env and fill it in
+.env
+*.env
+!.env.example
+# Raw run output (conversations, generated code); results/ keeps the score summaries
+runs/
+node_modules/
+__pycache__/
+*.pyc
+.idea/

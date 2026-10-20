@@ -1,0 +1,33 @@
+project_root/
+├── src/
+│   └── arcopypaste/
+│       └── research/
+│           └── prototypes/
+│               └── text/
+│                   ├── __init__.py
+│                   ├── DesktopHTTPClient.py
+│                   ├── ImageUtils.py
+│                   ├── TextRecognition.py
+│                   └── DesktopHTTPClientCallback.py
+├── tests/
+│   ├── __init__.py
+│   └── original/
+│       ├── __init__.py
+│       ├── test_desktop_http_client.py
+│       ├── test_text_recognition.py
+│       └── test_image_utils.py
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_desktop_http_client_public.py
+│   ├── test_text_recognition_public.py
+│   └── test_image_utils_public.py
+├── requirements.txt
+├── run_tests.sh
+├── README.md
+└── project_structure.txt
+
+- `src/`: Placeholder Python modules for the classes under test, used to allow test import/logic. These include stubs for `DesktopHTTPClient`, `ImageUtils`, `TextRecognition`, and `DesktopHTTPClientCallback`. (You must implement real logic for production use.)
+- `tests/original/`: Python translations of the original (private/internal) tests.
+- `public_tests/`: Python translations of the public test suite.
+- `requirements.txt`: Python test dependencies.
+- `run_tests.sh`: Simple script to run all tests (`pytest`).

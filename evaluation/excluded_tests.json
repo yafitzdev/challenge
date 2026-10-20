@@ -1,0 +1,639 @@
+{
+  "description": "Tests excluded from scoring because a faithful oracle port cannot pass them. One entry per test with category and reason.",
+  "repos": {
+    "yankils_hello-world": {
+      "split": "sanity",
+      "collected": 9,
+      "oracle_passed": 9,
+      "excluded": []
+    },
+    "aventrix_jnanoid": {
+      "split": "sanity",
+      "collected": 23,
+      "oracle_passed": 22,
+      "excluded": [
+        {
+          "test": "hidden_tests/test_nanoidutils.py::test_nanoid_is_url_friendly",
+          "category": "test_bug",
+          "reason": "Calls NanoIdUtils.is_url_friendly, which does not exist in Java NanoIdUtils.java; the Java test (NanoIdUtilsTest.java:79-82) checks nanoid.matches(\"[_\\\\-0-9a-zA-Z]+\") inline, so the translation invented a non-existent API. Trivially implementable if extra helpers are allowed."
+        }
+      ]
+    },
+    "shekhargulati_30-seconds-of-java": {
+      "split": "development",
+      "collected": 13,
+      "oracle_passed": 7,
+      "excluded": [
+        {
+          "test": "public_tests/test_snippets_edge_public.py::test_factorial_edge_public",
+          "category": "contradicts_java",
+          "reason": "Snippets.java has no factorial method (grep finds none); the Python test targets an API absent from the Java source."
+        },
+        {
+          "test": "public_tests/test_snippets_public.py::test_factorial_public",
+          "category": "contradicts_java",
+          "reason": "Snippets.java has no factorial method; API absent from Java source."
+        },
+        {
+          "test": "hidden_tests/test_snippets.py::test_factorial",
+          "category": "contradicts_java",
+          "reason": "Snippets.java has no factorial method; API absent from Java source."
+        },
+        {
+          "test": "hidden_tests/test_snippets.py::test_factorial_negative",
+          "category": "contradicts_java",
+          "reason": "Snippets.java has no factorial method (and hence no negative-input ValueError behavior)."
+        },
+        {
+          "test": "hidden_tests/test_snippets_edge.py::test_factorial_large",
+          "category": "contradicts_java",
+          "reason": "Snippets.java has no factorial method; API absent from Java source."
+        },
+        {
+          "test": "hidden_tests/test_snippets_edge.py::test_is_palindrome_case",
+          "category": "contradicts_java",
+          "reason": "Java isPalindrome (Snippets.java:572-578) lowercases input and strips [\\W_] before comparing, so \"Madam\" is a palindrome (true); the test asserts False."
+        }
+      ]
+    },
+    "nzakas_props2js": {
+      "split": "development",
+      "collected": 40,
+      "oracle_passed": 38,
+      "excluded": [
+        {
+          "test": "public_tests/test_props2js_public.py::test_help_option_public",
+          "category": "contradicts_java",
+          "reason": "Java usage() (Props2Js.java usage method) prints 'Usage: java -jar props2js-x.y.z.jar [options] [input file]', which does not contain the substring 'props2js [options]' the test asserts; the Java testHelpOption has the same mismatch."
+        },
+        {
+          "test": "hidden_tests/test_props2js.py::test_help_option",
+          "category": "contradicts_java",
+          "reason": "Same as public variant: Java usage text contains 'props2js-x.y.z.jar [options]', not 'props2js [options]'."
+        }
+      ]
+    },
+    "tasomaniac_DelayedProgress": {
+      "split": "development",
+      "collected": 40,
+      "oracle_passed": 26,
+      "excluded": [
+        {
+          "test": "public_tests/test_delayed_progress_bar_public.py::TestDelayedProgressBarPublic::test_show_no_delay_public",
+          "category": "contradicts_java",
+          "reason": "Expects alpha 0.0 after a non-animated show. Java never touches alpha on that path (DelayedProgressBar.java:72-73), and a View's default alpha is 1.0. The helper then calls setAlpha(1.0 if alpha==0 else alpha), so 0.0 can only result from a hacked getter."
+        },
+        {
+          "test": "hidden_tests/test_delayed_progress_bar.py::TestDelayedProgressBar::test_show_no_delay",
+          "category": "contradicts_java",
+          "reason": "Same as the public test: expects alpha 0.0 after a non-animated show, but Java leaves the default alpha of 1.0 (DelayedProgressBar.java:72-73)."
+        },
+        {
+          "test": "public_tests/test_delayed_progress_bar_public.py::TestDelayedProgressBarPublic::test_hide_after_min_delay_but_before_min_show_time_public",
+          "category": "test_bug",
+          "reason": "The advance helper is not cumulative: the final advance(1, ...) is compared against the full min_show_time/min_delay (1 >= 650 is false), so the helper never flips the state and the object is never told that time passed."
+        },
+        {
+          "test": "hidden_tests/test_delayed_progress_bar.py::TestDelayedProgressBar::test_hide_after_min_delay_but_before_min_show_time_should_show_for_min_show_time",
+          "category": "test_bug",
+          "reason": "The advance helper is not cumulative: the final advance(1, ...) is compared against the full min_show_time/min_delay (1 >= 500 is false), so the helper never flips the state and the object is never told that time passed."
+        },
+        {
+          "test": "public_tests/test_delayed_progress_bar_public.py::TestDelayedProgressBarPublic::test_hide_after_min_show_time_should_hide_immediately_public",
+          "category": "self_contradictory",
+          "reason": "The helper only flips private flags and never advances a clock the object can see, so when hide() is called, the object is in the same state as in the companion 'before min show time' / animated-hide tests, which expect it to stay visible (e.g. test_hide_with_animation_hides_with_fade_public; DelayedProgressBar.java:135-145). Both can't pass; this oracle passes the ones that match Java's diff < minShowTime branch."
+        },
+        {
+          "test": "hidden_tests/test_delayed_progress_bar.py::TestDelayedProgressBar::test_hide_after_min_show_time_should_hide_immediately",
+          "category": "self_contradictory",
+          "reason": "The helper only flips private flags and never advances a clock the object can see, so when hide() is called, the object is in the same state as in the companion 'before min show time' / animated-hide tests, which expect it to stay visible (e.g. test_hide_with_animation_hides_with_fade; DelayedProgressBar.java:135-145). Both can't pass; this oracle passes the ones that match Java's diff < minShowTime branch."
+        },
+        {
+          "test": "hidden_tests/test_delayed_progress_bar.py::TestDelayedProgressBar::test_show_and_hide_called_multiple_times",
+          "category": "self_contradictory",
+          "reason": "The second cycle expects hide() right after the simulated show to give GONE immediately, but no time has passed for the object. That matches the state in test_hide_with_animation_hides_with_fade, which expects it to stay visible (diff < MIN_SHOW_TIME branch, DelayedProgressBar.java:136-145)."
+        },
+        {
+          "test": "public_tests/test_delayed_progress_dialog_public.py::TestDelayedProgressDialogPublic::test_dismiss_after_min_delay_but_before_min_show_time_public",
+          "category": "test_bug",
+          "reason": "The advance helper is not cumulative: the final advance(1, ...) is compared against the full min_show_time/min_delay (1 >= 1500 is false), so the helper never flips the state and the object is never told that time passed."
+        },
+        {
+          "test": "hidden_tests/test_delayed_progress_dialog.py::TestDelayedProgressDialog::test_dismiss_after_min_delay_but_before_min_show_time_should_show_for_min_show_time",
+          "category": "test_bug",
+          "reason": "The advance helper is not cumulative: the final advance(1, ...) is compared against the full min_show_time/min_delay (1 >= 1000 is false), so the helper never flips the state and the object is never told that time passed."
+        },
+        {
+          "test": "hidden_tests/test_delayed_progress_dialog.py::TestDelayedProgressDialog::test_set_min_show_time",
+          "category": "test_bug",
+          "reason": "The advance helper is not cumulative: the final advance(1, ...) is compared against the full min_show_time/min_delay (1 >= 2000 is false), so the helper never flips the state and the object is never told that time passed."
+        },
+        {
+          "test": "hidden_tests/test_delayed_progress_dialog.py::TestDelayedProgressDialog::test_set_min_delay",
+          "category": "test_bug",
+          "reason": "The advance helper is not cumulative: advance(1, min_delay=2000) does nothing because 1 >= 2000 is false, so the dialog never becomes 'showing' as the test expects."
+        },
+        {
+          "test": "public_tests/test_delayed_progress_dialog_public.py::TestDelayedProgressDialogPublic::test_dismiss_after_min_show_time_should_dismiss_immediately_public",
+          "category": "self_contradictory",
+          "reason": "The helper only flips private flags and never advances a clock the object can see, so when dismiss() is called, the object is in the same state as in the companion 'before min show time' / animated-hide tests, which expect it to stay visible (test_dismiss_after_min_delay_but_before_min_show_time_public expects isShowing() right after dismiss(); DelayedProgressDialog.java:358-371). Both can't pass; this oracle passes the ones that match Java's diff < minShowTime branch."
+        },
+        {
+          "test": "hidden_tests/test_delayed_progress_dialog.py::TestDelayedProgressDialog::test_dismiss_after_min_show_time_should_dismiss_immediately",
+          "category": "self_contradictory",
+          "reason": "The helper only flips private flags and never advances a clock the object can see, so when dismiss() is called, the object is in the same state as in the companion 'before min show time' / animated-hide tests, which expect it to stay visible (test_dismiss_after_min_delay_but_before_min_show_time... expects isShowing() right after dismiss(); DelayedProgressDialog.java:358-371). Both can't pass; this oracle passes the ones that match Java's diff < minShowTime branch."
+        },
+        {
+          "test": "hidden_tests/test_delayed_progress_dialog.py::TestDelayedProgressDialog::test_multiple_show_dismiss_cycles",
+          "category": "self_contradictory",
+          "reason": "Cycle 2 expects dismiss() right after the simulated show to close the dialog immediately (the follow-up advance(0) is a no-op), but no time has passed for the object. Other tests expect the same state to stay showing (DelayedProgressDialog.java:358-371)."
+        }
+      ]
+    },
+    "awslabs_route53-infima": {
+      "split": "development",
+      "collected": 48,
+      "oracle_passed": 42,
+      "excluded": [
+        {
+          "test": "public_tests/test_lattice_public.py::test_equals_and_hash_code_different_data",
+          "category": "contradicts_java",
+          "reason": "Lattice.java does not override equals/hashCode, so two separately built lattices are never equal. Running the Java source confirms l1.equals(l2) == false."
+        },
+        {
+          "test": "public_tests/test_one_dimensional_lattice_public.py::test_empty_endpoints_public",
+          "category": "contradicts_java",
+          "reason": "getEndpoints returns endpointsByCoordinate.get(...), which is null for an unknown coordinate (Lattice.java getEndpointsForSector). The test expects []. Java confirmed to return null."
+        },
+        {
+          "test": "hidden_tests/test_one_dimensional_lattice.py::test_empty_endpoints",
+          "category": "contradicts_java",
+          "reason": "Java getEndpoints returns null for an unknown coordinate (Lattice.getEndpointsForSector -> TreeMap.get), not an empty list. The Java test itself would NPE."
+        },
+        {
+          "test": "public_tests/test_two_dimensional_lattice_public.py::test_get_endpoints_for_nonexistent_coordinates_public",
+          "category": "contradicts_java",
+          "reason": "Java TwoDimensionalLattice.getEndpoints returns null for a missing sector (Lattice.getEndpointsForSector), not []. The sharder tests themselves guard with 'if results is not None'."
+        },
+        {
+          "test": "hidden_tests/test_two_dimensional_lattice.py::test_get_endpoints_not_present",
+          "category": "contradicts_java",
+          "reason": "Java returns null for a missing sector (Lattice.getEndpointsForSector -> TreeMap.get), not []."
+        },
+        {
+          "test": "public_tests/test_simple_signature_shuffle_sharder_public.py::test_shuffle_shard_different_identifiers_produce_different_shards_with_different_data",
+          "category": "contradicts_java",
+          "reason": "With seed 99, identifiers 'alpha' and 'beta' both give shard [Y, W] in the original Java (compiled and run: SimpleSignatureShuffleSharder MD5 + java.util.Random). The test's assertion that they differ is false for Java."
+        }
+      ]
+    },
+    "kungfoo_geohash-java": {
+      "split": "development",
+      "collected": 53,
+      "oracle_passed": 41,
+      "excluded": [
+        {
+          "test": "public_tests/util/test_bounding_box_geohash_iterator_public.py::test_iterate_bounding_box_public",
+          "category": "contradicts_java",
+          "reason": "Calls BoundingBoxGeoHashIterator(box, 6); Java only has BoundingBoxGeoHashIterator(TwoGeoHashBoundingBox) (BoundingBoxGeoHashIterator.java:17). The Java public test would not compile either."
+        },
+        {
+          "test": "public_tests/util/test_bounding_box_geohash_iterator_public.py::test_single_cell_bounding_box_public",
+          "category": "contradicts_java",
+          "reason": "Same nonexistent BoundingBoxGeoHashIterator(BoundingBox, int) constructor (BoundingBoxGeoHashIterator.java:17)."
+        },
+        {
+          "test": "public_tests/util/test_bounding_box_sampler_public.py::test_xy_grid_sample_public",
+          "category": "contradicts_java",
+          "reason": "Calls BoundingBoxSampler.xyGridSample, which does not exist in BoundingBoxSampler.java (only the constructors and next())."
+        },
+        {
+          "test": "public_tests/util/test_bounding_box_sampler_public.py::test_points_spread_public",
+          "category": "contradicts_java",
+          "reason": "Calls the nonexistent BoundingBoxSampler.xyGridSample."
+        },
+        {
+          "test": "public_tests/util/test_double_util_public.py::test_positive_value_public",
+          "category": "test_bug",
+          "reason": "Uses pytest.approx without importing pytest, so it raises NameError. The asserted values match Java's remainderWithFix."
+        },
+        {
+          "test": "public_tests/util/test_double_util_public.py::test_negative_value_public",
+          "category": "test_bug",
+          "reason": "Missing 'import pytest', so it raises NameError."
+        },
+        {
+          "test": "public_tests/util/test_geohash_size_table_public.py::test_width_height_public",
+          "category": "contradicts_java",
+          "reason": "Calls GeoHashSizeTable.widthDegreesForPrecision/heightDegreesForPrecision, which do not exist in GeoHashSizeTable.java (only dLat/dLon/numberOfBitsForOverlappingGeoHash). It also lacks 'import pytest' (test_bug as well)."
+        },
+        {
+          "test": "public_tests/util/test_geohash_size_table_public.py::test_max_precision_and_zero_public",
+          "category": "contradicts_java",
+          "reason": "Calls nonexistent width/heightDegreesForPrecision. It also lacks 'import pytest'."
+        },
+        {
+          "test": "public_tests/util/test_long_util_public.py::test_common_prefix_length_public",
+          "category": "contradicts_java",
+          "reason": "Expects commonPrefixLength(0x4000..,0xC000..)==1 and (0x80000000FFFFFFFF,0x800000007FFFFFFF)==31. Java LongUtil.java:8 counts equal leading bits, which gives 0 and 32."
+        },
+        {
+          "test": "hidden_tests/util/test_double_util.py::test_positive_value",
+          "category": "test_bug",
+          "reason": "Uses pytest.approx without importing pytest, so it raises NameError. The values match Java's remainderWithFix."
+        },
+        {
+          "test": "hidden_tests/util/test_double_util.py::test_negative_value",
+          "category": "test_bug",
+          "reason": "Missing 'import pytest', so it raises NameError."
+        },
+        {
+          "test": "hidden_tests/util/test_geohash_size_table.py::test_number_of_bits_for_huge_box_low_precision",
+          "category": "contradicts_java",
+          "reason": "For box (-80,80,-150,150), width 300 > dLon[bits] for every bits>=1 (dLon[1]=180), so the GeoHashSizeTable.java:37 loop returns 0. The test asserts bits > 0, so the Java GeoHashSizeTableTest also fails."
+        }
+      ]
+    },
+    "tamir7_Contacts": {
+      "split": "development",
+      "collected": 38,
+      "oracle_passed": 30,
+      "excluded": [
+        {
+          "test": "public_tests/test_address_public.py::test_constructors_and_getters_type",
+          "category": "contradicts_java",
+          "reason": "Uses a 6-arg Address(street, city, region, country, postalCode, type) and getPostalCode(). Java Address only has the 7-arg (formattedAddress, street, city, region, postcode, country, type|label) constructors (Address.java:60,70) and getPostcode(). This conflicts with the 7-arg positional layout the original tests use."
+        },
+        {
+          "test": "public_tests/test_address_public.py::test_constructors_and_getters_label",
+          "category": "contradicts_java",
+          "reason": "Same nonexistent 6-arg constructor and getPostalCode() (Address.java:60-78,130)."
+        },
+        {
+          "test": "public_tests/test_address_public.py::test_equals_and_hashcode",
+          "category": "contradicts_java",
+          "reason": "Nonexistent 6-arg constructor. Java Address also does not override equals/hashCode (Address.java:8-152), so a1==a2 would be false anyway."
+        },
+        {
+          "test": "public_tests/test_address_public.py::test_type_from_value",
+          "category": "contradicts_java",
+          "reason": "Expects fromValue(-1)==CUSTOM. Java maps StructuredPostal.TYPE_CUSTOM (=0) to CUSTOM and everything else to UNKNOWN (Address.java:26-38), so -1 gives UNKNOWN."
+        },
+        {
+          "test": "public_tests/test_address_public.py::test_not_equal_conditions",
+          "category": "contradicts_java",
+          "reason": "Uses the nonexistent 6-arg Address constructor (Address.java:60,70 take 7 args)."
+        },
+        {
+          "test": "public_tests/test_email_public.py::test_type_from_value",
+          "category": "contradicts_java",
+          "reason": "Expects fromValue(-1)==CUSTOM. Java maps only TYPE_CUSTOM=0 to CUSTOM and returns UNKNOWN by default (Email.java fromValue switch). The test's own comment says 'Custom is usually 0, try -1'."
+        },
+        {
+          "test": "public_tests/test_event_public.py::test_type_from_value",
+          "category": "contradicts_java",
+          "reason": "Expects fromValue(-1)==CUSTOM. Event.java:37-50 returns UNKNOWN for -1 (TYPE_CUSTOM=0)."
+        },
+        {
+          "test": "public_tests/test_phonenumber_public.py::test_type_from_value",
+          "category": "contradicts_java",
+          "reason": "Expects fromValue(-1)==CUSTOM. PhoneNumber.Type.fromValue returns UNKNOWN by default, and Phone.TYPE_CUSTOM=0."
+        }
+      ]
+    },
+    "gcacace_android-signaturepad": {
+      "split": "holdout",
+      "collected": 18,
+      "oracle_passed": 18,
+      "excluded": []
+    },
+    "bmwcarit_hmm-lib": {
+      "split": "holdout",
+      "collected": 30,
+      "oracle_passed": 19,
+      "excluded": [
+        {
+          "test": "public_tests/test_utils_public.py::test_normalize_probabilities_different",
+          "category": "contradicts_java",
+          "reason": "Java com.bmw.hmm.Utils (src/main/java/com/bmw/hmm/Utils.java:10-47) only defines initialHashMapCapacity, logToNonLogProbabilities and probabilityInRange; UtilsPublicTest.java calls Utils.normalizeProbabilities which does not exist, so the Java test does not even compile."
+        },
+        {
+          "test": "public_tests/test_utils_public.py::test_normalize_empty_different",
+          "category": "contradicts_java",
+          "reason": "Java com.bmw.hmm.Utils (src/main/java/com/bmw/hmm/Utils.java:10-47) only defines initialHashMapCapacity, logToNonLogProbabilities and probabilityInRange; UtilsPublicTest.java calls Utils.normalizeProbabilities which does not exist, so the Java test does not even compile."
+        },
+        {
+          "test": "public_tests/test_utils_public.py::test_normalize_null_value_different",
+          "category": "contradicts_java",
+          "reason": "Java com.bmw.hmm.Utils (src/main/java/com/bmw/hmm/Utils.java:10-47) only defines initialHashMapCapacity, logToNonLogProbabilities and probabilityInRange; UtilsPublicTest.java calls Utils.normalizeProbabilities which does not exist, so the Java test does not even compile."
+        },
+        {
+          "test": "public_tests/test_utils_public.py::test_sum_different_values",
+          "category": "contradicts_java",
+          "reason": "Java com.bmw.hmm.Utils (src/main/java/com/bmw/hmm/Utils.java:10-47) only defines initialHashMapCapacity, logToNonLogProbabilities and probabilityInRange; UtilsPublicTest.java calls Utils.sum which does not exist, so the Java test does not even compile."
+        },
+        {
+          "test": "public_tests/test_utils_public.py::test_log2_different_inputs",
+          "category": "contradicts_java",
+          "reason": "Java com.bmw.hmm.Utils (src/main/java/com/bmw/hmm/Utils.java:10-47) only defines initialHashMapCapacity, logToNonLogProbabilities and probabilityInRange; UtilsPublicTest.java calls Utils.log2 which does not exist, so the Java test does not even compile."
+        },
+        {
+          "test": "public_tests/test_utils_public.py::test_log2_zero_different",
+          "category": "contradicts_java",
+          "reason": "Java com.bmw.hmm.Utils (src/main/java/com/bmw/hmm/Utils.java:10-47) only defines initialHashMapCapacity, logToNonLogProbabilities and probabilityInRange; UtilsPublicTest.java calls Utils.log2 which does not exist, so the Java test does not even compile."
+        },
+        {
+          "test": "public_tests/test_utils_public.py::test_log2_negative_different",
+          "category": "contradicts_java",
+          "reason": "Java com.bmw.hmm.Utils (src/main/java/com/bmw/hmm/Utils.java:10-47) only defines initialHashMapCapacity, logToNonLogProbabilities and probabilityInRange; UtilsPublicTest.java calls Utils.log2 which does not exist, so the Java test does not even compile."
+        },
+        {
+          "test": "public_tests/test_utils_public.py::test_log_sum_exp_list_different",
+          "category": "contradicts_java",
+          "reason": "Java com.bmw.hmm.Utils (src/main/java/com/bmw/hmm/Utils.java:10-47) only defines initialHashMapCapacity, logToNonLogProbabilities and probabilityInRange; UtilsPublicTest.java calls Utils.logSumExp which does not exist, so the Java test does not even compile."
+        },
+        {
+          "test": "public_tests/test_utils_public.py::test_log_sum_exp_array_different",
+          "category": "contradicts_java",
+          "reason": "Java com.bmw.hmm.Utils (src/main/java/com/bmw/hmm/Utils.java:10-47) only defines initialHashMapCapacity, logToNonLogProbabilities and probabilityInRange; UtilsPublicTest.java calls Utils.logSumExp which does not exist, so the Java test does not even compile."
+        },
+        {
+          "test": "public_tests/test_forward_backward_algorithm_public.py::test_forward_backward_public",
+          "category": "contradicts_java",
+          "reason": "Expected smoothing values (0.7315, 0.5732, 0.4575, 0.6586 for H) are mathematically wrong for the given HMM; a faithful port of ForwardBackwardAlgorithm.java (and an independent brute-force forward-backward) yields 0.6187, 0.7523, 0.2985, 0.7490. The same implementation passes the original Rain/Umbrella test, so Java would fail this test too."
+        },
+        {
+          "test": "public_tests/test_viterbi_algorithm_public.py::test_simple_most_likely_sequence_public",
+          "category": "contradicts_java",
+          "reason": "Passes the string 't0'/'t1'/'t2' as transitionDescriptors, but ViterbiAlgorithm.nextStep (ViterbiAlgorithm.java:257-260) requires a Map<Transition<S>,D> and calls transitionDescriptors.get(transition) (line ~456); the Java test does not compile. The port fails with AttributeError on str.get (the computed state sequence would otherwise be Y,Y,Y,Y)."
+        }
+      ]
+    },
+    "tuenti_SmsRadar": {
+      "split": "holdout",
+      "collected": 48,
+      "oracle_passed": 16,
+      "excluded": [
+        {
+          "test": "public_tests/test_shared_preferences_sms_storage_public.py::test_put_and_get_value",
+          "category": "contradicts_java",
+          "reason": "Calls SharedPreferencesSmsStorage() with no SharedPreferences and putString/getString/clearPreferences; Java constructor (SharedPreferencesSmsStorage.java:34-36) requires non-null SharedPreferences and throws IllegalArgumentException otherwise, and the class has no putString/getString/clearPreferences methods."
+        },
+        {
+          "test": "public_tests/test_shared_preferences_sms_storage_public.py::test_overwrite_value",
+          "category": "contradicts_java",
+          "reason": "Calls SharedPreferencesSmsStorage() with no SharedPreferences and putString/getString/clearPreferences; Java constructor (SharedPreferencesSmsStorage.java:34-36) requires non-null SharedPreferences and throws IllegalArgumentException otherwise, and the class has no putString/getString/clearPreferences methods."
+        },
+        {
+          "test": "public_tests/test_shared_preferences_sms_storage_public.py::test_get_default_if_not_present",
+          "category": "contradicts_java",
+          "reason": "Calls SharedPreferencesSmsStorage() with no SharedPreferences and putString/getString/clearPreferences; Java constructor (SharedPreferencesSmsStorage.java:34-36) requires non-null SharedPreferences and throws IllegalArgumentException otherwise, and the class has no putString/getString/clearPreferences methods."
+        },
+        {
+          "test": "public_tests/test_sms_cursor_parser_public.py::test_parse_single_sms_row",
+          "category": "contradicts_java",
+          "reason": "Calls static SmsCursorParser.parse(list_of_rows) returning a list of Sms with a contact column; Java SmsCursorParser.parse(Cursor) (SmsCursorParser.java:56-72) is an instance method needing SmsStorage/TimeProvider, returns a single Sms or null, and Sms has no contact. Also expects SmsType.DRAFT (not in Java)."
+        },
+        {
+          "test": "public_tests/test_sms_cursor_parser_public.py::test_parse_multiple_sms_rows",
+          "category": "contradicts_java",
+          "reason": "Calls static SmsCursorParser.parse(list_of_rows) returning a list of Sms with a contact column; Java SmsCursorParser.parse(Cursor) (SmsCursorParser.java:56-72) is an instance method needing SmsStorage/TimeProvider, returns a single Sms or null, and Sms has no contact."
+        },
+        {
+          "test": "public_tests/test_sms_observer_public.py::test_on_sms_received_callback_diff_data",
+          "category": "contradicts_java",
+          "reason": "Constructs Sms with 5 args (contact, address, message, time, type) and calls getContact/getMessage/getTime; Java Sms (Sms.java:36) is Sms(address, date, msg, type) with getAddress/getDate/getMsg only."
+        },
+        {
+          "test": "public_tests/test_sms_storage_public.py::test_store_and_get_single_sms",
+          "category": "contradicts_java",
+          "reason": "Treats SmsStorage as a concrete in-memory SMS list (SmsStorage(), storeSms, getAllSms, clearAll); Java SmsStorage (SmsStorage.java:24) is an interface with only updateLastSmsIntercepted/getLastSmsIntercepted/isFirstSmsIntercepted. Also uses the 5-arg Sms constructor and INBOX/OUTBOX/DRAFT types absent from Java."
+        },
+        {
+          "test": "public_tests/test_sms_storage_public.py::test_store_multiple_sms",
+          "category": "contradicts_java",
+          "reason": "Treats SmsStorage as a concrete in-memory SMS list (SmsStorage(), storeSms, getAllSms, clearAll); Java SmsStorage (SmsStorage.java:24) is an interface with only updateLastSmsIntercepted/getLastSmsIntercepted/isFirstSmsIntercepted. Also uses the 5-arg Sms constructor and INBOX/OUTBOX/DRAFT types absent from Java."
+        },
+        {
+          "test": "public_tests/test_sms_storage_public.py::test_storage_is_cleared",
+          "category": "contradicts_java",
+          "reason": "Treats SmsStorage as a concrete in-memory SMS list (SmsStorage(), storeSms, getAllSms, clearAll); Java SmsStorage (SmsStorage.java:24) is an interface with only updateLastSmsIntercepted/getLastSmsIntercepted/isFirstSmsIntercepted. Also uses the 5-arg Sms constructor and INBOX/OUTBOX/DRAFT types absent from Java."
+        },
+        {
+          "test": "public_tests/test_sms_test_public.py::test_constructor_and_getters_different_data",
+          "category": "contradicts_java",
+          "reason": "Constructs Sms with 5 args (contact, address, message, time, type) and calls getContact/getMessage/getTime; Java Sms (Sms.java:36) is Sms(address, date, msg, type) with getAddress/getDate/getMsg only. Also uses SmsType.DRAFT/OUTBOX, which Java lacks."
+        },
+        {
+          "test": "public_tests/test_sms_test_public.py::test_sms_equals_different_data",
+          "category": "contradicts_java",
+          "reason": "Constructs Sms with 5 args (contact, address, message, time, type) and calls getContact/getMessage/getTime; Java Sms (Sms.java:36) is Sms(address, date, msg, type) with getAddress/getDate/getMsg only. Also uses SmsType.DRAFT/OUTBOX, which Java lacks."
+        },
+        {
+          "test": "public_tests/test_sms_test_public.py::test_sms_to_string_different_data",
+          "category": "contradicts_java",
+          "reason": "Constructs Sms with 5 args (contact, address, message, time, type) and calls getContact/getMessage/getTime; Java Sms (Sms.java:36) is Sms(address, date, msg, type) with getAddress/getDate/getMsg only. Also uses SmsType.DRAFT/OUTBOX, which Java lacks."
+        },
+        {
+          "test": "public_tests/test_sms_type_public.py::test_value_of",
+          "category": "contradicts_java",
+          "reason": "Uses SmsType.INBOX, but Java SmsType (SmsType.java:31-33) only has UNKNOWN(-1), RECEIVED(1), SENT(2)."
+        },
+        {
+          "test": "public_tests/test_sms_type_public.py::test_ordinal_different_from_test",
+          "category": "contradicts_java",
+          "reason": "Uses SmsType.OUTBOX, but Java SmsType (SmsType.java:31-33) only has UNKNOWN(-1), RECEIVED(1), SENT(2)."
+        },
+        {
+          "test": "public_tests/test_time_provider_public.py::test_epoch_time",
+          "category": "contradicts_java",
+          "reason": "Calls TimeProvider.getCurrentTimeMillis(), which does not exist; Java TimeProvider (TimeProvider.java:27-31) only has getDate()."
+        },
+        {
+          "test": "public_tests/test_time_provider_public.py::test_time_has_advanced",
+          "category": "contradicts_java",
+          "reason": "Calls TimeProvider.getCurrentTimeMillis(), which does not exist; Java TimeProvider (TimeProvider.java:27-31) only has getDate()."
+        },
+        {
+          "test": "hidden_tests/test_sms.py::test_constructor_and_getters",
+          "category": "contradicts_java",
+          "reason": "Expects getContact()=='12345' and getAddress() to return the 2nd argument; in Java Sms(address, date, msg, type) (Sms.java:36-45) the 1st argument is the address and there is no getContact/getMessage."
+        },
+        {
+          "test": "hidden_tests/test_sms_cursor_parser.py::test_should_not_parse_any_sms_with_none",
+          "category": "contradicts_java",
+          "reason": "Expects static SmsCursorParser.parse(None) == []; Java parse is an instance method requiring (SmsStorage, TimeProvider) and returns null for a null cursor (SmsCursorParser.java:56-59)."
+        },
+        {
+          "test": "hidden_tests/test_sms_cursor_parser.py::test_should_parse_single_sms_row",
+          "category": "contradicts_java",
+          "reason": "Calls static SmsCursorParser.parse(list_of_rows) returning a list of Sms with a contact column; Java SmsCursorParser.parse(Cursor) (SmsCursorParser.java:56-72) is an instance method needing SmsStorage/TimeProvider, returns a single Sms or null, and Sms has no contact."
+        },
+        {
+          "test": "hidden_tests/test_sms_cursor_parser.py::test_should_parse_multiple_rows_and_types",
+          "category": "contradicts_java",
+          "reason": "Calls static SmsCursorParser.parse(list_of_rows) returning a list of Sms with a contact column; Java SmsCursorParser.parse(Cursor) (SmsCursorParser.java:56-72) is an instance method needing SmsStorage/TimeProvider, returns a single Sms or null, and Sms has no contact."
+        },
+        {
+          "test": "hidden_tests/test_sms_cursor_parser.py::test_should_handle_unknown_type",
+          "category": "contradicts_java",
+          "reason": "Calls static SmsCursorParser.parse(list_of_rows) returning a list of Sms with a contact column; Java SmsCursorParser.parse(Cursor) (SmsCursorParser.java:56-72) is an instance method needing SmsStorage/TimeProvider, returns a single Sms or null, and Sms has no contact. Additionally expects type '99' to map to UNKNOWN, whereas Java calls SmsType.fromValue which throws IllegalArgumentException (SmsCursorParser.java:111, SmsType.java:53)."
+        },
+        {
+          "test": "hidden_tests/test_sms_observer.py::test_on_change_does_not_call_sms_listener_on_no_content",
+          "category": "contradicts_java",
+          "reason": "Constructs SmsObserver with no ContentResolver and expects onChange not to raise; Java onChange unconditionally calls contentResolver.query (SmsObserver.java:121), which NPEs on a null resolver (the Java test used a mock resolver)."
+        },
+        {
+          "test": "hidden_tests/test_sms_storage.py::test_add_and_get_all_sms",
+          "category": "contradicts_java",
+          "reason": "Treats SmsStorage as a concrete in-memory SMS list (SmsStorage(), addSms, getAllSms); Java SmsStorage (SmsStorage.java:24) is an interface with only updateLastSmsIntercepted/getLastSmsIntercepted/isFirstSmsIntercepted."
+        },
+        {
+          "test": "hidden_tests/test_sms_storage.py::test_clear_storage",
+          "category": "contradicts_java",
+          "reason": "Treats SmsStorage as a concrete in-memory SMS list (SmsStorage(), addSms, clear); Java SmsStorage (SmsStorage.java:24) is an interface with only updateLastSmsIntercepted/getLastSmsIntercepted/isFirstSmsIntercepted."
+        },
+        {
+          "test": "hidden_tests/test_sms_storage.py::test_store_and_get_all_sms_public",
+          "category": "contradicts_java",
+          "reason": "Treats SmsStorage as a concrete in-memory SMS list (SmsStorage(), storeSms, getAllSms); Java SmsStorage (SmsStorage.java:24) is an interface with only updateLastSmsIntercepted/getLastSmsIntercepted/isFirstSmsIntercepted."
+        },
+        {
+          "test": "hidden_tests/test_sms_storage.py::test_clear_all_clears_sms_public",
+          "category": "contradicts_java",
+          "reason": "Treats SmsStorage as a concrete in-memory SMS list (SmsStorage(), storeSms, clearAll; also SmsType.INBOX); Java SmsStorage (SmsStorage.java:24) is an interface with only updateLastSmsIntercepted/getLastSmsIntercepted/isFirstSmsIntercepted."
+        },
+        {
+          "test": "hidden_tests/test_time_provider.py::test_now_returns_current_time",
+          "category": "contradicts_java",
+          "reason": "Calls TimeProvider.now(), which does not exist; Java TimeProvider (TimeProvider.java:27-31) only has getDate()."
+        },
+        {
+          "test": "hidden_tests/test_time_provider.py::test_get_current_time_millis_public",
+          "category": "contradicts_java",
+          "reason": "Calls TimeProvider.getCurrentTimeMillis(), which does not exist; Java TimeProvider (TimeProvider.java:27-31) only has getDate()."
+        },
+        {
+          "test": "hidden_tests/test_time_provider.py::test_time_advancing_public",
+          "category": "contradicts_java",
+          "reason": "Calls TimeProvider.getCurrentTimeMillis(), which does not exist; Java TimeProvider (TimeProvider.java:27-31) only has getDate()."
+        },
+        {
+          "test": "hidden_tests/test_shared_preferences_sms_storage.py::TestSharedPreferencesSmsStorage::test_should_return_default_value_if_not_edited_previously",
+          "category": "contradicts_java",
+          "reason": "Calls SharedPreferencesSmsStorage() with no SharedPreferences and clearPreferences() in fixture teardown; Java constructor (SharedPreferencesSmsStorage.java:34-36) requires non-null SharedPreferences and throws IllegalArgumentException otherwise, and the class has no clearPreferences method (errors in fixture setup)."
+        },
+        {
+          "test": "hidden_tests/test_shared_preferences_sms_storage.py::TestSharedPreferencesSmsStorage::test_should_update_last_sms_intercepted_id",
+          "category": "contradicts_java",
+          "reason": "Calls SharedPreferencesSmsStorage() with no SharedPreferences and clearPreferences() in fixture teardown; Java constructor (SharedPreferencesSmsStorage.java:34-36) requires non-null SharedPreferences and throws IllegalArgumentException otherwise, and the class has no clearPreferences method (errors in fixture setup)."
+        },
+        {
+          "test": "hidden_tests/test_shared_preferences_sms_storage.py::TestSharedPreferencesSmsStorage::test_should_return_true_if_is_the_first_sms_intercepted",
+          "category": "contradicts_java",
+          "reason": "Calls SharedPreferencesSmsStorage() with no SharedPreferences and clearPreferences() in fixture teardown; Java constructor (SharedPreferencesSmsStorage.java:34-36) requires non-null SharedPreferences and throws IllegalArgumentException otherwise, and the class has no clearPreferences method (errors in fixture setup)."
+        }
+      ]
+    },
+    "AllenDowney_ThinkJavaCode": {
+      "split": "holdout",
+      "collected": 45,
+      "oracle_passed": 36,
+      "excluded": [
+        {
+          "test": "public_tests/test_convert_public.py::test_celsius_to_fahrenheit_public_data",
+          "category": "contradicts_java",
+          "reason": "Calls Convert.celsius_to_fahrenheit, but Java ch03/Convert.java only has main() (cm to feet/inches); no temperature conversion exists. The Java ConvertPublicTest references the same missing method."
+        },
+        {
+          "test": "public_tests/test_convert_public.py::test_fahrenheit_to_celsius_public_data",
+          "category": "contradicts_java",
+          "reason": "Calls Convert.fahrenheit_to_celsius, which does not exist in Java ch03/Convert.java (only main converting cm to ft/in)."
+        },
+        {
+          "test": "public_tests/test_hello_goodbye_public.py::test_hello_main_output_different_data",
+          "category": "contradicts_java",
+          "reason": "Requires 'Goodbye' in Hello.main output, but src/main/java/ch01/Hello.java prints only 'Hello, World!'. Also conflicts with tests/original/test_hello_goodbye.py::test_hello_output, which asserts output == 'Hello, World!' exactly."
+        },
+        {
+          "test": "public_tests/test_series_public.py::test_geometric_series_different_data",
+          "category": "contradicts_java",
+          "reason": "Calls Series.geometric_series_sum, which does not exist; src/main/java/ap01/Series.java defines only fibonacci and main."
+        },
+        {
+          "test": "public_tests/test_series_public.py::test_arithmetic_series_different_data",
+          "category": "contradicts_java",
+          "reason": "Calls Series.arithmetic_series_sum, which does not exist; src/main/java/ap01/Series.java defines only fibonacci and main."
+        },
+        {
+          "test": "public_tests/test_time_additional_public.py::test_time_to_seconds_and_conversion",
+          "category": "contradicts_java",
+          "reason": "Calls Time.time_to_seconds and Time.seconds_to_time; src/main/java/ch11/Time.java has no such methods (only constructors, printTime, toString, equals, add, increment)."
+        },
+        {
+          "test": "public_tests/test_time_additional_public.py::test_subtract_time",
+          "category": "contradicts_java",
+          "reason": "Calls Time.subtract, which is not defined in src/main/java/ch11/Time.java."
+        },
+        {
+          "test": "hidden_tests/test_convert.py::test_main_with_numeric_input",
+          "category": "contradicts_java",
+          "reason": "Expects 'miles' and 'kilometers' in output, but ch03/Convert.java:17,24 prints 'Exactly how many cm? ' and '%.2f cm = %d ft, %d in'."
+        },
+        {
+          "test": "hidden_tests/test_convert.py::test_main_with_invalid_input",
+          "category": "contradicts_java",
+          "reason": "Expects the prompt to mention 'miles', but ch03/Convert.java:17 prompts 'Exactly how many cm? '."
+        },
+        {
+          "test": "public_tests/test_ch13_public.py::test_public_logic",
+          "category": "vacuous",
+          "reason": "Passes with an empty candidate (no implementation). Hidden before evaluator v2 because another file's collection error stopped the whole run. Found by validate_evaluation.py after the switch to per-file scoring (2026-10-18). Only the test id was looked at (holdout repo)."
+        },
+        {
+          "test": "public_tests/test_ch14_public.py::test_public_placeholder",
+          "category": "vacuous",
+          "reason": "Passes with an empty candidate (no implementation). Hidden before evaluator v2 because another file's collection error stopped the whole run. Found by validate_evaluation.py after the switch to per-file scoring (2026-10-18). Only the test id was looked at (holdout repo)."
+        }
+      ]
+    },
+    "OpenGamma_ElSql": {
+      "split": "holdout",
+      "collected": 103,
+      "oracle_passed": 97,
+      "excluded": [
+        {
+          "test": "hidden_tests/test_EqualsSqlFragmentTest.py::test_value_null",
+          "category": "contradicts_java",
+          "reason": "Calls toSQL with an empty loopIndex ([] / new int[0]). Java SqlFragment.applyLoopIndex (SqlFragment.java, switch default) evaluates loopIndex[loopIndex.length - 1] = loopIndex[-1] and throws ArrayIndexOutOfBoundsException; EqualsSqlFragment.toSQL calls it before appending anything. A faithful port raises IndexError."
+        },
+        {
+          "test": "hidden_tests/test_EqualsSqlFragmentTest.py::test_value_not_null",
+          "category": "contradicts_java",
+          "reason": "Same as test_value_null: an empty loopIndex makes Java applyLoopIndex index loopIndex[-1] and throw, so '= ' is never appended."
+        },
+        {
+          "test": "hidden_tests/test_ValueSqlFragmentTest.py::test_value_present_follow_with_space",
+          "category": "contradicts_java",
+          "reason": "ValueSqlFragment.toSQL calls applyLoopIndex(_valueVariable, loopIndex) first. With the empty loopIndex the test passes, Java throws ArrayIndexOutOfBoundsException (loopIndex[-1])."
+        },
+        {
+          "test": "hidden_tests/test_ValueSqlFragmentTest.py::test_value_present_no_space",
+          "category": "contradicts_java",
+          "reason": "Same empty-loopIndex problem: Java applyLoopIndex throws on loopIndex[-1] before the value is appended."
+        },
+        {
+          "test": "hidden_tests/test_ValueSqlFragmentTest.py::test_value_absent",
+          "category": "contradicts_java",
+          "reason": "Same empty-loopIndex problem: Java throws in applyLoopIndex before the null-value check, so the expected '' output is never reached."
+        },
+        {
+          "test": "hidden_tests/test_LoopSqlFragmentTest.py::test_loop_with_int_literal",
+          "category": "contradicts_java",
+          "reason": "LoopSqlFragment.toSQL (LoopSqlFragment.java) removes '@LOOPJOIN ' from each part, or truncates it on the last iteration, so the dummy child gives '0' + '1' = '01'. The test expects '0 1 '. The Java test (LoopSqlFragmentTest.testLoopWithIntLiteral) makes the same wrong assertion."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,62 @@
+python-geohash-project/
+├── requirements.txt            # Python package dependencies (pytest)
+├── run_tests.sh                # Shell script to execute all tests
+├── src/
+│   └── geohash/                # Placeholder for translated source library code
+│       ├── __init__.py
+│       ├── geohash.py
+│       ├── bounding_box.py
+│       ├── wgs84point.py
+│       ├── queries/
+│       │   ├── __init__.py
+│       │   ├── bounding_box_query.py
+│       │   └── circle_query.py
+│       └── util/
+│           ├── __init__.py
+│           ├── double_util.py
+│           ├── long_util.py
+│           ├── geohash_size_table.py
+│           ├── bounding_box_geohash_iterator.py
+│           ├── bounding_box_sampler.py
+│           └── two_geohash_bounding_box.py
+├── tests/
+│   ├── __init__.py
+│   ├── original/
+│   │   ├── __init__.py
+│   │   ├── test_bounding_box.py
+│   │   ├── test_geohash_circle_query.py
+│   │   ├── test_geohash.py
+│   │   ├── test_geohash_bounding_box_search.py
+│   │   ├── test_wgs84point.py
+│   │   └── util/
+│   │       ├── __init__.py
+│   │       ├── test_bounding_box_geohash_iterator.py
+│   │       ├── test_bounding_box_sampler.py
+│   │       ├── test_double_util.py
+│   │       ├── test_geohash_size_table.py
+│   │       └── test_long_util.py
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_bounding_box_public.py
+│   ├── test_wgs84point_public.py
+│   └── util/
+│       ├── __init__.py
+│       ├── test_bounding_box_geohash_iterator_public.py
+│       ├── test_bounding_box_sampler_public.py
+│       ├── test_double_util_public.py
+│       ├── test_geohash_size_table_public.py
+│       └── test_long_util_public.py
+
+Structure Explanation:
+- requirements.txt: Declares Python dependencies, here just 'pytest' for testing.
+- run_tests.sh: Script that installs dependencies and runs all tests; executes 'pytest' in both test roots.
+- src/geohash/: Source library code for the geohash logic (to be implemented or replaced by the user).
+- tests/original/: All original test case translations, matching Java production/test logic.
+- public_tests/: All public test files, matching Java 'PublicTest' classes.
+You can run all tests by `chmod +x run_tests.sh` once, then `./run_tests.sh`.
+
+Test Organization:
+- All production-level tests are under tests/original/...
+- All public tests are under public_tests.
+
+All tests are fully implemented (see files for comprehensive code).

@@ -1,0 +1,39 @@
+bluetoothlegatt-python-port/
+├── README.md                       # Documentation and usage
+├── requirements.txt                # Test dependencies (pytest)
+├── run_tests.sh                    # One-click test runner
+├── project_structure.txt           # This file
+├── src/
+│   └── bluetoothlegatt/
+│       ├── __init__.py             # (Not shown: enable Python package)
+│       ├── bluetooth_le_service.py # Emulates constants from Java
+│       ├── sample_gatt_attributes.py # Minimal lookups for UUID/name
+│       ├── device_scan_activity.py    # SCAN_PERIOD attr
+│       └── device_control_activity.py # Device name/address constants
+├── tests/
+│   ├── __init__.py
+│   └── original/
+│       ├── __init__.py
+│       ├── test_bluetooth_le_service.py
+│       ├── test_sample_gatt_attributes.py
+│       ├── test_sample_gatt_attributes_edge.py
+│       ├── test_device_scan_activity.py
+│       └── test_device_control_activity.py
+├── public_tests/
+│   ├── __init__.py
+│   ├── test_sample_gatt_attributes_public.py
+│   └── test_sample_gatt_attributes_edge_public.py
+
+-------------------------------------------------------
+Directory / File explanations:
+- `src/bluetoothlegatt/`: Minimal code needed so all translated test cases run.
+- `tests/original/`: Original Java test translations; mirrors all logic and edge cases.
+- `public_tests/`: Public and edge/public tests.
+- `run_tests.sh`: Runs *all* tests (pytest discovers both test trees).
+- `requirements.txt`: All required Python dependencies.
+- `README.md`: Describes structure and usage.
+-------------------------------------------------------
+Setup & Run:
+$ pip install -r requirements.txt
+$ ./run_tests.sh
+-------------------------------------------------------

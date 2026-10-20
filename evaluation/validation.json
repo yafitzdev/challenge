@@ -1,0 +1,131 @@
+{
+  "all_ok": true,
+  "repos": [
+    {
+      "repo": "yankils_hello-world",
+      "oracle_passable": "9/9",
+      "empty_passable": "0/9",
+      "ok": true
+    },
+    {
+      "repo": "aventrix_jnanoid",
+      "oracle_passable": "22/22",
+      "empty_passable": "0/22",
+      "ok": true
+    },
+    {
+      "repo": "shekhargulati_30-seconds-of-java",
+      "oracle_passable": "7/7",
+      "empty_passable": "0/7",
+      "ok": true
+    },
+    {
+      "repo": "nzakas_props2js",
+      "oracle_passable": "38/38",
+      "empty_passable": "0/38",
+      "ok": true
+    },
+    {
+      "repo": "tasomaniac_DelayedProgress",
+      "oracle_passable": "26/26",
+      "empty_passable": "0/26",
+      "ok": true
+    },
+    {
+      "repo": "awslabs_route53-infima",
+      "oracle_passable": "42/42",
+      "empty_passable": "0/42",
+      "ok": true
+    },
+    {
+      "repo": "kungfoo_geohash-java",
+      "oracle_passable": "41/41",
+      "empty_passable": "0/41",
+      "ok": true
+    },
+    {
+      "repo": "tamir7_Contacts",
+      "oracle_passable": "30/30",
+      "empty_passable": "0/30",
+      "ok": true
+    },
+    {
+      "repo": "gcacace_android-signaturepad",
+      "oracle_passable": "18/18",
+      "empty_passable": "0/18",
+      "ok": true
+    },
+    {
+      "repo": "bmwcarit_hmm-lib",
+      "oracle_passable": "19/19",
+      "empty_passable": "0/19",
+      "ok": true
+    },
+    {
+      "repo": "tuenti_SmsRadar",
+      "oracle_passable": "16/16",
+      "empty_passable": "0/16",
+      "ok": true
+    },
+    {
+      "repo": "AllenDowney_ThinkJavaCode",
+      "oracle_passable": "34/34",
+      "empty_passable": "0/34",
+      "ok": true
+    },
+    {
+      "repo": "OpenGamma_ElSql",
+      "oracle_passable": "97/97",
+      "empty_passable": "0/97",
+      "ok": true
+    },
+    {
+      "repo": "Suryakant-Bharti_Important-Java-Concepts",
+      "oracle_passable": "no oracle",
+      "empty_passable": "0/15",
+      "ok": true
+    },
+    {
+      "repo": "1ssqq1lxr_iot_push",
+      "oracle_passable": "no oracle",
+      "empty_passable": "0/32",
+      "ok": true
+    },
+    {
+      "repo": "Netflix_dyno-queues",
+      "oracle_passable": "no oracle",
+      "empty_passable": "0/21",
+      "ok": true
+    },
+    {
+      "repo": "yinjihuan_netty-im",
+      "oracle_passable": "no oracle",
+      "empty_passable": "0/29",
+      "ok": true
+    },
+    {
+      "repo": "cyrildiagne_ar-cptext",
+      "oracle_passable": "no oracle",
+      "empty_passable": "0/22",
+      "ok": true
+    },
+    {
+      "repo": "googlearchive_android-BluetoothLeGatt",
+      "oracle_passable": "no oracle",
+      "empty_passable": "0/19",
+      "ok": true
+    },
+    {
+      "repo": "commonmark-java",
+      "oracle_passable": "no oracle",
+      "empty_passable": "0/652",
+      "ok": true
+    },
+    {
+      "repo": "snakeyaml-engine",
+      "oracle_passable": "no oracle",
+      "empty_passable": "0/402",
+      "ok": true
+    }
+  ]
+}
