@@ -131,7 +131,7 @@ def run_agent(config, workspace, output, prompt=None):
             cmd = ['bash', str(HARNESS / 'src/sandbox.sh'), str(HARNESS), str(output), str(workspace), *cmd]
         proc = subprocess.run(cmd, cwd=HARNESS, env=env,
                               capture_output=True, text=True, encoding='utf-8', errors='replace',
-                              timeout=config['migration_timeout_seconds'] + 420)
+                              timeout=config['migration_timeout_seconds'] + 1000)  # room for rate-limit waits (agent.mjs)
         log, exit_code = proc.stdout + proc.stderr, proc.returncode
     except subprocess.TimeoutExpired as e:
         log, exit_code = f'{e.stdout or ""}{e.stderr or ""}\nkilled: harness timeout', None
