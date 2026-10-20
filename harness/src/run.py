@@ -31,6 +31,7 @@ ROOT = Path(__file__).resolve().parents[2]
 HARNESS = ROOT / 'harness'
 sys.path.insert(0, str(ROOT / 'evaluation'))
 from evaluate import evaluate  # noqa: E402  (the frozen evaluator)
+from retry import retry_failing  # noqa: E402
 
 AGENT = HARNESS / 'src/agent.mjs'
 # The cloud proxy injects the real key for the model API, so a placeholder is enough there.
@@ -54,7 +55,7 @@ CONFIG_KEYS = {
     'version', 'provider', 'api_key_env', 'model', 'base_url', 'thinking', 'max_output_tokens', 'tools',
     'automatic_retries', 'compaction', 'prompt_file', 'max_assistant_turns', 'migration_timeout_seconds',
     'command_timeout_seconds', 'resume_after_errors', 'sandbox',
-    'start_in_candidate', 'candidate_link', 'loop_breaker',
+    'start_in_candidate', 'candidate_link', 'loop_breaker', 'retry',
 }
 
 
@@ -109,12 +110,12 @@ def prompt_path(config):
     return HARNESS / 'prompts' / config.get('prompt_file', 'task/baseline.txt')
 
 
-def run_agent(config, workspace, output):
+def run_agent(config, workspace, output, prompt=None):
     # With a command limit, the agent's shell is a wrapper that stops any command running too long.
     limit = config.get('command_timeout_seconds')
     job = {'config': config, 'workspace': str(workspace), 'output': str(output),
            'bash': str(HARNESS / 'src/timeout-bash.sh') if limit else shutil.which('bash'),
-           'prompt': prompt_path(config).read_text(encoding='utf-8')}
+           'prompt': prompt or prompt_path(config).read_text(encoding='utf-8')}
     job_file = output / 'job.json'
     job_file.write_text(json.dumps(job, indent=2), encoding='utf-8')
     # NODE_USE_ENV_PROXY makes Node's fetch use HTTPS_PROXY when one is set (the cloud); no effect otherwise.
@@ -139,8 +140,8 @@ def run_agent(config, workspace, output):
 
 def audit_events(output):
     """Flag tool calls that reached for things the agent must not use. A flag means: read the log."""
-    events = output / 'events.jsonl'
-    text = events.read_text(encoding='utf-8') if events.exists() else ''
+    # The main session's events plus those of every retry session (retries/<module>-<n>/events.jsonl).
+    text = ''.join(f.read_text(encoding='utf-8') for f in sorted(output.rglob('events.jsonl')))
     patterns = {'oracles': r'/oracle\b', 'project_folder': r'challenge_v2|test_repositories',
                 'hidden_tests': r'hidden_tests', 'package_install': r'pip install|npm install'}
     events = [json.loads(line) for line in text.splitlines()]
@@ -161,9 +162,15 @@ def migrate_repo(repo, config, run_dir):
         workspace = Path(tmp) / 'workspace'
         workspace.mkdir()
         stage(repo, workspace, config)
+        started = time.time()
         exit_code, seconds = run_agent(config, workspace, output)
+        if config.get('retry'):
+            # Modules whose public tests still fail get fresh, short sessions (retry.py).
+            retries = retry_failing(config, workspace, output, run_agent)
+            (output / 'retries.json').write_text(json.dumps(retries, indent=2) + '\n', encoding='utf-8')
         shutil.copytree(workspace / 'candidate', output / 'candidate',
                         ignore=keep_candidate)
+        seconds = time.time() - started
     print(f'{repo}: agent done in {seconds:.0f}s', flush=True)
     return exit_code, seconds
 
@@ -178,7 +185,9 @@ def score_repo(repo, run_dir, exit_code, seconds):
     row = {'repo': repo, 'agent_exit_code': exit_code, 'agent_seconds': round(seconds, 1),
            'agent_completed': agent.get('completed'), 'agent_limit': agent.get('limit'),
            'agent_error': agent.get('error'), 'assistant_turns': agent.get('assistant_turns'),
-           'usage': agent.get('usage'), 'resumes': agent.get('resumes'), 'audit': audit_events(output),
+           'usage': agent.get('usage'), 'resumes': agent.get('resumes'),
+           'retries': json.loads((output / 'retries.json').read_text(encoding='utf-8'))
+           if (output / 'retries.json').exists() else None, 'audit': audit_events(output),
            **{k: score[k] for k in ('tests_passed', 'tests_total', 'raw_pass_rate', 'passable_passed',
                                     'passable_total', 'passable_pass_rate', 'successful_migration')}}
     print(json.dumps({k: row[k] for k in ('repo', 'passable_passed', 'passable_total',

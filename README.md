@@ -45,3 +45,4 @@ python evaluation/validate.py
 | [01 robustness](results/01_robustness/) | 120 s per shell command; resume after a provider error or output-limit cut | 169 | 169 | keep: no change on dev (mean 169.0), removes two ways to lose a repo run |
 | [02 sandbox](results/02_sandbox/) | agent sees only its workspace; inputs and /usr read-only; no network for commands | 161 | 163 | keep: integrity (mean 162.0, mostly noise) |
 | [03 robustness v2](results/03_robustness_v2/) | start in candidate/; candidate/candidate link; loop breaker | 162 | 171 | keep: guards never fired with DeepSeek (mean 166.5) |
+| [04 retry](results/04_retry/) | a module whose public tests fail is rewritten by a fresh short session, up to 2 times, better version kept | 167 | 164 | no gain (mean 165.5): public tests the reference port also fails trigger the retries; kept as decomposition's failure path |

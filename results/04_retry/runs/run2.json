@@ -1,0 +1,297 @@
+{
+  "run": "04_retry_run2",
+  "config": "v2-04-retry",
+  "repos": [
+    "shekhargulati_30-seconds-of-java",
+    "nzakas_props2js",
+    "tasomaniac_DelayedProgress",
+    "awslabs_route53-infima",
+    "kungfoo_geohash-java",
+    "tamir7_Contacts"
+  ],
+  "successful_migrations": 2,
+  "raw_pass_rate": 0.853448275862069,
+  "passable_pass_rate": 0.8913043478260869,
+  "per_repo": [
+    {
+      "repo": "shekhargulati_30-seconds-of-java",
+      "agent_exit_code": 0,
+      "agent_seconds": 92.4,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 24,
+      "usage": {
+        "input": 33300,
+        "output": 19697,
+        "cacheRead": 835456,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 888453
+      },
+      "resumes": [],
+      "retries": [],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 12,
+      "tests_total": 13,
+      "raw_pass_rate": 0.9230769230769231,
+      "passable_passed": 7,
+      "passable_total": 7,
+      "passable_pass_rate": 1.0,
+      "successful_migration": true
+    },
+    {
+      "repo": "nzakas_props2js",
+      "agent_exit_code": 1,
+      "agent_seconds": 99.1,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 24637,
+        "output": 11849,
+        "cacheRead": 874624,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 911110
+      },
+      "resumes": [],
+      "retries": [],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 40,
+      "tests_total": 40,
+      "raw_pass_rate": 1.0,
+      "passable_passed": 38,
+      "passable_total": 38,
+      "passable_pass_rate": 1.0,
+      "successful_migration": true
+    },
+    {
+      "repo": "tasomaniac_DelayedProgress",
+      "agent_exit_code": 1,
+      "agent_seconds": 321.1,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 28776,
+        "output": 14116,
+        "cacheRead": 1078528,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 1121420
+      },
+      "resumes": [],
+      "retries": [
+        {
+          "module": "src/tasomaniac/android/widget/delayed_progress_bar.py",
+          "attempt": 1,
+          "before": 6,
+          "after": 6,
+          "total": 10,
+          "kept": false
+        },
+        {
+          "module": "src/tasomaniac/android/widget/delayed_progress_bar.py",
+          "attempt": 2,
+          "before": 6,
+          "after": 6,
+          "total": 10,
+          "kept": false
+        },
+        {
+          "module": "src/tasomaniac/android/widget/delayed_progress_dialog.py",
+          "attempt": 1,
+          "before": 3,
+          "after": 3,
+          "total": 7,
+          "kept": false
+        },
+        {
+          "module": "src/tasomaniac/android/widget/delayed_progress_dialog.py",
+          "attempt": 2,
+          "before": 3,
+          "after": 4,
+          "total": 7,
+          "kept": true
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 23,
+      "tests_total": 40,
+      "raw_pass_rate": 0.575,
+      "passable_passed": 18,
+      "passable_total": 26,
+      "passable_pass_rate": 0.6923076923076923,
+      "successful_migration": false
+    },
+    {
+      "repo": "awslabs_route53-infima",
+      "agent_exit_code": 0,
+      "agent_seconds": 130.0,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 34,
+      "usage": {
+        "input": 62069,
+        "output": 25571,
+        "cacheRead": 1530880,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 1618520
+      },
+      "resumes": [],
+      "retries": [],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 46,
+      "tests_total": 48,
+      "raw_pass_rate": 0.9583333333333334,
+      "passable_passed": 40,
+      "passable_total": 42,
+      "passable_pass_rate": 0.9523809523809523,
+      "successful_migration": false
+    },
+    {
+      "repo": "kungfoo_geohash-java",
+      "agent_exit_code": 1,
+      "agent_seconds": 732.3,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 45789,
+        "output": 25135,
+        "cacheRead": 2044672,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 2115596
+      },
+      "resumes": [],
+      "retries": [
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 2,
+          "total": 2,
+          "kept": true
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 41,
+      "tests_total": 53,
+      "raw_pass_rate": 0.7735849056603774,
+      "passable_passed": 33,
+      "passable_total": 41,
+      "passable_pass_rate": 0.8048780487804879,
+      "successful_migration": false
+    },
+    {
+      "repo": "tamir7_Contacts",
+      "agent_exit_code": 0,
+      "agent_seconds": 52.0,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 16,
+      "usage": {
+        "input": 17927,
+        "output": 9685,
+        "cacheRead": 259200,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 286812
+      },
+      "resumes": [],
+      "retries": [],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 36,
+      "tests_total": 38,
+      "raw_pass_rate": 0.9473684210526315,
+      "passable_passed": 28,
+      "passable_total": 30,
+      "passable_pass_rate": 0.9333333333333333,
+      "successful_migration": false
+    }
+  ]
+}

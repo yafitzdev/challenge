@@ -1,0 +1,17 @@
+A previous session migrated this Java repository to Python, but the public tests of one module still fail.
+Your job: write {module} again so that these tests pass. Change only {module}; changes to any other file are
+thrown away.
+
+Your working directory is candidate/. The Java repository is in ../source/ (read only); find the Java class this
+module ports and read it. Read project_structure.txt and the tests below for the required API. Other modules of
+the project already exist and may be imported.
+
+Tests for this module ({passed} of {total} pass now):
+{tests}
+
+Failures (first line of each):
+{failures}
+
+Run these tests with: PYTHONPATH=.:src python -m pytest <test file>
+Do not change the tests, do not install packages. Port the Java behavior; do not hardcode test outputs.
+Finish with one line saying what you changed.
