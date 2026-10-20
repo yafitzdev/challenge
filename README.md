@@ -28,7 +28,7 @@ Needs Linux, Python 3.12+ and Node 22.
 ```bash
 python -m pip install -r evaluation/requirements.txt
 (cd harness && npm ci)
-cp .env.example .env        # then put your DeepSeek key in .env
+cp .env.example .env        # then put your DeepSeek and OpenRouter keys in .env
 
 python harness/src/run.py --split development --config results/00_baseline/config.json
 python evaluation/validate.py
@@ -39,20 +39,41 @@ python evaluation/validate.py
 
 ## Journey
 
+Two parts. Part 1 makes the harness measure honestly, with a strong model (DeepSeek flash, 6 development repos,
+184 passable hidden tests, 2 runs per step). Part 2 makes it help a weak model (Gemini 2.5 Flash Lite, 3
+development repos, 113 tests, 1 run per step, to save money). Each step builds on the one before.
+
+### Part 1: a trustworthy harness (strong model)
+
 | Step | Change | Run 1 | Run 2 | Decision |
 |---|---|---|---|---|
 | [00 baseline](results/00_baseline/) | plain Pi agent (read, bash, edit, write), 40 turns, 600 s, plain prompt | 175 | 164 | starting point (mean 169.5 of 184) |
 | [01 robustness](results/01_robustness/) | 120 s per shell command; resume after a provider error or output-limit cut | 169 | 169 | keep: no change on dev (mean 169.0), removes two ways to lose a repo run |
 | [02 sandbox](results/02_sandbox/) | agent sees only its workspace; inputs and /usr read-only; no network for commands | 161 | 163 | keep: integrity (mean 162.0, mostly noise) |
-| [03 robustness v2](results/03_robustness_v2/) | start in candidate/; candidate/candidate link; loop breaker | 162 | 171 | keep: guards never fired with DeepSeek (mean 166.5) |
-| [04 retry](results/04_retry/) | a module whose public tests fail is rewritten by a fresh short session, up to 2 times, better version kept | 167 | 164 | no gain (mean 165.5): public tests the reference port also fails trigger the retries; kept as decomposition's failure path |
-| [05 decomposition](results/05_decomposition/) | a plan session, then one short session per module in dependency order; retry as failure path | 155 | 163 | worse (mean 159.0): modules without public tests have nothing to check against |
-| [05b + self-test](results/05b_decomposition_self_test/) | each module session also ports and runs the Java test of its class | 161 | 167 | keep, final harness: equal to one session on dev (mean 164.0), 2-3x slower |
 
-Holdout check ([06](results/06_holdout/)), 5 repos no step looked at, 184 tests: baseline 128 and 159 (mean 143.5),
-final harness (05b) 165 and 169 (mean 167.0), **+23.5**. The gain comes from no lost repo (a provider error left the
-baseline with no code on one repo) and from the largest repo (ElSql, 77-79 -> 86-87 of 97).
+With a strong model on small repos, the score is about 90% from the start; part 1 is about trust, not points.
 
-Weak model ([07](results/07_weak_model/)), Gemini 2.5 Flash Lite, 1 run, 3 repos, 113 tests: baseline 15, one
-session with every fix 31, decomposition 44. On geohash, the largest repo: 0, 8, **24** of 41. With a weak model
-the decomposition thesis holds.
+### Part 2: a harness that helps a weak model
+
+| Step | Change | geohash (41) | route53 (42) | Contacts (30) | Total (113) |
+|---|---|---|---|---|---|
+| [03 baseline](results/03_weak_baseline/) | part 1's harness, weak model | 0 | 0 | 0 | **0** |
+| [04 robustness v2](results/04_robustness_v2/) | start in candidate/, candidate link, loop breaker | 16 | 0 | 0 | **16** |
+| [05 retry package](results/05_retry/) | push to continue while test imports fail; retry failing modules | 0 | 18 | 16 | **34** |
+| [06 decomposition package](results/06_decomposition/) | plan, then one short session per module with a self-test; retry as failure path | 25 | 17 | 24 | **66** |
+
+Final harness: step 06. With the weak model every step adds points, and decomposition gives the largest jump
+(34 -> 66): a session that only has to port one class, with that class's tests in front of it, gets it right far
+more often.
+
+### Holdout check
+
+[07](results/07_holdout/): the final harness against part 2's baseline on the 5 holdout repos no step looked at,
+Gemini, 1 run, 184 tests: **24 -> 55**, one repo fully migrated. The largest repo (ElSql, 97 tests) stays 0 in both:
+its plan session wrote no plan.
+
+### Known gaps
+
+- A push round is kept even when it breaks more imports than it fixes (step 05, geohash).
+- An empty plan leaves decomposition with nothing to split (holdout, ElSql).
+- 1 run per part-2 step: only large differences count.

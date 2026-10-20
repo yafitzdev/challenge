@@ -1,0 +1,116 @@
+{
+  "run": "03_weak_baseline",
+  "config": "v2-03-weak-baseline",
+  "repos": [
+    "kungfoo_geohash-java",
+    "awslabs_route53-infima",
+    "tamir7_Contacts"
+  ],
+  "successful_migrations": 0,
+  "raw_pass_rate": 0.0,
+  "passable_pass_rate": 0.0,
+  "per_repo": [
+    {
+      "repo": "kungfoo_geohash-java",
+      "agent_exit_code": 0,
+      "agent_seconds": 24.0,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 15,
+      "usage": {
+        "input": 22431,
+        "output": 4301,
+        "cacheRead": 23413,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 50145
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 53,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 41,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "awslabs_route53-infima",
+      "agent_exit_code": 0,
+      "agent_seconds": 20.0,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 12,
+      "usage": {
+        "input": 25582,
+        "output": 3739,
+        "cacheRead": 20607,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 49928
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 48,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 42,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "tamir7_Contacts",
+      "agent_exit_code": 0,
+      "agent_seconds": 84.3,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 30,
+      "usage": {
+        "input": 71890,
+        "output": 13503,
+        "cacheRead": 189260,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 274653
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 38,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 30,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    }
+  ]
+}

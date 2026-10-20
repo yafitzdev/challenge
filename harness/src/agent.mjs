@@ -130,7 +130,7 @@ const resumes = [];
 const RESUME_PROMPTS = { error: 'during_work/provider_error', length: 'during_work/output_limit' };
 // Not a lever, so it is on for every config: when the provider is rate-limited (HTTP 429), wait and send the agent
 // on. The wait does not count against the session's time limit. Gemini through OpenRouter was rate-limited upstream
-// even with one agent at a time (results/07_weak_model/README.md).
+// even with one agent at a time (results/03_weak_baseline/).
 const rateLimitWaits = [];
 let pausedMs = 0;
 const RATE_LIMIT_WAITS_SECONDS = [30, 60, 90, 120, 180];
