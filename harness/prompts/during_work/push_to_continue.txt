@@ -1,0 +1,12 @@
+A previous session migrated this Java repository to Python but stopped before the work was finished. The public
+tests import these modules, and Python cannot import them:
+{problems}
+
+Continue the migration: write every missing module and fix the names and imports above, then run the public tests.
+Your working directory is candidate/. The Java repository is in ../source/ (read only); find the Java class each
+module ports and read it. project_structure.txt and public_tests/ give the required API. Other modules may already
+exist; read them before changing them.
+
+Run the tests with: PYTHONPATH=.:src python -m pytest public_tests/
+Do not change the tests, do not install packages. Port the Java behavior; do not hardcode test outputs.
+Finish with one line saying what you wrote.

@@ -1,0 +1,367 @@
+{
+  "run": "05_retry",
+  "config": "v2-05-retry",
+  "repos": [
+    "kungfoo_geohash-java",
+    "awslabs_route53-infima",
+    "tamir7_Contacts"
+  ],
+  "successful_migrations": 0,
+  "raw_pass_rate": 0.2949640287769784,
+  "passable_pass_rate": 0.3008849557522124,
+  "per_repo": [
+    {
+      "repo": "kungfoo_geohash-java",
+      "agent_exit_code": 1,
+      "agent_seconds": 574.0,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 62515,
+        "output": 11868,
+        "cacheRead": 681297,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 755680
+      },
+      "resumes": [
+        {
+          "at_turn": 33,
+          "reason": "error",
+          "error": "Provider finish_reason: error"
+        }
+      ],
+      "decompose": null,
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 1,
+          "problems_after": 7,
+          "problems": [
+            "from src.geohash.util.bounding_box_geohash_iterator import BoundingBoxGeoHashIterator: ModuleNotFoundError: No module named 'src.geohash.geo_hash'"
+          ]
+        },
+        {
+          "push": 2,
+          "problems_before": 7,
+          "problems_after": 7,
+          "problems": [
+            "from src.geohash.bounding_box import BoundingBox: ModuleNotFoundError: No module named 'src.geohash.geohash'",
+            "from src.geohash.util.bounding_box_geohash_iterator import BoundingBoxGeoHashIterator: ModuleNotFoundError: No module named 'src.geohash.geohash'",
+            "from src.geohash.util.bounding_box_sampler import BoundingBoxSampler: ModuleNotFoundError: No module named 'src.geohash.geohash'",
+            "from src.geohash.util.double_util import DoubleUtil: ModuleNotFoundError: No module named 'src.geohash.geohash'",
+            "from src.geohash.util.geohash_size_table import GeoHashSizeTable: ModuleNotFoundError: No module named 'src.geohash.geohash'",
+            "from src.geohash.util.long_util import LongUtil: ModuleNotFoundError: No module named 'src.geohash.geohash'",
+            "from src.geohash.wgs84point import WGS84Point: ModuleNotFoundError: No module named 'src.geohash.geohash'"
+          ]
+        },
+        {
+          "push": 3,
+          "problems_before": 7,
+          "problems_after": 7,
+          "problems": [
+            "from src.geohash.bounding_box import BoundingBox: IndentationError: unexpected indent",
+            "from src.geohash.util.bounding_box_geohash_iterator import BoundingBoxGeoHashIterator: IndentationError: unexpected indent",
+            "from src.geohash.util.bounding_box_sampler import BoundingBoxSampler: IndentationError: unexpected indent",
+            "from src.geohash.util.double_util import DoubleUtil: IndentationError: unexpected indent",
+            "from src.geohash.util.geohash_size_table import GeoHashSizeTable: IndentationError: unexpected indent",
+            "from src.geohash.util.long_util import LongUtil: IndentationError: unexpected indent",
+            "from src.geohash.wgs84point import WGS84Point: IndentationError: unexpected indent"
+          ]
+        },
+        {
+          "module": "src/geohash/bounding_box.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/bounding_box.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/wgs84point.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/wgs84point.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_geohash_iterator.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_geohash_iterator.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_sampler.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_sampler.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 53,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 41,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "awslabs_route53-infima",
+      "agent_exit_code": 0,
+      "agent_seconds": 157.0,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 10,
+      "usage": {
+        "input": 13982,
+        "output": 259,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 14241
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 1,
+          "problems_after": 0,
+          "problems": [
+            "from src.awslabs_route53_infima import Lattice, OneDimensionalLattice, SimpleSignatureShuffleSharder, TwoDimensionalLattice: ModuleNotFoundError: No module named 'src'"
+          ]
+        },
+        {
+          "module": "src/awslabs_route53_infima/__init__.py",
+          "attempt": 1,
+          "before": 13,
+          "after": 0,
+          "total": 19,
+          "kept": false
+        },
+        {
+          "module": "src/awslabs_route53_infima/__init__.py",
+          "attempt": 2,
+          "before": 13,
+          "after": 3,
+          "total": 19,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 22,
+      "tests_total": 48,
+      "raw_pass_rate": 0.4583333333333333,
+      "passable_passed": 18,
+      "passable_total": 42,
+      "passable_pass_rate": 0.42857142857142855,
+      "successful_migration": false
+    },
+    {
+      "repo": "tamir7_Contacts",
+      "agent_exit_code": 0,
+      "agent_seconds": 218.0,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 32,
+      "usage": {
+        "input": 102946,
+        "output": 13536,
+        "cacheRead": 171198,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 287680
+      },
+      "resumes": [
+        {
+          "at_turn": 29,
+          "reason": "error",
+          "error": "Provider finish_reason: error"
+        }
+      ],
+      "decompose": null,
+      "retries": [
+        {
+          "module": "src/contacts/address.py",
+          "attempt": 1,
+          "before": 1,
+          "after": 1,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/address.py",
+          "attempt": 2,
+          "before": 1,
+          "after": 2,
+          "total": 5,
+          "kept": true
+        },
+        {
+          "module": "src/contacts/email.py",
+          "attempt": 1,
+          "before": 2,
+          "after": 2,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/email.py",
+          "attempt": 2,
+          "before": 2,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/event.py",
+          "attempt": 1,
+          "before": 2,
+          "after": 3,
+          "total": 5,
+          "kept": true
+        },
+        {
+          "module": "src/contacts/event.py",
+          "attempt": 2,
+          "before": 3,
+          "after": 5,
+          "total": 5,
+          "kept": true
+        },
+        {
+          "module": "src/contacts/phonenumber.py",
+          "attempt": 1,
+          "before": 2,
+          "after": 2,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/phonenumber.py",
+          "attempt": 2,
+          "before": 2,
+          "after": 2,
+          "total": 5,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 19,
+      "tests_total": 38,
+      "raw_pass_rate": 0.5,
+      "passable_passed": 16,
+      "passable_total": 30,
+      "passable_pass_rate": 0.5333333333333333,
+      "successful_migration": false
+    }
+  ]
+}

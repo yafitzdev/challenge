@@ -1,0 +1,132 @@
+{
+  "run": "04_robustness_v2",
+  "config": "v2-04-robustness-v2",
+  "repos": [
+    "kungfoo_geohash-java",
+    "awslabs_route53-infima",
+    "tamir7_Contacts"
+  ],
+  "successful_migrations": 0,
+  "raw_pass_rate": 0.11510791366906475,
+  "passable_pass_rate": 0.1415929203539823,
+  "per_repo": [
+    {
+      "repo": "kungfoo_geohash-java",
+      "agent_exit_code": 1,
+      "agent_seconds": 141.8,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 42,
+      "usage": {
+        "input": 65443,
+        "output": 12994,
+        "cacheRead": 673424,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 751861
+      },
+      "resumes": [
+        {
+          "at_turn": 29,
+          "reason": "error",
+          "error": "Provider finish_reason: error"
+        },
+        {
+          "at_turn": 30,
+          "reason": "error",
+          "error": "Provider finish_reason: error"
+        },
+        {
+          "at_turn": 32,
+          "reason": "error",
+          "error": "Provider finish_reason: error"
+        }
+      ],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 16,
+      "tests_total": 53,
+      "raw_pass_rate": 0.3018867924528302,
+      "passable_passed": 16,
+      "passable_total": 41,
+      "passable_pass_rate": 0.3902439024390244,
+      "successful_migration": false
+    },
+    {
+      "repo": "awslabs_route53-infima",
+      "agent_exit_code": 0,
+      "agent_seconds": 58.7,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 26,
+      "usage": {
+        "input": 43766,
+        "output": 4310,
+        "cacheRead": 71506,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 119582
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 48,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 42,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "tamir7_Contacts",
+      "agent_exit_code": 0,
+      "agent_seconds": 23.0,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 29,
+      "usage": {
+        "input": 38595,
+        "output": 745,
+        "cacheRead": 47317,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 86657
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 38,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 30,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    }
+  ]
+}
