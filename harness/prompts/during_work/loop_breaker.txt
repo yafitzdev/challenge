@@ -1,0 +1,3 @@
+Harness note: this exact {tool} call has now failed {count} times with the same arguments and the same error, with no file changed in between:
+{call}
+Repeating it will fail again. Your working directory is {cwd}. Run pwd and ls to check where you are and what exists, then try a different approach.
