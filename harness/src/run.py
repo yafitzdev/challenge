@@ -53,7 +53,7 @@ Evaluation contract
 CONFIG_KEYS = {
     'version', 'provider', 'api_key_env', 'model', 'base_url', 'thinking', 'max_output_tokens', 'tools',
     'automatic_retries', 'compaction', 'prompt_file', 'max_assistant_turns', 'migration_timeout_seconds',
-    'command_timeout_seconds', 'resume_after_errors',
+    'command_timeout_seconds', 'resume_after_errors', 'sandbox',
 }
 
 
@@ -108,7 +108,11 @@ def run_agent(config, workspace, output):
         env['HARNESS_COMMAND_TIMEOUT'] = str(limit)
     started = time.time()
     try:
-        proc = subprocess.run(['node', str(AGENT), str(job_file)], cwd=HARNESS, env=env,
+        cmd = ['node', str(AGENT), str(job_file)]
+        if config.get('sandbox'):
+            # The agent sees only its workspace, its output folder and the harness code (sandbox.sh).
+            cmd = ['bash', str(HARNESS / 'src/sandbox.sh'), str(HARNESS), str(output), str(workspace), *cmd]
+        proc = subprocess.run(cmd, cwd=HARNESS, env=env,
                               capture_output=True, text=True, encoding='utf-8', errors='replace',
                               timeout=config['migration_timeout_seconds'] + 420)
         log, exit_code = proc.stdout + proc.stderr, proc.returncode
