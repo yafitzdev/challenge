@@ -1,0 +1,203 @@
+{
+  "run": "00_baseline_run2",
+  "config": "v2-00-baseline",
+  "repos": [
+    "shekhargulati_30-seconds-of-java",
+    "nzakas_props2js",
+    "tasomaniac_DelayedProgress",
+    "awslabs_route53-infima",
+    "kungfoo_geohash-java",
+    "tamir7_Contacts"
+  ],
+  "successful_migrations": 2,
+  "raw_pass_rate": 0.8060344827586207,
+  "passable_pass_rate": 0.8913043478260869,
+  "per_repo": [
+    {
+      "repo": "shekhargulati_30-seconds-of-java",
+      "agent_exit_code": 0,
+      "agent_seconds": 75.1,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 17,
+      "usage": {
+        "input": 31087,
+        "output": 15695,
+        "cacheRead": 491392,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 538174
+      },
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 12,
+      "tests_total": 13,
+      "raw_pass_rate": 0.9230769230769231,
+      "passable_passed": 7,
+      "passable_total": 7,
+      "passable_pass_rate": 1.0,
+      "successful_migration": true
+    },
+    {
+      "repo": "nzakas_props2js",
+      "agent_exit_code": 0,
+      "agent_seconds": 116.4,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 37,
+      "usage": {
+        "input": 29149,
+        "output": 17426,
+        "cacheRead": 998400,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 1044975
+      },
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 40,
+      "tests_total": 40,
+      "raw_pass_rate": 1.0,
+      "passable_passed": 38,
+      "passable_total": 38,
+      "passable_pass_rate": 1.0,
+      "successful_migration": true
+    },
+    {
+      "repo": "tasomaniac_DelayedProgress",
+      "agent_exit_code": 1,
+      "agent_seconds": 141.9,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 32117,
+        "output": 26902,
+        "cacheRead": 1426944,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 1485963
+      },
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 22,
+      "tests_total": 40,
+      "raw_pass_rate": 0.55,
+      "passable_passed": 20,
+      "passable_total": 26,
+      "passable_pass_rate": 0.7692307692307693,
+      "successful_migration": false
+    },
+    {
+      "repo": "awslabs_route53-infima",
+      "agent_exit_code": 1,
+      "agent_seconds": 178.8,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 43323,
+        "output": 29437,
+        "cacheRead": 1680128,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 1752888
+      },
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 46,
+      "tests_total": 48,
+      "raw_pass_rate": 0.9583333333333334,
+      "passable_passed": 41,
+      "passable_total": 42,
+      "passable_pass_rate": 0.9761904761904762,
+      "successful_migration": false
+    },
+    {
+      "repo": "kungfoo_geohash-java",
+      "agent_exit_code": 1,
+      "agent_seconds": 128.9,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 44690,
+        "output": 26225,
+        "cacheRead": 1644800,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 1715715
+      },
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 32,
+      "tests_total": 53,
+      "raw_pass_rate": 0.6037735849056604,
+      "passable_passed": 29,
+      "passable_total": 41,
+      "passable_pass_rate": 0.7073170731707317,
+      "successful_migration": false
+    },
+    {
+      "repo": "tamir7_Contacts",
+      "agent_exit_code": 1,
+      "agent_seconds": 132.4,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 28542,
+        "output": 12844,
+        "cacheRead": 991488,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 1032874
+      },
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 35,
+      "tests_total": 38,
+      "raw_pass_rate": 0.9210526315789473,
+      "passable_passed": 29,
+      "passable_total": 30,
+      "passable_pass_rate": 0.9666666666666667,
+      "successful_migration": false
+    }
+  ]
+}
