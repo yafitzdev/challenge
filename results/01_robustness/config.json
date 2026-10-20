@@ -1,0 +1,22 @@
+{
+  "version": "v2-01-robustness",
+  "provider": "deepseek",
+  "api_key_env": "DEEPSEEK_API_KEY",
+  "model": "deepseek-flash",
+  "base_url": "https://api.deepseek.com",
+  "thinking": "off",
+  "max_output_tokens": 8192,
+  "max_assistant_turns": 40,
+  "migration_timeout_seconds": 600,
+  "tools": [
+    "read",
+    "bash",
+    "edit",
+    "write"
+  ],
+  "automatic_retries": 0,
+  "compaction": false,
+  "prompt_file": "task/baseline.txt",
+  "command_timeout_seconds": 120,
+  "resume_after_errors": 3
+}
