@@ -46,3 +46,5 @@ python evaluation/validate.py
 | [02 sandbox](results/02_sandbox/) | agent sees only its workspace; inputs and /usr read-only; no network for commands | 161 | 163 | keep: integrity (mean 162.0, mostly noise) |
 | [03 robustness v2](results/03_robustness_v2/) | start in candidate/; candidate/candidate link; loop breaker | 162 | 171 | keep: guards never fired with DeepSeek (mean 166.5) |
 | [04 retry](results/04_retry/) | a module whose public tests fail is rewritten by a fresh short session, up to 2 times, better version kept | 167 | 164 | no gain (mean 165.5): public tests the reference port also fails trigger the retries; kept as decomposition's failure path |
+| [05 decomposition](results/05_decomposition/) | a plan session, then one short session per module in dependency order; retry as failure path | 155 | 163 | worse (mean 159.0): modules without public tests have nothing to check against |
+| [05b + self-test](results/05b_decomposition_self_test/) | each module session also ports and runs the Java test of its class | 161 | 167 | equal to one session (mean 164.0), 2-3x slower; kept as an option |

@@ -1,0 +1,395 @@
+{
+  "run": "05b_self_test_run2",
+  "config": "v2-05b-decomposition-self-test",
+  "repos": [
+    "shekhargulati_30-seconds-of-java",
+    "nzakas_props2js",
+    "tasomaniac_DelayedProgress",
+    "awslabs_route53-infima",
+    "kungfoo_geohash-java",
+    "tamir7_Contacts"
+  ],
+  "successful_migrations": 2,
+  "raw_pass_rate": 0.8663793103448276,
+  "passable_pass_rate": 0.907608695652174,
+  "per_repo": [
+    {
+      "repo": "shekhargulati_30-seconds-of-java",
+      "agent_exit_code": 0,
+      "agent_seconds": 73.9,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 1,
+        "from_plan": 1,
+        "added_by_harness": 0,
+        "modules": [
+          "src/snippets.py"
+        ]
+      },
+      "retries": [],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 11,
+      "tests_total": 13,
+      "raw_pass_rate": 0.8461538461538461,
+      "passable_passed": 7,
+      "passable_total": 7,
+      "passable_pass_rate": 1.0,
+      "successful_migration": true
+    },
+    {
+      "repo": "nzakas_props2js",
+      "agent_exit_code": 0,
+      "agent_seconds": 188.2,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 4,
+        "from_plan": 4,
+        "added_by_harness": 0,
+        "modules": [
+          "src/props2js/property_converter.py",
+          "src/props2js/props2js.py",
+          "src/props2js/__init__.py"
+        ]
+      },
+      "retries": [
+        {
+          "module": "src/props2js/__init__.py",
+          "attempt": 1,
+          "before": 15,
+          "after": 20,
+          "total": 20,
+          "kept": true
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 40,
+      "tests_total": 40,
+      "raw_pass_rate": 1.0,
+      "passable_passed": 38,
+      "passable_total": 38,
+      "passable_pass_rate": 1.0,
+      "successful_migration": true
+    },
+    {
+      "repo": "tasomaniac_DelayedProgress",
+      "agent_exit_code": 0,
+      "agent_seconds": 338.3,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 2,
+        "from_plan": 2,
+        "added_by_harness": 0,
+        "modules": [
+          "src/tasomaniac/android/widget/delayed_progress_bar.py",
+          "src/tasomaniac/android/widget/delayed_progress_dialog.py"
+        ]
+      },
+      "retries": [
+        {
+          "module": "src/tasomaniac/android/widget/delayed_progress_bar.py",
+          "attempt": 1,
+          "before": 5,
+          "after": 0,
+          "total": 10,
+          "kept": false
+        },
+        {
+          "module": "src/tasomaniac/android/widget/delayed_progress_bar.py",
+          "attempt": 2,
+          "before": 5,
+          "after": 7,
+          "total": 10,
+          "kept": true
+        },
+        {
+          "module": "src/tasomaniac/android/widget/delayed_progress_dialog.py",
+          "attempt": 1,
+          "before": 4,
+          "after": 3,
+          "total": 7,
+          "kept": false
+        },
+        {
+          "module": "src/tasomaniac/android/widget/delayed_progress_dialog.py",
+          "attempt": 2,
+          "before": 4,
+          "after": 4,
+          "total": 7,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 25,
+      "tests_total": 40,
+      "raw_pass_rate": 0.625,
+      "passable_passed": 18,
+      "passable_total": 26,
+      "passable_pass_rate": 0.6923076923076923,
+      "successful_migration": false
+    },
+    {
+      "repo": "awslabs_route53-infima",
+      "agent_exit_code": 0,
+      "agent_seconds": 579.9,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 17,
+        "from_plan": 17,
+        "added_by_harness": 0,
+        "modules": [
+          "src/awslabs_route53_model/resource_record.py",
+          "src/awslabs_route53_model/alias_target.py",
+          "src/awslabs_route53_model/resource_record_set.py",
+          "src/awslabs_route53_infima/lattice.py",
+          "src/awslabs_route53_infima/one_dimensional_lattice.py",
+          "src/awslabs_route53_infima/two_dimensional_lattice.py",
+          "src/awslabs_route53_infima/single_cell_lattice.py",
+          "src/awslabs_route53_infima/simple_signature_shuffle_sharder.py",
+          "src/awslabs_route53_infima/util/iterable_sub_list_generator.py",
+          "src/awslabs_route53_infima/stateful_searching_shuffle_sharder.py",
+          "src/awslabs_route53_infima/util/comparable_resource_record.py",
+          "src/awslabs_route53_infima/util/health_checked_resource_record.py",
+          "src/awslabs_route53_infima/util/answer_set.py",
+          "src/awslabs_route53_infima/rubber_tree.py",
+          "src/awslabs_route53_model/__init__.py",
+          "src/awslabs_route53_infima/__init__.py",
+          "src/awslabs_route53_infima/util/__init__.py"
+        ]
+      },
+      "retries": [
+        {
+          "module": "src/awslabs_route53_infima/__init__.py",
+          "attempt": 1,
+          "before": 18,
+          "after": 18,
+          "total": 19,
+          "kept": false
+        },
+        {
+          "module": "src/awslabs_route53_infima/__init__.py",
+          "attempt": 2,
+          "before": 18,
+          "after": 18,
+          "total": 19,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 46,
+      "tests_total": 48,
+      "raw_pass_rate": 0.9583333333333334,
+      "passable_passed": 41,
+      "passable_total": 42,
+      "passable_pass_rate": 0.9761904761904762,
+      "successful_migration": false
+    },
+    {
+      "repo": "kungfoo_geohash-java",
+      "agent_exit_code": 0,
+      "agent_seconds": 2572.3,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 16,
+        "from_plan": 13,
+        "added_by_harness": 3,
+        "modules": [
+          "src/geohash/util/double_util.py",
+          "src/geohash/util/long_util.py",
+          "src/geohash/wgs84point.py",
+          "src/geohash/bounding_box.py",
+          "src/geohash/geohash.py",
+          "src/geohash/util/geohash_size_table.py",
+          "src/geohash/util/vincenty_geodesy.py",
+          "src/geohash/util/two_geohash_bounding_box.py",
+          "src/geohash/util/bounding_box_geohash_iterator.py",
+          "src/geohash/util/bounding_box_sampler.py",
+          "src/geohash/queries/geohash_query.py",
+          "src/geohash/queries/bounding_box_query.py",
+          "src/geohash/queries/circle_query.py"
+        ]
+      },
+      "retries": [
+        {
+          "module": "src/geohash/bounding_box.py",
+          "attempt": 1,
+          "before": 9,
+          "after": 9,
+          "total": 10,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/bounding_box.py",
+          "attempt": 2,
+          "before": 9,
+          "after": 9,
+          "total": 10,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_geohash_iterator.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_geohash_iterator.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 2,
+          "total": 1,
+          "kept": true
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 2,
+          "total": 2,
+          "kept": true
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 43,
+      "tests_total": 53,
+      "raw_pass_rate": 0.8113207547169812,
+      "passable_passed": 35,
+      "passable_total": 41,
+      "passable_pass_rate": 0.8536585365853658,
+      "successful_migration": false
+    },
+    {
+      "repo": "tamir7_Contacts",
+      "agent_exit_code": 0,
+      "agent_seconds": 95.5,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 5,
+        "from_plan": 5,
+        "added_by_harness": 0,
+        "modules": [
+          "src/contacts/address.py",
+          "src/contacts/email.py",
+          "src/contacts/event.py",
+          "src/contacts/phonenumber.py"
+        ]
+      },
+      "retries": [],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 36,
+      "tests_total": 38,
+      "raw_pass_rate": 0.9473684210526315,
+      "passable_passed": 28,
+      "passable_total": 30,
+      "passable_pass_rate": 0.9333333333333333,
+      "successful_migration": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+We are migrating a Java repository to Python 3.12, one module at a time. Your only job in this session is the
+plan; other sessions will write the code.
+
+Your working directory is candidate/. The Java repository is in ../source/ (read only). Read
+project_structure.txt and the tests in public_tests/ for the Python module paths and API the tests expect, and
+the Java main sources (not its tests) for the classes to port.
+
+Write candidate/plan.json: a JSON list with one entry per Python module to create, for example
+[{"module": "src/geohash/util/long_util.py", "java": "../source/src/main/java/ch/hsr/geohash/util/LongUtil.java",
+  "depends_on": []},
+ {"module": "src/geohash/geohash.py", "java": "../source/src/main/java/ch/hsr/geohash/GeoHash.java",
+  "depends_on": ["src/geohash/util/long_util.py"]}]
+- module: path relative to candidate/, exactly as the tests import it (src.a.b -> src/a/b.py).
+- java: the Java file this module ports (null if none).
+- depends_on: the other planned modules this one imports.
+Cover every Java class the tests use. Do not write any other file. Finish with one line: the number of modules.

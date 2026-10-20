@@ -31,6 +31,7 @@ ROOT = Path(__file__).resolve().parents[2]
 HARNESS = ROOT / 'harness'
 sys.path.insert(0, str(ROOT / 'evaluation'))
 from evaluate import evaluate  # noqa: E402  (the frozen evaluator)
+from decompose import PLAN_FILE, decompose  # noqa: E402
 from retry import retry_failing  # noqa: E402
 
 AGENT = HARNESS / 'src/agent.mjs'
@@ -55,7 +56,7 @@ CONFIG_KEYS = {
     'version', 'provider', 'api_key_env', 'model', 'base_url', 'thinking', 'max_output_tokens', 'tools',
     'automatic_retries', 'compaction', 'prompt_file', 'max_assistant_turns', 'migration_timeout_seconds',
     'command_timeout_seconds', 'resume_after_errors', 'sandbox',
-    'start_in_candidate', 'candidate_link', 'loop_breaker', 'retry',
+    'start_in_candidate', 'candidate_link', 'loop_breaker', 'retry', 'decompose',
 }
 
 
@@ -163,7 +164,16 @@ def migrate_repo(repo, config, run_dir):
         workspace.mkdir()
         stage(repo, workspace, config)
         started = time.time()
-        exit_code, seconds = run_agent(config, workspace, output)
+        if config.get('decompose'):
+            # One short session per module instead of one long session (decompose.py).
+            plan = decompose(config, workspace, output, run_agent)
+            plan_file = workspace / 'candidate' / PLAN_FILE
+            if plan_file.exists():
+                shutil.move(plan_file, output / PLAN_FILE)
+            (output / 'decompose.json').write_text(json.dumps(plan, indent=2) + '\n', encoding='utf-8')
+            exit_code, seconds = 0, 0
+        else:
+            exit_code, seconds = run_agent(config, workspace, output)
         if config.get('retry'):
             # Modules whose public tests still fail get fresh, short sessions (retry.py).
             retries = retry_failing(config, workspace, output, run_agent)
@@ -186,6 +196,8 @@ def score_repo(repo, run_dir, exit_code, seconds):
            'agent_completed': agent.get('completed'), 'agent_limit': agent.get('limit'),
            'agent_error': agent.get('error'), 'assistant_turns': agent.get('assistant_turns'),
            'usage': agent.get('usage'), 'resumes': agent.get('resumes'),
+           'decompose': json.loads((output / 'decompose.json').read_text(encoding='utf-8'))
+           if (output / 'decompose.json').exists() else None,
            'retries': json.loads((output / 'retries.json').read_text(encoding='utf-8'))
            if (output / 'retries.json').exists() else None, 'audit': audit_events(output),
            **{k: score[k] for k in ('tests_passed', 'tests_total', 'raw_pass_rate', 'passable_passed',
