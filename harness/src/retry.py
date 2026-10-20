@@ -85,21 +85,40 @@ def module_tests(candidate):
     return {m: sorted(set(t)) for m, t in found.items()}
 
 
-def import_problems(candidate):
-    """One line per module the public tests import that cannot be imported, with Python's own error. No model."""
-    problems = []
-    for module in module_tests(candidate):
-        name = module.removesuffix('/__init__.py').removesuffix('.py').replace('/', '.')
+def test_imports(candidate):
+    """{module: names} for every project module the public tests import (`from src.x import A, B` -> {A, B})."""
+    found = {}
+    for test in sorted((candidate / 'public_tests').rglob('test_*.py')):
         try:
-            proc = subprocess.run([sys.executable, '-c', f'import {name}'], cwd=candidate, env=test_env(candidate),
+            tree = ast.parse(test.read_text(encoding='utf-8', errors='replace'))
+        except SyntaxError:
+            continue
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ImportFrom) and node.module and node.module.startswith('src.'):
+                found.setdefault(node.module, set()).update(a.name for a in node.names if a.name != '*')
+            elif isinstance(node, ast.Import):
+                for a in node.names:
+                    if a.name.startswith('src.'):
+                        found.setdefault(a.name, set())
+    return found
+
+
+def import_problems(candidate):
+    """One line per import of the public tests that fails (module not written, broken, or a name missing), with
+    Python's own error. No model call."""
+    problems = []
+    for module, names in sorted(test_imports(candidate).items()):
+        code = f'from {module} import {", ".join(sorted(names))}' if names else f'import {module}'
+        try:
+            proc = subprocess.run([sys.executable, '-c', code], cwd=candidate, env=test_env(candidate),
                                   capture_output=True, text=True, encoding='utf-8', errors='replace',
                                   timeout=TEST_TIMEOUT_SECONDS)
         except subprocess.TimeoutExpired:
-            problems.append(f'{module}: importing it did not finish within {TEST_TIMEOUT_SECONDS} s')
+            problems.append(f'{code}: did not finish within {TEST_TIMEOUT_SECONDS} s')
             continue
         if proc.returncode:
             lines = [l for l in proc.stderr.splitlines() if l.strip()]
-            problems.append(f'{module}: {lines[-1][:300] if lines else "import failed"}')
+            problems.append(f'{code}: {lines[-1][:300] if lines else "import failed"}')
     return problems
 
 
