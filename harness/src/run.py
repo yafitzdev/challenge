@@ -54,6 +54,7 @@ CONFIG_KEYS = {
     'version', 'provider', 'api_key_env', 'model', 'base_url', 'thinking', 'max_output_tokens', 'tools',
     'automatic_retries', 'compaction', 'prompt_file', 'max_assistant_turns', 'migration_timeout_seconds',
     'command_timeout_seconds', 'resume_after_errors', 'sandbox',
+    'start_in_candidate', 'candidate_link', 'loop_breaker',
 }
 
 
@@ -79,7 +80,7 @@ def api_key(config):
     return DUMMY_KEY
 
 
-def stage(repo, workspace):
+def stage(repo, workspace, config):
     data = ROOT / 'test_repositories' / repo
     shutil.copytree(data / 'repository', workspace / 'source')
     candidate = workspace / 'candidate'
@@ -87,6 +88,20 @@ def stage(repo, workspace):
     shutil.copy2(data / 'project_structure.txt', candidate)
     shutil.copytree(data / 'public_tests', candidate / 'public_tests')
     (workspace / 'CONTRACT.txt').write_text(CONTRACT, encoding='utf-8')
+    if config.get('candidate_link'):
+        # Agents often write to candidate/... although their working directory already is candidate/. A link
+        # candidate/candidate -> . makes those paths land in the right place; conftest.py keeps pytest from
+        # following the link forever. Both are left out when the candidate is copied out.
+        (candidate / 'candidate').symlink_to('.')
+        (candidate / 'conftest.py').write_text("collect_ignore = ['candidate']  # added by the harness\n",
+                                               encoding='utf-8')
+
+
+def keep_candidate(folder, names):
+    """What not to copy out of the workspace: caches, and the harness's own candidate link and conftest.py."""
+    skip = {'__pycache__', '.pytest_cache'}
+    return [n for n in names if n in skip or (Path(folder, n).is_symlink() and n == 'candidate')
+            or (n == 'conftest.py' and Path(folder, 'candidate').is_symlink())]
 
 
 def prompt_path(config):
@@ -145,10 +160,10 @@ def migrate_repo(repo, config, run_dir):
     with tempfile.TemporaryDirectory(prefix='migrate-') as tmp:
         workspace = Path(tmp) / 'workspace'
         workspace.mkdir()
-        stage(repo, workspace)
+        stage(repo, workspace, config)
         exit_code, seconds = run_agent(config, workspace, output)
         shutil.copytree(workspace / 'candidate', output / 'candidate',
-                        ignore=shutil.ignore_patterns('__pycache__', '.pytest_cache'))
+                        ignore=keep_candidate)
     print(f'{repo}: agent done in {seconds:.0f}s', flush=True)
     return exit_code, seconds
 

@@ -58,10 +58,12 @@ const resourceLoader = {
   getAppendSystemPrompt: () => [], getAppendSystemPromptSources: () => [],
   extendResources: () => {}, reload: async () => {},
 };
+// With start_in_candidate, the agent's tools start where the code goes, so relative paths land in candidate/.
+const agentCwd = cfg.start_in_candidate ? path.join(job.workspace, 'candidate') : job.workspace;
 const { session } = await createAgentSession({
-  cwd: job.workspace, agentDir: state, modelRuntime,
+  cwd: agentCwd, agentDir: state, modelRuntime,
   model: modelRuntime.getModel(provider, cfg.model), thinkingLevel: cfg.thinking,
-  tools: cfg.tools, resourceLoader, sessionManager: SessionManager.inMemory(job.workspace),
+  tools: cfg.tools, resourceLoader, sessionManager: SessionManager.inMemory(agentCwd),
   settingsManager: SettingsManager.inMemory({
     compaction: { enabled: cfg.compaction },
     retry: { enabled: false, provider: { maxRetries: cfg.automatic_retries } },
@@ -85,7 +87,28 @@ const timer = setTimeout(() => {
   limit = 'migration_timeout';
   void session.abort();
 }, cfg.migration_timeout_seconds * 1000);
+// With loop_breaker, a tool call that fails N times with the same output and no file written in between gets a
+// harness note. Re-running a failing test after an edit is normal work, so any successful write or edit resets it.
+const callArgs = new Map();
+const failures = new Map();
+const loopNotes = [];
 session.subscribe((event) => {
+  if (cfg.loop_breaker && event.type === 'tool_execution_start') callArgs.set(event.toolCallId, event.args);
+  if (cfg.loop_breaker && event.type === 'tool_execution_end' && !event.isError
+      && ['write', 'edit'].includes(event.toolName)) failures.clear();
+  if (cfg.loop_breaker && event.type === 'tool_execution_end' && event.isError) {
+    const call = `${event.toolName} ${JSON.stringify(callArgs.get(event.toolCallId))}`;
+    // Timings like "in 0.02s" differ between otherwise identical outputs.
+    const output = JSON.stringify(event.result?.content || '').replace(/[0-9]+\.[0-9]+s/g, '');
+    const key = `${call}\n${output}`;
+    const count = (failures.get(key) || 0) + 1;
+    failures.set(key, count);
+    if (count % cfg.loop_breaker === 0) {
+      loopNotes.push({ at_turn: turns, count, call: call.slice(0, 300) });
+      void session.steer(prompt('during_work/loop_breaker',
+        { tool: event.toolName, count, call: call.slice(0, 300), cwd: agentCwd }));
+    }
+  }
   // Completed messages plus tool lifecycle are enough to reconstruct the run.
   if (event.type !== 'message_update' && event.type !== 'tool_execution_update') {
     fs.appendFileSync(path.join(job.output, 'events.jsonl'), redact(JSON.stringify(event)) + '\n');
@@ -135,7 +158,7 @@ try {
     elapsed_seconds: (Date.now() - started) / 1000, usage,
     requested_model: cfg.model, returned_model: last?.model || null,
     last_stop_reason: last?.stopReason || null,
-    resumes,
+    resumes, loop_notes: loopNotes,
     cost_usd: null, cost_note: 'Token usage only; no billing estimate.',
   });
   session.dispose();
