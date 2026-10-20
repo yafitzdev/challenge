@@ -53,6 +53,7 @@ Evaluation contract
 CONFIG_KEYS = {
     'version', 'provider', 'api_key_env', 'model', 'base_url', 'thinking', 'max_output_tokens', 'tools',
     'automatic_retries', 'compaction', 'prompt_file', 'max_assistant_turns', 'migration_timeout_seconds',
+    'command_timeout_seconds', 'resume_after_errors',
 }
 
 
@@ -94,12 +95,17 @@ def prompt_path(config):
 
 
 def run_agent(config, workspace, output):
+    # With a command limit, the agent's shell is a wrapper that stops any command running too long.
+    limit = config.get('command_timeout_seconds')
     job = {'config': config, 'workspace': str(workspace), 'output': str(output),
-           'bash': shutil.which('bash'), 'prompt': prompt_path(config).read_text(encoding='utf-8')}
+           'bash': str(HARNESS / 'src/timeout-bash.sh') if limit else shutil.which('bash'),
+           'prompt': prompt_path(config).read_text(encoding='utf-8')}
     job_file = output / 'job.json'
     job_file.write_text(json.dumps(job, indent=2), encoding='utf-8')
     # NODE_USE_ENV_PROXY makes Node's fetch use HTTPS_PROXY when one is set (the cloud); no effect otherwise.
     env = {**os.environ, 'MODEL_API_KEY': api_key(config), 'NODE_USE_ENV_PROXY': '1'}
+    if limit:
+        env['HARNESS_COMMAND_TIMEOUT'] = str(limit)
     started = time.time()
     try:
         proc = subprocess.run(['node', str(AGENT), str(job_file)], cwd=HARNESS, env=env,
@@ -153,7 +159,7 @@ def score_repo(repo, run_dir, exit_code, seconds):
     row = {'repo': repo, 'agent_exit_code': exit_code, 'agent_seconds': round(seconds, 1),
            'agent_completed': agent.get('completed'), 'agent_limit': agent.get('limit'),
            'agent_error': agent.get('error'), 'assistant_turns': agent.get('assistant_turns'),
-           'usage': agent.get('usage'), 'audit': audit_events(output),
+           'usage': agent.get('usage'), 'resumes': agent.get('resumes'), 'audit': audit_events(output),
            **{k: score[k] for k in ('tests_passed', 'tests_total', 'raw_pass_rate', 'passable_passed',
                                     'passable_total', 'passable_pass_rate', 'successful_migration')}}
     print(json.dumps({k: row[k] for k in ('repo', 'passable_passed', 'passable_total',

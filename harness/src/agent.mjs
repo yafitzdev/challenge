@@ -99,8 +99,22 @@ session.subscribe((event) => {
     }
   }
 });
+// With resume_after_errors, a session that ends on a provider error or on the output limit (a reply cut off at
+// max_output_tokens, which ends the Pi session) is sent on, up to that many times. Baseline: one output-limit end
+// left a repo with no code (results/00_baseline/README.md).
+const resumes = [];
+const RESUME_PROMPTS = { error: 'during_work/provider_error', length: 'during_work/output_limit' };
 try {
   await session.prompt(job.prompt);
+  while (resumes.length < (cfg.resume_after_errors || 0) && !limit && turns < cfg.max_assistant_turns) {
+    const last = session.messages.filter(m => m.role === 'assistant').at(-1);
+    const reason = last?.stopReason;
+    if (!(reason in RESUME_PROMPTS)) break;
+    resumes.push({ at_turn: turns, reason, error: last.errorMessage ? String(last.errorMessage).slice(0, 200) : null });
+    console.log(`Resume ${resumes.length} at turn ${turns}: ${reason}`);
+    if (reason === 'error') await new Promise(resolve => setTimeout(resolve, 2000 * 2 ** (resumes.length - 1)));
+    await session.prompt(prompt(RESUME_PROMPTS[reason]));
+  }
 } catch (e) {
   error = redact(String(e));
 } finally {
@@ -121,6 +135,7 @@ try {
     elapsed_seconds: (Date.now() - started) / 1000, usage,
     requested_model: cfg.model, returned_model: last?.model || null,
     last_stop_reason: last?.stopReason || null,
+    resumes,
     cost_usd: null, cost_note: 'Token usage only; no billing estimate.',
   });
   session.dispose();

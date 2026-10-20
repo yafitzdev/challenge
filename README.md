@@ -42,3 +42,4 @@ python evaluation/validate.py
 | Step | Change | Run 1 | Run 2 | Decision |
 |---|---|---|---|---|
 | [00 baseline](results/00_baseline/) | plain Pi agent (read, bash, edit, write), 40 turns, 600 s, plain prompt | 175 | 164 | starting point (mean 169.5 of 184) |
+| [01 robustness](results/01_robustness/) | 120 s per shell command; resume after a provider error or output-limit cut | 169 | 169 | keep: no change on dev (mean 169.0), removes two ways to lose a repo run |
