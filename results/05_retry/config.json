@@ -1,9 +1,9 @@
 {
-  "version": "v2-05b-decomposition-self-test",
-  "provider": "deepseek",
-  "api_key_env": "DEEPSEEK_API_KEY",
-  "model": "deepseek-flash",
-  "base_url": "https://api.deepseek.com",
+  "version": "v2-05-retry",
+  "provider": "openrouter",
+  "api_key_env": "OPENROUTER_API_KEY",
+  "model": "google/gemini-2.5-flash-lite",
+  "base_url": "https://openrouter.ai/api/v1",
   "thinking": "off",
   "max_output_tokens": 8192,
   "max_assistant_turns": 40,
@@ -26,12 +26,7 @@
   "retry": {
     "attempts": 2,
     "max_assistant_turns": 15,
-    "timeout_seconds": 300
-  },
-  "decompose": {
-    "plan_turns": 15,
-    "max_assistant_turns": 15,
     "timeout_seconds": 300,
-    "self_test": true
+    "push_to_continue": 3
   }
 }

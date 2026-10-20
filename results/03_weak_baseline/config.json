@@ -1,5 +1,5 @@
 {
-  "version": "v2-07-gemini-baseline",
+  "version": "v2-03-weak-baseline",
   "provider": "openrouter",
   "api_key_env": "OPENROUTER_API_KEY",
   "model": "google/gemini-2.5-flash-lite",
@@ -16,5 +16,8 @@
   ],
   "automatic_retries": 0,
   "compaction": false,
-  "prompt_file": "task/baseline.txt"
+  "prompt_file": "task/baseline.txt",
+  "command_timeout_seconds": 120,
+  "resume_after_errors": 3,
+  "sandbox": true
 }

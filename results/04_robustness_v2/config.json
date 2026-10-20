@@ -1,5 +1,5 @@
 {
-  "version": "v2-07-gemini-decomposition",
+  "version": "v2-04-robustness-v2",
   "provider": "openrouter",
   "api_key_env": "OPENROUTER_API_KEY",
   "model": "google/gemini-2.5-flash-lite",
@@ -22,16 +22,5 @@
   "sandbox": true,
   "start_in_candidate": true,
   "candidate_link": true,
-  "loop_breaker": 3,
-  "retry": {
-    "attempts": 2,
-    "max_assistant_turns": 15,
-    "timeout_seconds": 300
-  },
-  "decompose": {
-    "plan_turns": 15,
-    "max_assistant_turns": 15,
-    "timeout_seconds": 300,
-    "self_test": true
-  }
+  "loop_breaker": 3
 }

@@ -1,6 +1,11 @@
-"""Retry: after the agent stops, every module whose public tests fail is generated again by a fresh, short agent
-session, up to `attempts` times. Only that one file may change, and the attempt is kept only if more of its tests
-pass than before.
+"""Retry: what happens after the agent stops.
+
+1. Push to continue: while a module the public tests import cannot be imported (not written, broken, or a name
+   missing), a fresh short session is sent back to the repository with the exact import errors, up to
+   `push_to_continue` times. It may change any file. Weak models often stop before writing every module.
+2. Per module: every module whose public tests fail is generated again by a fresh, short agent session, up to
+   `attempts` times. Only that one file may change, and the attempt is kept only if more of its tests pass than
+   before.
 
 Which tests belong to which module: a public test file belongs to every module of the project it imports
 (`from src.geohash.util.long_util import LongUtil` -> src/geohash/util/long_util.py).
@@ -20,11 +25,17 @@ TEST_TIMEOUT_SECONDS = 120
 MAX_FAILURE_LINES = 15
 
 
-def run_test_file(candidate, test_file):
-    """Run one public test file the way the evaluator does. Returns (passed, total, failure lines)."""
+def test_env(candidate):
+    """The environment the evaluator runs tests in."""
     env = {k: v for k, v in os.environ.items() if not k.startswith(('PYTHON', 'PYTEST'))}
     env.update(PYTHONPATH=os.pathsep.join([str(candidate), str(candidate / 'src')]), PYTHONHASHSEED='0',
                PYTHONDONTWRITEBYTECODE='1', PYTEST_DISABLE_PLUGIN_AUTOLOAD='1')
+    return env
+
+
+def run_test_file(candidate, test_file):
+    """Run one public test file the way the evaluator does. Returns (passed, total, failure lines)."""
+    env = test_env(candidate)
     with tempfile.TemporaryDirectory() as tmp:
         xml = Path(tmp) / 'report.xml'
         cmd = [sys.executable, '-m', 'pytest', '-q', '-p', 'no:cacheprovider', '--noconftest', '--tb=short',
@@ -74,6 +85,45 @@ def module_tests(candidate):
     return {m: sorted(set(t)) for m, t in found.items()}
 
 
+def import_problems(candidate):
+    """One line per module the public tests import that cannot be imported, with Python's own error. No model."""
+    problems = []
+    for module in module_tests(candidate):
+        name = module.removesuffix('/__init__.py').removesuffix('.py').replace('/', '.')
+        try:
+            proc = subprocess.run([sys.executable, '-c', f'import {name}'], cwd=candidate, env=test_env(candidate),
+                                  capture_output=True, text=True, encoding='utf-8', errors='replace',
+                                  timeout=TEST_TIMEOUT_SECONDS)
+        except subprocess.TimeoutExpired:
+            problems.append(f'{module}: importing it did not finish within {TEST_TIMEOUT_SECONDS} s')
+            continue
+        if proc.returncode:
+            lines = [l for l in proc.stderr.splitlines() if l.strip()]
+            problems.append(f'{module}: {lines[-1][:300] if lines else "import failed"}')
+    return problems
+
+
+def push_to_continue(session_config, workspace, output, run_agent, rounds):
+    """Send fresh sessions back to the repository while imports fail. Returns one record per round."""
+    candidate = workspace / 'candidate'
+    template = (PROMPTS / 'during_work/push_to_continue.txt').read_text(encoding='utf-8')
+    records = []
+    problems = import_problems(candidate)
+    for round_ in range(1, rounds + 1):
+        if not problems:
+            break
+        out = output / 'retries' / f'push-{round_}'
+        out.mkdir(parents=True)
+        run_agent(session_config, workspace, out,
+                  template.format(problems='\n'.join(f'- {p}' for p in problems[:MAX_FAILURE_LINES])))
+        after = import_problems(candidate)
+        records.append({'push': round_, 'problems_before': len(problems), 'problems_after': len(after),
+                        'problems': problems[:MAX_FAILURE_LINES]})
+        print(f'push {round_}: {len(problems)} -> {len(after)} import problems', flush=True)
+        problems = after
+    return records
+
+
 def score(candidate, tests):
     results = [run_test_file(candidate, t) for t in tests]
     return sum(r[0] for r in results), sum(r[1] for r in results), [l for r in results for l in r[2]]
@@ -100,13 +150,14 @@ def isolated_session(config, workspace, out, prompt, module, run_agent):
 
 
 def retry_failing(config, workspace, output, run_agent):
-    """Run the retry rounds; returns one record per attempt. run_agent(config, workspace, output, prompt)."""
+    """Run push to continue, then the per-module retries; returns one record per round and attempt.
+    run_agent(config, workspace, output, prompt)."""
     settings = config['retry']
     candidate = workspace / 'candidate'
     session_config = {**config, 'max_assistant_turns': settings['max_assistant_turns'],
                       'migration_timeout_seconds': settings['timeout_seconds']}
+    records = push_to_continue(session_config, workspace, output, run_agent, settings.get('push_to_continue', 0))
     template = (PROMPTS / 'during_work/retry_module.txt').read_text(encoding='utf-8')
-    records = []
     for module, tests in module_tests(candidate).items():
         passed, total, failures = score(candidate, tests)
         for attempt in range(1, settings['attempts'] + 1):
