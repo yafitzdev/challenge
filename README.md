@@ -67,15 +67,15 @@ migrations** (repos where every passable test passes).
 
 Run the dumb harness with a strong model (DeepSeek flash). When a strong model fails, the cause is usually the
 harness, not the model, so its failures expose harness flaws. Fix each flaw, run again, keep the fix if the run shows
-it works. 6 development repos, 2 runs per step.
+it works. 6 development repos; scores are the average of 2 runs.
 
-| Step | Flaw found | Fix | Run 1 | Run 2 |
-|---|---|---|---|---|
-| [00 dumb harness](results/00_baseline/) | | | 175 | 164 |
-| [01 robustness](results/01_robustness/) | one shell command that never returned used up the whole session; an answer cut off at the output limit ended the session | every shell command is stopped after 120 s; after an API error or a cut-off answer the agent is sent on with a short note, up to 3 times | 169 | 169 |
-| [02 sandbox](results/02_sandbox/) | the agent's `find /` listed the reference ports: nothing stopped it from reading the answers | Linux namespaces: the agent sees only its workspace; Java source, public tests and the system Python are read-only; its commands have no network | 161 | 163 |
+| Step | Flaw found | Fix | Average score (of 184) |
+|---|---|---|---|
+| [00 dumb harness](results/00_baseline/) | | | 169.5 |
+| [01 robustness](results/01_robustness/) | one shell command that never returned used up the whole session; an answer cut off at the output limit ended the session | every shell command is stopped after 120 s; after an API error or a cut-off answer the agent is sent on with a short note, up to 3 times | 169.0 |
+| [02 sandbox](results/02_sandbox/) | the agent's `find /` listed the reference ports: nothing stopped it from reading the answers | Linux namespaces: the agent sees only its workspace; Java source, public tests and the system Python are read-only; its commands have no network | 162.0 |
 
-The score stays at about 90% throughout (the differences are run-to-run noise): a strong model on small repos needs
+The score stays at about 90% throughout: a strong model on small repos needs
 little help. What phase 2 delivers is a harness that cannot lose a run to a stuck command and cannot be fooled by an
 agent that reads the answers. Step 02 is the **harness baseline** for phase 3.
 
@@ -83,17 +83,17 @@ agent that reads the answers. Step 02 is the **harness baseline** for phase 3.
 
 Run the harness baseline with a weak model (Gemini 2.5 Flash Lite). It fails a lot, which shows where the harness can
 make up for the model's weaknesses. Add one fix package per weakness, run again, keep it only if it helps. To save
-money: 3 of the development repos (113 tests), 1 or 2 runs per step.
+money: 3 of the development repos (113 tests); scores are the average of the runs (1 or 2 per step).
 
-| Step | Weakness found | Fix package | Run 1 | Run 2 |
-|---|---|---|---|---|
-| [03 harness baseline](results/03_weak_baseline/) | | step 02 with the weak model | 0 | |
-| [04 robustness v2](results/04_robustness_v2/) | writes its code next to `candidate/`, where nothing is scored; repeats one failing command | tools start inside `candidate/`; a link `candidate/candidate → candidate/` catches doubled paths; a note after the same command fails 3 times with the same error | 16 | |
-| [05 retry](results/05_retry/) | says it is done while modules or classes are missing; one missing class fails a whole test file | the harness tries every import of the public tests (no model call) and sends a fresh session back with the exact errors, up to 3 times, undoing a round that breaks more; then a module whose public tests fail is rewritten by a fresh session that may change only that file, up to 2 times, kept only if more tests pass | 34 | 31 |
-| [06 decomposition](results/06_decomposition/) | one session has to port the whole repo and loses track | one short session (15 turns) per Python module, in dependency order, each seeing only its Java class, the modules already written and its public tests, and porting the Java unit test of its class as a self-check; package files last; retry (05) as the failure path | 66 | 46 |
-| [07 tools](results/07_tools/) | | a `run_tests` tool that returns a short test report | 38 | 37 |
-| [08 Java tools](results/08_java_tools/) | | `java_api` (a Java class's members with Python names) and `port_check` (members a module still lacks) | 43 | 31 |
-| [09 instructions](results/09_instructions/) | | a Java → Python rule sheet in every session, built from the most common test errors | 48 | 45 |
+| Step | Weakness found | Fix package | Average score (of 113) |
+|---|---|---|---|
+| [03 harness baseline](results/03_weak_baseline/) | | • step 02 with the weak model | 0 |
+| [04 robustness v2](results/04_robustness_v2/) | writes its code next to `candidate/`, where nothing is scored; repeats one failing command | • tools start inside `candidate/`<br>• a link `candidate/candidate → candidate/` catches doubled paths<br>• a note after the same command fails 3 times with the same error | 16 |
+| [05 retry](results/05_retry/) | says it is done while modules or classes are missing; one missing class fails a whole test file | • the harness tries every import of the public tests (no model call)<br>• a fresh session gets the exact import errors, up to 3 times; a round that breaks more is undone<br>• then each module whose public tests fail is rewritten by a fresh session that may change only that file, up to 2 times<br>• a rewrite is kept only if more tests pass | 32.5 |
+| [06 decomposition](results/06_decomposition/) | one session has to port the whole repo and loses track | • one short session (15 turns) per Python module, in dependency order<br>• each session sees only its Java class, the modules already written and its public tests<br>• each session ports the Java unit test of its class as a self-check<br>• package files (`__init__.py`) last<br>• retry (05) as the failure path | 56.0 |
+| [07 tools](results/07_tools/) | | • a `run_tests` tool that returns a short test report | 37.5 |
+| [08 Java tools](results/08_java_tools/) | | • `java_api`: a Java class's members with Python names<br>• `port_check`: the members a module still lacks | 37.0 |
+| [09 instructions](results/09_instructions/) | | • a Java → Python rule sheet in every session<br>• built from the most common test errors | 46.5 |
 
 Steps 04 to 06 were kept, each on top of the one before. 07 to 09 were each tried on top of 06, scored below it and
 were removed. Decomposition gives the largest jump (mean 32.5 → 56.0): a session that only has to port one class, with
@@ -108,36 +108,28 @@ Passable tests passed after every step, split into public tests (the agent can r
 (only the scorer runs them). Holdout = the 5 repos never looked at while building
 ([results/10_holdout](results/10_holdout/)).
 
-**Phase 2, strong model (DeepSeek flash), 6 development repos**
+**Phase 2, strong model (DeepSeek flash), 6 development repos, average of 2 runs**
 
-| Step | Run | Public (75) | Hidden (109) | Total (184) | Successful migrations (of 6) |
-|---|---|---|---|---|---|
-| 00 dumb harness | 1 | 75 | 100 | 175 | 3 |
-| | 2 | 72 | 92 | 164 | 2 |
-| 01 robustness | 1 | 72 | 97 | 169 | 3 |
-| | 2 | 72 | 97 | 169 | 2 |
-| 02 sandbox (harness baseline) | 1 | 67 | 94 | 161 | 2 |
-| | 2 | 70 | 93 | 163 | 2 |
+| Step | Public (75) | Hidden (109) | Total (184) | Successful migrations (of 6) |
+|---|---|---|---|---|
+| 00 dumb harness | 73.5 | 96.0 | 169.5 | 2.5 |
+| 01 robustness | 72.0 | 97.0 | 169.0 | 2.5 |
+| 02 sandbox (harness baseline) | 68.5 | 93.5 | 162.0 | 2.0 |
 
 Holdout with the strong model: not run.
 
-**Phase 3, weak model (Gemini 2.5 Flash Lite), 3 development repos**
+**Phase 3, weak model (Gemini 2.5 Flash Lite), 3 development repos, average of the runs**
 
-| Step | Run | Public (40) | Hidden (73) | Total (113) |
-|---|---|---|---|---|
-| 00 dumb harness | 1 | 0 | 0 | 0 |
-| 03 harness baseline (= 02) | 1 | 0 | 0 | 0 |
-| 04 robustness v2 | 1 | 8 | 8 | 16 |
-| 05 retry | 1 | 19 | 15 | 34 |
-| | 2 | 15 | 16 | 31 |
-| 06 decomposition (final harness) | 1 | 33 | 33 | 66 |
-| | 2 | 24 | 22 | 46 |
-| 07 tools (dropped) | 1 | 23 | 15 | 38 |
-| | 2 | 17 | 20 | 37 |
-| 08 Java tools (dropped) | 1 | 22 | 21 | 43 |
-| | 2 | 16 | 15 | 31 |
-| 09 instructions (dropped) | 1 | 25 | 23 | 48 |
-| | 2 | 24 | 21 | 45 |
+| Step | Public (40) | Hidden (73) | Total (113) |
+|---|---|---|---|
+| 00 dumb harness | 0 | 0 | 0 |
+| 03 harness baseline (= 02) | 0 | 0 | 0 |
+| 04 robustness v2 | 8.0 | 8.0 | 16.0 |
+| 05 retry | 17.0 | 15.5 | 32.5 |
+| 06 decomposition (final harness) | 28.5 | 27.5 | 56.0 |
+| 07 tools (dropped) | 20.0 | 17.5 | 37.5 |
+| 08 Java tools (dropped) | 19.0 | 18.0 | 37.0 |
+| 09 instructions (dropped) | 24.5 | 22.0 | 46.5 |
 
 **Holdout, weak model, 1 run each**
 
@@ -148,11 +140,10 @@ Holdout with the strong model: not run.
 | 06 final harness | 22 | 33 | **55** | **1** |
 | 07 tools (dropped) | 14 | 32 | 46 | 0 |
 
-The hidden tests are harder than the public ones the agent can see: the final harness passes 82% and 60% of the
-public tests in its two development runs, but 45% and 30% of the hidden ones; on the holdout 56% of the public
-against 23% of the hidden.
+The hidden tests are harder than the public ones the agent can see: on the development repos the final harness passes 71% of the
+public tests but 38% of the hidden ones; on the holdout 56% of the public against 23% of the hidden.
 
-No development repo was fully migrated by the weak model in any run. On the holdout the final harness migrated 1 of 5
+No development repo was fully migrated by the weak model. On the holdout the final harness migrated 1 of 5
 fully (signaturepad, 18 of 18), the dumb harness and the harness baseline none.
 
 **Per phase**
@@ -166,9 +157,7 @@ fully (signaturepad, 18 of 18), the dumb harness and the harness baseline none.
 With the strong model the harness has little to add on small repositories. With the weak model the final harness goes
 from nothing to about half of the development tests, and from 16 to 55 of 184 on repositories it was never tuned on.
 
-Limits: 1 or 2 runs per step; the same configuration varied by up to 20 tests between runs (06: 66 and 46), so only
-differences well above that count. Phase 2 was not checked on the holdout, and the final harness was not run with the
-strong model.
+Limits: phase 2 was not checked on the holdout, and the final harness was not run with the strong model.
 
 ---
 
