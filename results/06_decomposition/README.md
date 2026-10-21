@@ -17,18 +17,21 @@ hallucinations, better code. Config: [config.json](config.json) (step 05 plus `d
 
 ## Result
 
-| Repo | Step 05 | Run 1 |
-|---|---|---|
-| kungfoo_geohash-java | 0/41 | **25/41** |
-| awslabs_route53-infima | 18/42 | 17/42 |
-| tamir7_Contacts | 16/30 | **24/30** |
-| **Total** | **34** | **66** |
+| Repo | Step 05 run 1 | Step 05 run 2 | Run 1 | Run 2 |
+|---|---|---|---|---|
+| kungfoo_geohash-java | 0/41 | 22/41 | 25/41 | 15/41 |
+| awslabs_route53-infima | 18/42 | 0/42 | 17/42 | 5/42 |
+| tamir7_Contacts | 16/30 | 9/30 | 24/30 | 26/30 |
+| **Total** | **34** | **31** | **66** | **46** |
+
+Mean 56.0 against 32.5 for step 05. Run 2 is after the push undo (step 05); in run 1 no push round made things
+worse, so the undo would not have changed it.
 
 The thesis holds with the weak model. Each session only has to get one class right, and it has the Java class and
-that class's tests in front of it. On geohash, the largest repo, that is the difference between 0 (and 16 in step
-04) and 25. It is slower: geohash took 12 minutes against 2 to 10 with one session.
+that class's tests in front of it. It is slower: geohash took 12 minutes against 2 to 10 with one session.
 
-What still fails: classes that are written but incomplete (route53: `Lattice` has no `get_all_endpoints`), and
-the package re-export when the plan is empty (holdout, [08](../08_holdout/)).
+The two runs differ by 20 tests, mostly route53 (17 and 5): its tests import every class through the package, so
+one incomplete class costs many tests. What still fails: classes that are written but incomplete (route53: `Lattice`
+has no `get_all_endpoints`), and the package re-export when the plan is empty (holdout, [08](../08_holdout/)).
 
 **Decision: keep, final harness.**

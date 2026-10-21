@@ -55,16 +55,19 @@ With a strong model on small repos, the score is about 90% from the start; part 
 
 ### Part 2: a harness that helps a weak model
 
-| Step | Change | geohash (41) | route53 (42) | Contacts (30) | Total (113) |
-|---|---|---|---|---|---|
-| [03 baseline](results/03_weak_baseline/) | part 1's harness, weak model | 0 | 0 | 0 | **0** |
-| [04 robustness v2](results/04_robustness_v2/) | start in candidate/, candidate link, loop breaker | 16 | 0 | 0 | **16** |
-| [05 retry package](results/05_retry/) | push to continue while test imports fail; retry failing modules | 0 | 18 | 16 | **34** |
-| [06 decomposition package](results/06_decomposition/) | plan, then one short session per module with a self-test; retry as failure path | 25 | 17 | 24 | **66** |
-| [07 tools package](results/07_tools/) | a run_tests tool with a short structured report | 0 | 19 | 19 | 38 (dropped) |
+| Step | Change | Run 1 | Run 2 |
+|---|---|---|---|
+| [03 baseline](results/03_weak_baseline/) | part 1's harness, weak model | 0 | |
+| [04 robustness v2](results/04_robustness_v2/) | start in candidate/, candidate link, loop breaker | 16 | |
+| [05 retry package](results/05_retry/) | push to continue while test imports fail (a round that breaks more is undone); retry failing modules | 34 | 31 |
+| [06 decomposition package](results/06_decomposition/) | plan, then one short session per module with a self-test; retry as failure path | 66 | 46 |
+| [07 tools package](results/07_tools/) | a run_tests tool with a short structured report | 38 | 37 (dropped) |
+
+Steps 05 to 07 got a second run when push to continue was fixed (a round that broke imports was kept); per-repo
+numbers are in each step's README.
 
 Final harness: step 06. The tools package (07) did not help and was dropped. With the weak model every step adds points, and decomposition gives the largest jump
-(34 -> 66): a session that only has to port one class, with that class's tests in front of it, gets it right far
+(mean 32.5 -> 56.0): a session that only has to port one class, with that class's tests in front of it, gets it right far
 more often.
 
 ### Holdout check
@@ -75,6 +78,5 @@ its plan session wrote no plan.
 
 ### Known gaps
 
-- A push round is kept even when it breaks more imports than it fixes (step 05, geohash).
 - An empty plan leaves decomposition with nothing to split (holdout, ElSql).
-- 1 run per part-2 step: only large differences count.
+- 1 or 2 runs per part-2 step: the same config varied by 20 tests (step 06), so only large differences count.

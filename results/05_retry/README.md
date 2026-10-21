@@ -22,20 +22,21 @@ it, so route53's missing `Lattice` went unnoticed. That run was thrown away; the
 
 ## Result
 
-| Repo | Step 04 | Run 1 |
-|---|---|---|
-| kungfoo_geohash-java | 16/41 | 0/41 |
-| awslabs_route53-infima | 0/42 | **18/42** |
-| tamir7_Contacts | 0/30 | **16/30** |
-| **Total** | **16** | **34** |
+| Repo | Step 04 | Run 1 | Run 2 |
+|---|---|---|---|
+| kungfoo_geohash-java | 16/41 | 0/41 | 22/41 |
+| awslabs_route53-infima | 0/42 | 18/42 | 0/42 |
+| tamir7_Contacts | 0/30 | 16/30 | 9/30 |
+| **Total** | **16** | **34** | **31** |
 
-route53 is no longer 0: one push round wrote the classes the package was missing, and all its imports work.
-On Contacts every module imports; module retries improved event.py (2 -> 5 of 5 public tests) and address.py
-(1 -> 2); the rest of its gain comes from a different main session (1 run per step).
+Run 1 is before the undo below, run 2 after it. Mean 32.5, twice step 04.
 
-geohash fell to 0, and push to continue made it worse: before the first push 1 import failed, after it 7
-(`No module named 'src.geohash.geohash'`), and the next two rounds did not repair it. A push round is not
-undone when it makes things worse, unlike a module retry. With 1 run, how much is the agent and how much the
-harness cannot be told apart; the mechanism is clear from the log.
+Push to continue ran in 5 of the 6 repo runs. It fixed every broken test import in 3 (route53 in run 1, geohash
+and Contacts in run 2), changed nothing in 1 (route53 in run 2, which stayed 0) and made things worse in 1.
 
-**Decision: keep.** Known gap: a push round should be kept only if it leaves fewer broken imports.
+**Gap found and closed.** In run 1 on geohash, the first push round left 7 broken imports where there was 1
+before (`No module named 'src.geohash.geohash'`), and that state was kept: geohash 0. Since then a push round that
+leaves more broken imports than before is undone, like a module retry that makes things worse. It did not need to
+fire in the later runs.
+
+**Decision: keep.**
