@@ -20,7 +20,12 @@ in the harness itself. Phase 3 runs the fixed harness with a weak model to find 
 model's weaknesses, and adds fix packages for them. After the phases, the results are checked on repositories that
 were never used while building.
 
-### Phase 1: the dumb harness
+---
+
+<details>
+<summary><strong>Phase 1: the dumb harness</strong></summary>
+
+<br />
 
 The starting point is deliberately plain: hand an existing coding agent a Java repository and one prompt, let it work,
 then score what it wrote. No checks, no retries, no isolation.
@@ -63,7 +68,14 @@ migrations** (repos where every passable test passes).
 | 3 development repos (phase 3: geohash, route53, Contacts) | 113 | 73 | 40 |
 | 5 holdout repos | 184 | 145 | 39 |
 
-### Phase 2: strong model harness validation
+</details>
+
+---
+
+<details>
+<summary><strong>Phase 2: strong model harness validation</strong></summary>
+
+<br />
 
 Run the dumb harness with a strong model (DeepSeek flash). When a strong model fails, the cause is usually the
 harness, not the model, so its failures expose harness flaws. Fix each flaw, run again, keep the fix if the run shows
@@ -79,7 +91,14 @@ The score stays at about 90% throughout (the differences are run-to-run noise): 
 little help. What phase 2 delivers is a harness that cannot lose a run to a stuck command and cannot be fooled by an
 agent that reads the answers. Step 02 is the **harness baseline** for phase 3.
 
-### Phase 3: weak model harness improvement
+</details>
+
+---
+
+<details>
+<summary><strong>Phase 3: weak model harness improvement</strong></summary>
+
+<br />
 
 Run the harness baseline with a weak model (Gemini 2.5 Flash Lite). It fails a lot, which shows where the harness can
 make up for the model's weaknesses. Add one fix package per weakness, run again, keep it only if it helps. To save
@@ -102,53 +121,34 @@ model's plan session never produced a usable plan, and the harness built the lis
 the modules the public tests import. Step 06 is the **final harness**. Per-repo numbers and failure analyses are in
 each step's README.
 
-### Results
-
-Average score = tests passed (passable public and hidden tests), averaged over the runs of a step. Holdout = the 5 repos
-never looked at while building, 184 tests ([results/10_holdout](results/10_holdout/)).
-
-**Phase 2, strong model (DeepSeek flash), 6 development repos, 184 tests**
-
-| Step | Average score | Successful migrations (of 6, average) | Holdout |
-|---|---|---|---|
-| 00 dumb harness | 169.5 | 2.5 | not run |
-| 01 robustness | 169.0 | 2.5 | not run |
-| 02 sandbox (harness baseline) | 162.0 | 2.0 | not run |
-
-**Phase 3, weak model (Gemini 2.5 Flash Lite), 3 development repos, 113 tests**
-
-| Step | Average score | Holdout |
-|---|---|---|
-| 00 dumb harness | 0 | 16 |
-| 03 harness baseline (= 02) | 0 | 24 |
-| 04 robustness v2 | 16 | |
-| 05 retry | 32.5 | |
-| 06 decomposition (final harness) | 56.0 | 55 |
-| 07 tools (dropped) | 37.5 | 46 |
-| 08 Java tools (dropped) | 37.0 | |
-| 09 instructions (dropped) | 46.5 | |
-
-No development repo was fully migrated by the weak model in any run. On the holdout the final harness migrated 1 of 5
-fully (signaturepad, 18 of 18), the dumb harness and the harness baseline none.
-
-**Per phase**
-
-| Result of | Strong model, dev (184) | Weak model, dev (113) | Weak model, holdout (184) |
-|---|---|---|---|
-| Phase 1: dumb harness (00) | 169.5 | 0 | 16 |
-| Phase 2: harness baseline (02) | 162.0 | 0 | 24 |
-| Phase 3: final harness (06) | not run | 56.0 | 55 |
-
-With the strong model the harness has little to add on small repositories. With the weak model the final harness goes
-from nothing to about half of the development tests, and from 16 to 55 of 184 on repositories it was never tuned on.
-
-Limits: averages over 1 or 2 runs per step, and runs of the same setup differed by up to 20 tests, so only large
-differences count. Phase 2 was not checked on the holdout, and the final harness was not run with the strong model.
-Single runs are in each step's README.
+</details>
 
 ---
 
-## Run it
+## Results
+
+Every step with the weak model (Gemini 2.5 Flash Lite). Score = passable tests passed, averaged over the runs of a
+step. Development: the 3 development repos of phase 3 (113 tests). Holdout: the 5 repos never looked at while building
+(184 tests).
+
+| Step | Average score, development (113) | Average score, holdout (184) |
+|---|---|---|
+| 00 dumb harness | 0 | 16 |
+| 01 robustness | ⏳ | ⏳ |
+| 02 sandbox (harness baseline) | 0 | 24 |
+| 04 robustness v2 | 16 | ⏳ |
+| 05 retry | 32.5 | ⏳ |
+| 06 decomposition (final harness) | 56.0 | 55 |
+| 07 tools (dropped) | 37.5 | 46 |
+| 08 Java tools (dropped) | 37.0 | ⏳ |
+| 09 instructions (dropped) | 46.5 | ⏳ |
+
+---
+
+<details>
+<summary><strong>Run it</strong></summary>
+
+<br />
 
 Needs Linux, Python 3.12+, Node 22, and root for the sandbox (step 02 on; it uses mount namespaces). Phase 2 configs
 call DeepSeek (`DEEPSEEK_API_KEY`), phase 3 configs call Gemini through OpenRouter (`OPENROUTER_API_KEY`).
@@ -167,3 +167,8 @@ python harness/src/run.py --split holdout --config results/06_decomposition/conf
 
 `--split` is one of `sanity`, `development`, `holdout`; `--repos a b` runs single repos. Raw output goes
 to `runs/<name>/` (git-ignored); each step's `results/<step>/` keeps its config, run summaries and README.
+
+</details>
+
+
+---
