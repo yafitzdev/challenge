@@ -1,11 +1,13 @@
 // A single Pi SDK session. The Python runner (run.py) owns staging and final evaluation.
 import fs from 'node:fs';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import {
   createAgentSession, createExtensionRuntime, ModelRuntime,
   SessionManager, SettingsManager,
 } from '@earendil-works/pi-coding-agent';
 import { EnvHttpProxyAgent, setGlobalDispatcher } from 'undici';
+import { Type } from 'typebox';
 
 // Pi's CLI routes HTTP through HTTPS_PROXY, but the SDK does not, so do it here.
 // Needed in the cloud, where a proxy adds the API key; no effect when no proxy is set.
@@ -60,10 +62,36 @@ const resourceLoader = {
 };
 // With start_in_candidate, the agent's tools start where the code goes, so relative paths land in candidate/.
 const agentCwd = cfg.start_in_candidate ? path.join(job.workspace, 'candidate') : job.workspace;
+// With run_tests in the tools, the agent gets a test tool that returns a short structured report instead of raw
+// pytest output (per-file counts, one line per failure, missing modules with the file to create). See run_tests.py.
+const useRunTests = cfg.tools.includes('run_tests');
+const runTestsTool = {
+  name: 'run_tests', label: 'run tests',
+  description: 'Run pytest on the Python project the way the evaluation does (from candidate/, with candidate/ and ' +
+    'candidate/src on PYTHONPATH) and get a short report: passed/failed per test file, the first error line of ' +
+    'each failing test, and modules the tests cannot import. Default: all of public_tests/.',
+  parameters: Type.Object({
+    path: Type.Optional(Type.String({ description: 'Test file or folder, relative to candidate/ (default public_tests)' })),
+  }),
+  async execute(_id, params) {
+    const [python, script, candidate] = job.run_tests;
+    const cmd = [python, script, candidate, params.path || 'public_tests'];
+    // Like the agent's shell commands: no network when the sandbox asks for it.
+    const net = process.env.HARNESS_NO_NETWORK ? ['unshare', '--net'] : [];
+    let text;
+    try {
+      text = execFileSync(net[0] || cmd[0], [...net.slice(1), ...(net.length ? cmd : cmd.slice(1))],
+        { encoding: 'utf8', timeout: 180000, maxBuffer: 10 * 1024 * 1024 });
+    } catch (e) {
+      text = `run_tests failed: ${String(e.stdout || '')}${String(e.stderr || e.message).slice(-1500)}`;
+    }
+    return { content: [{ type: 'text', text }], details: {} };
+  },
+};
 const { session } = await createAgentSession({
   cwd: agentCwd, agentDir: state, modelRuntime,
   model: modelRuntime.getModel(provider, cfg.model), thinkingLevel: cfg.thinking,
-  tools: cfg.tools, resourceLoader, sessionManager: SessionManager.inMemory(agentCwd),
+  tools: cfg.tools, customTools: useRunTests ? [runTestsTool] : [], resourceLoader, sessionManager: SessionManager.inMemory(agentCwd),
   settingsManager: SettingsManager.inMemory({
     compaction: { enabled: cfg.compaction },
     retry: { enabled: false, provider: { maxRetries: cfg.automatic_retries } },
@@ -151,7 +179,8 @@ const sendPrompt = async (text) => {
   }
 };
 try {
-  await sendPrompt(job.prompt);
+  // Every session of a run_tests config (main, module, push and retry sessions) is told about the tool.
+  await sendPrompt(useRunTests ? `${job.prompt}\n\n${prompt('during_work/run_tests_hint')}` : job.prompt);
   while (resumes.length < (cfg.resume_after_errors || 0) && !limit && turns < cfg.max_assistant_turns) {
     const last = session.messages.filter(m => m.role === 'assistant').at(-1);
     const reason = last?.stopReason;
