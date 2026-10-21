@@ -2,7 +2,8 @@
 
 1. Push to continue: while a module the public tests import cannot be imported (not written, broken, or a name
    missing), a fresh short session is sent back to the repository with the exact import errors, up to
-   `push_to_continue` times. It may change any file. Weak models often stop before writing every module.
+   `push_to_continue` times. It may change any file, but a round that leaves more broken imports is undone.
+   Weak models often stop before writing every module.
 2. Per module: every module whose public tests fail is generated again by a fresh, short agent session, up to
    `attempts` times. Only that one file may change, and the attempt is kept only if more of its tests pass than
    before.
@@ -123,7 +124,8 @@ def import_problems(candidate):
 
 
 def push_to_continue(session_config, workspace, output, run_agent, rounds):
-    """Send fresh sessions back to the repository while imports fail. Returns one record per round."""
+    """Send fresh sessions back to the repository while imports fail. Returns one record per round.
+    A round that leaves more broken imports than before is undone (step 07: one round turned 2 into 7)."""
     candidate = workspace / 'candidate'
     template = (PROMPTS / 'during_work/push_to_continue.txt').read_text(encoding='utf-8')
     records = []
@@ -133,13 +135,21 @@ def push_to_continue(session_config, workspace, output, run_agent, rounds):
             break
         out = output / 'retries' / f'push-{round_}'
         out.mkdir(parents=True)
-        run_agent(session_config, workspace, out,
-                  template.format(problems='\n'.join(f'- {p}' for p in problems[:MAX_FAILURE_LINES])))
-        after = import_problems(candidate)
+        with tempfile.TemporaryDirectory() as tmp:
+            snapshot = Path(tmp) / 'candidate'
+            shutil.copytree(candidate, snapshot, symlinks=True)
+            run_agent(session_config, workspace, out,
+                      template.format(problems='\n'.join(f'- {p}' for p in problems[:MAX_FAILURE_LINES])))
+            after = import_problems(candidate)
+            kept = len(after) <= len(problems)
+            if not kept:
+                restore(snapshot, candidate)
         records.append({'push': round_, 'problems_before': len(problems), 'problems_after': len(after),
-                        'problems': problems[:MAX_FAILURE_LINES]})
-        print(f'push {round_}: {len(problems)} -> {len(after)} import problems', flush=True)
-        problems = after
+                        'kept': kept, 'problems': problems[:MAX_FAILURE_LINES]})
+        print(f'push {round_}: {len(problems)} -> {len(after)} import problems ({"kept" if kept else "undone"})',
+              flush=True)
+        if kept:
+            problems = after
     return records
 
 
