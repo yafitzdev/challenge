@@ -1,0 +1,377 @@
+{
+  "run": "05_retry",
+  "config": "v2-05-retry",
+  "repos": [
+    "kungfoo_geohash-java",
+    "awslabs_route53-infima",
+    "tamir7_Contacts"
+  ],
+  "successful_migrations": 0,
+  "raw_pass_rate": 0.2589928057553957,
+  "passable_pass_rate": 0.2743362831858407,
+  "per_repo": [
+    {
+      "repo": "kungfoo_geohash-java",
+      "agent_exit_code": 0,
+      "agent_seconds": 923.2,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 23,
+      "usage": {
+        "input": 45640,
+        "output": 2224,
+        "cacheRead": 222709,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 270573
+      },
+      "resumes": [
+        {
+          "at_turn": 19,
+          "reason": "error",
+          "error": "Provider finish_reason: error"
+        }
+      ],
+      "decompose": null,
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 7,
+          "problems_after": 0,
+          "kept": true,
+          "problems": [
+            "from src.geohash.bounding_box import BoundingBox: ModuleNotFoundError: No module named 'src.geohash.bounding_box'",
+            "from src.geohash.util.bounding_box_geohash_iterator import BoundingBoxGeoHashIterator: ModuleNotFoundError: No module named 'src.geohash.util.bounding_box_geohash_iterator'",
+            "from src.geohash.util.bounding_box_sampler import BoundingBoxSampler: ModuleNotFoundError: No module named 'src.geohash.util.bounding_box_sampler'",
+            "from src.geohash.util.double_util import DoubleUtil: ModuleNotFoundError: No module named 'src.geohash.util.double_util'",
+            "from src.geohash.util.geohash_size_table import GeoHashSizeTable: ModuleNotFoundError: No module named 'src.geohash.util.geohash_size_table'",
+            "from src.geohash.util.long_util import LongUtil: ModuleNotFoundError: No module named 'src.geohash.util.long_util'",
+            "from src.geohash.wgs84point import WGS84Point: ModuleNotFoundError: No module named 'src.geohash.wgs84point'"
+          ]
+        },
+        {
+          "module": "src/geohash/bounding_box.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 5,
+          "total": 11,
+          "kept": true
+        },
+        {
+          "module": "src/geohash/bounding_box.py",
+          "attempt": 2,
+          "before": 5,
+          "after": 5,
+          "total": 11,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/wgs84point.py",
+          "attempt": 1,
+          "before": 5,
+          "after": 11,
+          "total": 15,
+          "kept": true
+        },
+        {
+          "module": "src/geohash/wgs84point.py",
+          "attempt": 2,
+          "before": 11,
+          "after": 11,
+          "total": 15,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_geohash_iterator.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_geohash_iterator.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_sampler.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_sampler.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 22,
+      "tests_total": 53,
+      "raw_pass_rate": 0.41509433962264153,
+      "passable_passed": 22,
+      "passable_total": 41,
+      "passable_pass_rate": 0.5365853658536586,
+      "successful_migration": false
+    },
+    {
+      "repo": "awslabs_route53-infima",
+      "agent_exit_code": 0,
+      "agent_seconds": 471.6,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 29,
+      "usage": {
+        "input": 36548,
+        "output": 8856,
+        "cacheRead": 115973,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 161377
+      },
+      "resumes": [
+        {
+          "at_turn": 15,
+          "reason": "error",
+          "error": "Provider finish_reason: error"
+        }
+      ],
+      "decompose": null,
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 1,
+          "problems_after": 1,
+          "kept": true,
+          "problems": [
+            "from src.awslabs_route53_infima import Lattice, OneDimensionalLattice, SimpleSignatureShuffleSharder, TwoDimensionalLattice: ModuleNotFoundError: No module named 'src.awslabs_route53_infima.rubber_tree'"
+          ]
+        },
+        {
+          "push": 2,
+          "problems_before": 1,
+          "problems_after": 1,
+          "kept": true,
+          "problems": [
+            "from src.awslabs_route53_infima import Lattice, OneDimensionalLattice, SimpleSignatureShuffleSharder, TwoDimensionalLattice: ModuleNotFoundError: No module named 'src.awslabs_route53_infima.rubber_tree'"
+          ]
+        },
+        {
+          "push": 3,
+          "problems_before": 1,
+          "problems_after": 1,
+          "kept": true,
+          "problems": [
+            "from src.awslabs_route53_infima import Lattice, OneDimensionalLattice, SimpleSignatureShuffleSharder, TwoDimensionalLattice: IndentationError: unexpected indent"
+          ]
+        },
+        {
+          "module": "src/awslabs_route53_infima/__init__.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 4,
+          "kept": false
+        },
+        {
+          "module": "src/awslabs_route53_infima/__init__.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 4,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 48,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 42,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "tamir7_Contacts",
+      "agent_exit_code": 1,
+      "agent_seconds": 764.6,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 61999,
+        "output": 10046,
+        "cacheRead": 243729,
+        "cacheWrite": 0,
+        "totalTokens": 315774,
+        "reasoning": 0
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 4,
+          "problems_after": 0,
+          "kept": true,
+          "problems": [
+            "from src.contacts.address import Address: ModuleNotFoundError: No module named 'src'",
+            "from src.contacts.email import Email: ModuleNotFoundError: No module named 'src'",
+            "from src.contacts.event import Event: ModuleNotFoundError: No module named 'src'",
+            "from src.contacts.phonenumber import PhoneNumber: ModuleNotFoundError: No module named 'src'"
+          ]
+        },
+        {
+          "module": "src/contacts/address.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 2,
+          "total": 5,
+          "kept": true
+        },
+        {
+          "module": "src/contacts/address.py",
+          "attempt": 2,
+          "before": 2,
+          "after": 5,
+          "total": 5,
+          "kept": true
+        },
+        {
+          "module": "src/contacts/email.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/email.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/event.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/event.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 4,
+          "total": 5,
+          "kept": true
+        },
+        {
+          "module": "src/contacts/phonenumber.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/phonenumber.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 14,
+      "tests_total": 38,
+      "raw_pass_rate": 0.3684210526315789,
+      "passable_passed": 9,
+      "passable_total": 30,
+      "passable_pass_rate": 0.3,
+      "successful_migration": false
+    }
+  ]
+}
