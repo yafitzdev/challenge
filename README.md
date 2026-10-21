@@ -23,7 +23,8 @@ proves the scorer: every reference port scores 100% of passable tests, empty cod
 
 ## Run it
 
-Needs Linux, Python 3.12+ and Node 22.
+Needs Linux, Python 3.12+ and Node 22, and root for the sandbox (step 02 on; it uses mount namespaces). Part 1
+configs call DeepSeek (`DEEPSEEK_API_KEY`), part 2 configs call Gemini through OpenRouter (`OPENROUTER_API_KEY`).
 
 ```bash
 python -m pip install -r evaluation/requirements.txt
@@ -32,7 +33,9 @@ cp .env.example .env        # then put your DeepSeek and OpenRouter keys in .env
 
 python evaluation/validate.py                     # proves the scorer
 python harness/src/run.py --split development --config results/00_baseline/config.json
-python harness/src/run.py --split holdout --config results/06_decomposition/config.json   # final harness
+python harness/src/run.py --repos kungfoo_geohash-java awslabs_route53-infima tamir7_Contacts \
+    --config results/06_decomposition/config.json                         # final harness, part 2 dev repos
+python harness/src/run.py --split holdout --config results/06_decomposition/config.json   # final harness, holdout
 ```
 
 `--split` is one of `sanity`, `development`, `holdout`, `hard`, `big` (see `evaluation/split.json`);
@@ -83,6 +86,19 @@ repos in any run, so the test pass rate is the measure there (06: 58.4% and 40.7
 [10](results/10_holdout/): the final harness against part 2's baseline on the 5 holdout repos no step looked at,
 Gemini, 1 run, 184 tests: **24 -> 55** (13.0% -> 29.9%), successful migrations 0 -> 1 of 5. The largest repo (ElSql, 97 tests) stays 0 in both:
 its plan session wrote no plan.
+
+### What caused what
+
+| Change | Effect | Evidence |
+|---|---|---|
+| 01 command timeout, resume after errors | no change on dev; a repo run is no longer lost to a hung command | jnanoid: a hung test command was stopped after 120 s, 9 -> 21 of 22 |
+| 02 sandbox | score unchanged (noise); the agent can no longer see the reference ports or hidden tests | in step 01 a `find /` listed reference ports; since step 02 the run audit counts no read of ports or hidden tests |
+| 04 start in candidate/, link, loop breaker | 0 -> 16 | the weak model had written its code outside candidate/, where nothing is scored |
+| 05 push to continue, module retries | 16 -> 32.5 | route53 0 -> 18 in run 1 once the missing `Lattice` import was pushed; Contacts 0 -> 16 and 9 |
+| 06 decomposition | 32.5 -> 56.0; holdout 24 -> 55 | one short session per class: Contacts 24 and 26 of 30, signaturepad 18 of 18 |
+
+Limits: 1 or 2 runs per part-2 step, and the same config varied by 20 tests (06: 66 and 46), so only differences
+well above that count. With the weak model no development repo was fully migrated in any run.
 
 ### What still fails (weak model)
 
