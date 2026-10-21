@@ -32,6 +32,6 @@ that class's tests in front of it. It is slower: geohash took 12 minutes against
 
 The two runs differ by 20 tests, mostly route53 (17 and 5): its tests import every class through the package, so
 one incomplete class costs many tests. What still fails: classes that are written but incomplete (route53: `Lattice`
-has no `get_all_endpoints`), and the package re-export when the plan is empty (holdout, [08](../08_holdout/)).
+has no `get_all_endpoints`), and the package re-export when the plan is empty (holdout, [09](../09_holdout/)).
 
 **Decision: keep, final harness.**

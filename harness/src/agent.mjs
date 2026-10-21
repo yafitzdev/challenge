@@ -62,36 +62,55 @@ const resourceLoader = {
 };
 // With start_in_candidate, the agent's tools start where the code goes, so relative paths land in candidate/.
 const agentCwd = cfg.start_in_candidate ? path.join(job.workspace, 'candidate') : job.workspace;
-// With run_tests in the tools, the agent gets a test tool that returns a short structured report instead of raw
-// pytest output (per-file counts, one line per failure, missing modules with the file to create). See run_tests.py.
-const useRunTests = cfg.tools.includes('run_tests');
-const runTestsTool = {
-  name: 'run_tests', label: 'run tests',
-  description: 'Run pytest on the Python project the way the evaluation does (from candidate/, with candidate/ and ' +
-    'candidate/src on PYTHONPATH) and get a short report: passed/failed per test file, the first error line of ' +
-    'each failing test, and modules the tests cannot import. Default: all of public_tests/.',
-  parameters: Type.Object({
-    path: Type.Optional(Type.String({ description: 'Test file or folder, relative to candidate/ (default public_tests)' })),
-  }),
-  async execute(_id, params) {
-    const [python, script, candidate] = job.run_tests;
-    const cmd = [python, script, candidate, params.path || 'public_tests'];
-    // Like the agent's shell commands: no network when the sandbox asks for it.
-    const net = process.env.HARNESS_NO_NETWORK ? ['unshare', '--net'] : [];
-    let text;
-    try {
-      text = execFileSync(net[0] || cmd[0], [...net.slice(1), ...(net.length ? cmd : cmd.slice(1))],
-        { encoding: 'utf8', timeout: 180000, maxBuffer: 10 * 1024 * 1024 });
-    } catch (e) {
-      text = `run_tests failed: ${String(e.stdout || '')}${String(e.stderr || e.message).slice(-1500)}`;
-    }
-    return { content: [{ type: 'text', text }], details: {} };
+// Custom tools: each runs one harness script and returns its text. Like the agent's shell commands, they get no
+// network when the sandbox asks for it.
+const runScript = (name, args) => {
+  const cmd = [...job[name], ...args];
+  const net = process.env.HARNESS_NO_NETWORK ? ['unshare', '--net'] : [];
+  try {
+    return execFileSync(net[0] || cmd[0], [...net.slice(1), ...(net.length ? cmd : cmd.slice(1))],
+      { encoding: 'utf8', timeout: 180000, maxBuffer: 10 * 1024 * 1024 });
+  } catch (e) {
+    return `${name} failed: ${String(e.stdout || '')}${String(e.stderr || e.message).slice(-1500)}`;
+  }
+};
+const textResult = (text) => ({ content: [{ type: 'text', text }], details: {} });
+const CUSTOM_TOOLS = {
+  // Step 07: a test tool that returns a short structured report instead of raw pytest output (per-file counts, one
+  // line per failure, missing modules with the file to create). See run_tests.py.
+  run_tests: {
+    name: 'run_tests', label: 'run tests',
+    description: 'Run pytest on the Python project the way the evaluation does (from candidate/, with candidate/ and ' +
+      'candidate/src on PYTHONPATH) and get a short report: passed/failed per test file, the first error line of ' +
+      'each failing test, and modules the tests cannot import. Default: all of public_tests/.',
+    parameters: Type.Object({
+      path: Type.Optional(Type.String({ description: 'Test file or folder, relative to candidate/ (default public_tests)' })),
+    }),
+    execute: async (_id, params) => textResult(runScript('run_tests', [params.path || 'public_tests'])),
+  },
+  // Step 08: the Java API of a class, and what a Python module still lacks of it. See java_tools.py.
+  java_api: {
+    name: 'java_api', label: 'Java API',
+    description: 'Find the Java file of a class in ../source/ and list its non-private constructors, methods, fields, ' +
+      'constants and enum values, each with the Python name to use. For a nested type, pass Outer.Inner.',
+    parameters: Type.Object({ class_name: Type.String({ description: 'Java class name, e.g. WGS84Point or PhoneNumber.Type' }) }),
+    execute: async (_id, params) => textResult(runScript('java_tools', ['api', params.class_name])),
+  },
+  port_check: {
+    name: 'port_check', label: 'port check',
+    description: 'Compare a Python module with the Java class it ports and list every non-private Java constructor, ' +
+      'method or constant that has no Python counterpart yet. Checks names only, not behavior.',
+    parameters: Type.Object({ module: Type.String({ description: 'Module path relative to candidate/, e.g. src/geohash/wgs84point.py' }) }),
+    execute: async (_id, params) => textResult(runScript('java_tools', ['check', params.module])),
   },
 };
+const customTools = cfg.tools.filter(t => t in CUSTOM_TOOLS).map(t => CUSTOM_TOOLS[t]);
+// Every session (main, module, push and retry) is told about the custom tools it has.
+const toolHints = customTools.map(t => prompt(`during_work/${t.name}_hint`)).join('\n');
 const { session } = await createAgentSession({
   cwd: agentCwd, agentDir: state, modelRuntime,
   model: modelRuntime.getModel(provider, cfg.model), thinkingLevel: cfg.thinking,
-  tools: cfg.tools, customTools: useRunTests ? [runTestsTool] : [], resourceLoader, sessionManager: SessionManager.inMemory(agentCwd),
+  tools: cfg.tools, customTools, resourceLoader, sessionManager: SessionManager.inMemory(agentCwd),
   settingsManager: SettingsManager.inMemory({
     compaction: { enabled: cfg.compaction },
     retry: { enabled: false, provider: { maxRetries: cfg.automatic_retries } },
@@ -179,8 +198,7 @@ const sendPrompt = async (text) => {
   }
 };
 try {
-  // Every session of a run_tests config (main, module, push and retry sessions) is told about the tool.
-  await sendPrompt(useRunTests ? `${job.prompt}\n\n${prompt('during_work/run_tests_hint')}` : job.prompt);
+  await sendPrompt(toolHints ? `${job.prompt}\n\n${toolHints}` : job.prompt);
   while (resumes.length < (cfg.resume_after_errors || 0) && !limit && turns < cfg.max_assistant_turns) {
     const last = session.messages.filter(m => m.role === 'assistant').at(-1);
     const reason = last?.stopReason;
