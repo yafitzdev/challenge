@@ -29,6 +29,6 @@ that class's tests in front of it. On geohash, the largest repo, that is the dif
 04) and 25. It is slower: geohash took 12 minutes against 2 to 10 with one session.
 
 What still fails: classes that are written but incomplete (route53: `Lattice` has no `get_all_endpoints`), and
-the package re-export when the plan is empty (holdout, [07](../07_holdout/)).
+the package re-export when the plan is empty (holdout, [08](../08_holdout/)).
 
 **Decision: keep, final harness.**

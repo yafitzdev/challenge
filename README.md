@@ -61,14 +61,15 @@ With a strong model on small repos, the score is about 90% from the start; part 
 | [04 robustness v2](results/04_robustness_v2/) | start in candidate/, candidate link, loop breaker | 16 | 0 | 0 | **16** |
 | [05 retry package](results/05_retry/) | push to continue while test imports fail; retry failing modules | 0 | 18 | 16 | **34** |
 | [06 decomposition package](results/06_decomposition/) | plan, then one short session per module with a self-test; retry as failure path | 25 | 17 | 24 | **66** |
+| [07 tools package](results/07_tools/) | a run_tests tool with a short structured report | 0 | 19 | 19 | 38 (dropped) |
 
-Final harness: step 06. With the weak model every step adds points, and decomposition gives the largest jump
+Final harness: step 06. The tools package (07) did not help and was dropped. With the weak model every step adds points, and decomposition gives the largest jump
 (34 -> 66): a session that only has to port one class, with that class's tests in front of it, gets it right far
 more often.
 
 ### Holdout check
 
-[07](results/07_holdout/): the final harness against part 2's baseline on the 5 holdout repos no step looked at,
+[08](results/08_holdout/): the final harness against part 2's baseline on the 5 holdout repos no step looked at,
 Gemini, 1 run, 184 tests: **24 -> 55**, one repo fully migrated. The largest repo (ElSql, 97 tests) stays 0 in both:
 its plan session wrote no plan.
 
