@@ -1,0 +1,202 @@
+{
+  "run": "holdout_04",
+  "config": "v2-04-robustness-v2",
+  "repos": [
+    "gcacace_android-signaturepad",
+    "bmwcarit_hmm-lib",
+    "tuenti_SmsRadar",
+    "AllenDowney_ThinkJavaCode",
+    "OpenGamma_ElSql"
+  ],
+  "successful_migrations": 0,
+  "raw_pass_rate": 0.00819672131147541,
+  "passable_pass_rate": 0.0,
+  "per_repo": [
+    {
+      "repo": "gcacace_android-signaturepad",
+      "agent_exit_code": 1,
+      "agent_seconds": 297.1,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 46285,
+        "output": 19290,
+        "cacheRead": 420101,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 485676
+      },
+      "resumes": [
+        {
+          "at_turn": 20,
+          "reason": "error",
+          "error": "Provider finish_reason: error"
+        },
+        {
+          "at_turn": 23,
+          "reason": "error",
+          "error": "Provider finish_reason: error"
+        },
+        {
+          "at_turn": 24,
+          "reason": "error",
+          "error": "Provider finish_reason: error"
+        }
+      ],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 18,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 18,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "bmwcarit_hmm-lib",
+      "agent_exit_code": 0,
+      "agent_seconds": 12.9,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 2,
+      "usage": {
+        "input": 927,
+        "output": 15,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 942
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 30,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 19,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "tuenti_SmsRadar",
+      "agent_exit_code": 1,
+      "agent_seconds": 95.2,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 68862,
+        "output": 11462,
+        "cacheRead": 287287,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 367611
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 48,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 16,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "AllenDowney_ThinkJavaCode",
+      "agent_exit_code": 1,
+      "agent_seconds": 224.7,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 108766,
+        "output": 4394,
+        "cacheRead": 90323,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 203483
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 2,
+      "tests_total": 45,
+      "raw_pass_rate": 0.044444444444444446,
+      "passable_passed": 0,
+      "passable_total": 34,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "OpenGamma_ElSql",
+      "agent_exit_code": 0,
+      "agent_seconds": 46.1,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 5,
+      "usage": {
+        "input": 4508,
+        "output": 351,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 4859
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 103,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 97,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    }
+  ]
+}
