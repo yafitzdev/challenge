@@ -92,7 +92,9 @@ def members(kind, body, cls):
         if call and (block is not None or kind == 'interface' or 'abstract' in header):
             name = call.group(2)
             params = ', '.join(p.split()[-1] for p in call.group(3).split(',') if p.strip())
-            what = 'constructor' if name == cls else 'method'
+            # Static methods must stay static in Python (step 08 run 1: `missing 1 required positional argument`).
+            static = bool(re.search(r'\bstatic\b', header.split('(')[0]))
+            what = 'constructor' if name == cls else 'static method' if static else 'method'
             mods = r'\b(public|protected|static|final|abstract|synchronized|native|default)\b'
             ret = '' if what == 'constructor' else re.sub(mods, '', call.group(1) or '').strip() + ' '
             found.append((what, name, f'{ret}{name}({params})'.strip()))
@@ -157,7 +159,8 @@ def api(workspace, cls):
     if tests:
         out.append('Java tests: ' + ', '.join(f'../{t}' for t in tests))
     out.append('\nMembers (Java signature -> Python name):')
-    out += [f'- {k}: {sig} -> {python_name(k, n, used)}' for k, n, sig in found[:MAX_MEMBERS]]
+    out += [f'- {k}: {sig} -> {python_name(k, n, used)}' + (' (@staticmethod)' if k == 'static method' else '')
+            for k, n, sig in found[:MAX_MEMBERS]]
     if len(found) > MAX_MEMBERS:
         out.append(f'- ... {len(found) - MAX_MEMBERS} more; read the Java file.')
     if not found:
