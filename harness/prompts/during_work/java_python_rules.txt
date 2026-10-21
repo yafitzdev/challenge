@@ -1,0 +1,14 @@
+Java to Python rules (each one fixes an error seen in earlier runs):
+1. Every module a public test imports must exist and import without errors. A package's __init__.py must import
+   and re-export every name the tests import from the package (from src.pkg import Name).
+2. A Java static method stays a @staticmethod (or @classmethod) on its class, and a static field stays a class
+   attribute: the tests call them on the class (GeoHashSizeTable.width_degrees_for_precision(4)).
+3. A nested Java type stays nested: class PhoneNumber: ... class Type(Enum) is reached as PhoneNumber.Type. A Java
+   enum becomes an Enum with the same member names; its static helpers (fromValue) become @classmethods.
+4. Overloaded Java constructors and methods become one Python method with optional parameters, so every argument
+   list the tests use is accepted.
+5. Java generics: do not write an undefined type variable (T) in annotations; leave it out or use typing.TypeVar.
+6. Return what Java returns: an empty list for an empty collection, None only where Java returns null.
+7. Inside a package, use relative imports (from .module import Name) and avoid import cycles; import inside a
+   function if two modules need each other.
+8. Spell every name exactly as the public tests do; where they do not use it, use snake_case.

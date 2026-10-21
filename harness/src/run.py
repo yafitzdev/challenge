@@ -56,7 +56,7 @@ CONFIG_KEYS = {
     'version', 'provider', 'api_key_env', 'model', 'base_url', 'thinking', 'max_output_tokens', 'tools',
     'automatic_retries', 'compaction', 'prompt_file', 'max_assistant_turns', 'migration_timeout_seconds',
     'command_timeout_seconds', 'resume_after_errors', 'sandbox',
-    'start_in_candidate', 'candidate_link', 'loop_breaker', 'retry', 'decompose',
+    'start_in_candidate', 'candidate_link', 'loop_breaker', 'retry', 'decompose', 'rules',
 }
 
 

@@ -73,7 +73,7 @@ more often.
 
 ### Holdout check
 
-[09](results/09_holdout/): the final harness against part 2's baseline on the 5 holdout repos no step looked at,
+[10](results/10_holdout/): the final harness against part 2's baseline on the 5 holdout repos no step looked at,
 Gemini, 1 run, 184 tests: **24 -> 55**, one repo fully migrated. The largest repo (ElSql, 97 tests) stays 0 in both:
 its plan session wrote no plan.
 

@@ -19,7 +19,7 @@ reading pages of raw pytest output often misreads them.
 | tamir7_Contacts | 24/30 | 26/30 | 19/30 | 21/30 |
 | **Total** | **66** | **46** | **38** | **37** |
 
-Run 1 is before the push undo (step 05), run 2 after it. Holdout, run 1, same 5 repos as [09](../09_holdout/):
+Run 1 is before the push undo (step 05), run 2 after it. Holdout, run 1, same 5 repos as [10](../10_holdout/):
 46 of 184, against 55 for step 06.
 
 The agent did use the tool: 695 run_tests calls against 147 bash calls in the module sessions of run 1.
