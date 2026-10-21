@@ -1,0 +1,386 @@
+{
+  "run": "08_java_tools",
+  "config": "v2-08-java-tools",
+  "repos": [
+    "kungfoo_geohash-java",
+    "awslabs_route53-infima",
+    "tamir7_Contacts"
+  ],
+  "successful_migrations": 0,
+  "raw_pass_rate": 0.2517985611510791,
+  "passable_pass_rate": 0.2743362831858407,
+  "per_repo": [
+    {
+      "repo": "kungfoo_geohash-java",
+      "agent_exit_code": 0,
+      "agent_seconds": 926.9,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 14,
+        "from_plan": 2,
+        "added_by_harness": 12,
+        "modules": [
+          "src/geohash/wgs84point.py",
+          "src/geohash/util/double_util.py",
+          "src/geohash/geohash.py",
+          "src/geohash/bounding_box.py",
+          "src/geohash/queries/bounding_box_query.py",
+          "src/geohash/queries/circle_query.py",
+          "src/geohash/util/long_util.py",
+          "src/geohash/util/geohash_size_table.py",
+          "src/geohash/util/bounding_box_geohash_iterator.py",
+          "src/geohash/util/bounding_box_sampler.py",
+          "src/geohash/util/two_geohash_bounding_box.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 7,
+          "problems_after": 3,
+          "kept": true,
+          "problems": [
+            "from src.geohash.bounding_box import BoundingBox: ModuleNotFoundError: No module named 'src.geohash.wgs84point'",
+            "from src.geohash.util.bounding_box_geohash_iterator import BoundingBoxGeoHashIterator: ModuleNotFoundError: No module named 'src.geohash.util.bounding_box_geohash_iterator'",
+            "from src.geohash.util.bounding_box_sampler import BoundingBoxSampler: ModuleNotFoundError: No module named 'src.geohash.util.bounding_box_sampler'",
+            "from src.geohash.util.double_util import DoubleUtil: ImportError: cannot import name 'DoubleUtil' from 'src.geohash.util.double_util' (/tmp/migrate-whz5vpib/workspace/candidate/src/geohash/util/double_util.py)",
+            "from src.geohash.util.geohash_size_table import GeoHashSizeTable: ImportError: cannot import name 'GeoHashSizeTable' from 'src.geohash.util.geohash_size_table' (/tmp/migrate-whz5vpib/workspace/candidate/src/geohash/util/geohash_size_table.py)",
+            "from src.geohash.util.long_util import LongUtil: ModuleNotFoundError: No module named 'src.geohash.util.long_util'",
+            "from src.geohash.wgs84point import WGS84Point: ModuleNotFoundError: No module named 'src.geohash.wgs84point'"
+          ]
+        },
+        {
+          "push": 2,
+          "problems_before": 3,
+          "problems_after": 0,
+          "kept": true,
+          "problems": [
+            "from src.geohash.util.double_util import DoubleUtil: ImportError: cannot import name 'DoubleUtil' from 'src.geohash.util.double_util' (/tmp/migrate-whz5vpib/workspace/candidate/src/geohash/util/double_util.py)",
+            "from src.geohash.util.geohash_size_table import GeoHashSizeTable: ImportError: cannot import name 'GeoHashSizeTable' from 'src.geohash.util.geohash_size_table' (/tmp/migrate-whz5vpib/workspace/candidate/src/geohash/util/geohash_size_table.py)",
+            "from src.geohash.util.long_util import LongUtil: ModuleNotFoundError: No module named 'src.geohash.util.long_util'"
+          ]
+        },
+        {
+          "module": "src/geohash/bounding_box.py",
+          "attempt": 1,
+          "before": 4,
+          "after": 4,
+          "total": 11,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/bounding_box.py",
+          "attempt": 2,
+          "before": 4,
+          "after": 6,
+          "total": 11,
+          "kept": true
+        },
+        {
+          "module": "src/geohash/wgs84point.py",
+          "attempt": 1,
+          "before": 8,
+          "after": 12,
+          "total": 15,
+          "kept": true
+        },
+        {
+          "module": "src/geohash/wgs84point.py",
+          "attempt": 2,
+          "before": 12,
+          "after": 11,
+          "total": 15,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_geohash_iterator.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_geohash_iterator.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 2,
+          "total": 2,
+          "kept": true
+        },
+        {
+          "module": "src/geohash/util/bounding_box_sampler.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_sampler.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 26,
+      "tests_total": 53,
+      "raw_pass_rate": 0.49056603773584906,
+      "passable_passed": 24,
+      "passable_total": 41,
+      "passable_pass_rate": 0.5853658536585366,
+      "successful_migration": false
+    },
+    {
+      "repo": "awslabs_route53-infima",
+      "agent_exit_code": 0,
+      "agent_seconds": 134.9,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 3,
+        "from_plan": 0,
+        "added_by_harness": 3,
+        "modules": [
+          "src/awslabs_route53_infima/__init__.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 1,
+          "problems_after": 1,
+          "kept": true,
+          "problems": [
+            "from src.awslabs_route53_infima import Lattice, OneDimensionalLattice, SimpleSignatureShuffleSharder, TwoDimensionalLattice: ModuleNotFoundError: No module named 'src.awslabs_route53_infima.lattice'"
+          ]
+        },
+        {
+          "push": 2,
+          "problems_before": 1,
+          "problems_after": 1,
+          "kept": true,
+          "problems": [
+            "from src.awslabs_route53_infima import Lattice, OneDimensionalLattice, SimpleSignatureShuffleSharder, TwoDimensionalLattice: NameError: name 'T' is not defined"
+          ]
+        },
+        {
+          "push": 3,
+          "problems_before": 1,
+          "problems_after": 1,
+          "kept": true,
+          "problems": [
+            "from src.awslabs_route53_infima import Lattice, OneDimensionalLattice, SimpleSignatureShuffleSharder, TwoDimensionalLattice: NameError: name 'T' is not defined"
+          ]
+        },
+        {
+          "module": "src/awslabs_route53_infima/__init__.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 4,
+          "kept": false
+        },
+        {
+          "module": "src/awslabs_route53_infima/__init__.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 4,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 48,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 42,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "tamir7_Contacts",
+      "agent_exit_code": 0,
+      "agent_seconds": 232.1,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 5,
+        "from_plan": 4,
+        "added_by_harness": 1,
+        "modules": [
+          "src/contacts/address.py",
+          "src/contacts/email.py",
+          "src/contacts/event.py",
+          "src/contacts/phonenumber.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 1,
+          "problems_after": 0,
+          "kept": true,
+          "problems": [
+            "from src.contacts.event import Event: ModuleNotFoundError: No module named 'src.contacts.event'"
+          ]
+        },
+        {
+          "module": "src/contacts/address.py",
+          "attempt": 1,
+          "before": 1,
+          "after": 2,
+          "total": 5,
+          "kept": true
+        },
+        {
+          "module": "src/contacts/address.py",
+          "attempt": 2,
+          "before": 2,
+          "after": 1,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/email.py",
+          "attempt": 1,
+          "before": 1,
+          "after": 1,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/email.py",
+          "attempt": 2,
+          "before": 1,
+          "after": 1,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/event.py",
+          "attempt": 1,
+          "before": 3,
+          "after": 3,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/event.py",
+          "attempt": 2,
+          "before": 3,
+          "after": 3,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/phonenumber.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/phonenumber.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 9,
+      "tests_total": 38,
+      "raw_pass_rate": 0.23684210526315788,
+      "passable_passed": 7,
+      "passable_total": 30,
+      "passable_pass_rate": 0.23333333333333334,
+      "successful_migration": false
+    }
+  ]
+}
