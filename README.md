@@ -39,7 +39,7 @@ plain prompt ([harness/prompts/task/baseline.txt](harness/prompts/task/baseline.
 2. Run one agent session in that workspace.
 3. Score `candidate/` with the frozen evaluator.
 
-**The test bench.** 21 small Java repositories from RepoTransBench, a public Java → Python migration benchmark. Each
+**The test bench.** 13 small Java repositories from RepoTransBench, a public Java → Python migration benchmark. Each
 comes with public tests (the agent may read and run them) and hidden tests (only the scorer runs them). The
 repositories were split at random with a fixed seed ([evaluation/split.json](evaluation/split.json)), each group with
 one job:
@@ -49,7 +49,6 @@ one job:
 | sanity | 2 | tiny; only checks that the harness runs at all |
 | development | 6 | the repos we run, read the failures of, and tune on |
 | holdout | 5 | never looked at while building; only for the final checks |
-| hard, big | 6 + 2 | from an earlier version of the project; not used in this journey |
 
 **The score.** The frozen evaluator ([evaluation/evaluate.py](evaluation/evaluate.py)) replaces every test file the
 agent wrote with the frozen originals, then runs each public and hidden test file on its own (120 s per file), so one
@@ -166,5 +165,5 @@ python harness/src/run.py --repos kungfoo_geohash-java awslabs_route53-infima ta
 python harness/src/run.py --split holdout --config results/06_decomposition/config.json   # final harness, holdout
 ```
 
-`--split` is one of `sanity`, `development`, `holdout`, `hard`, `big`; `--repos a b` runs single repos. Raw output goes
+`--split` is one of `sanity`, `development`, `holdout`; `--repos a b` runs single repos. Raw output goes
 to `runs/<name>/` (git-ignored); each step's `results/<step>/` keeps its config, run summaries and README.
