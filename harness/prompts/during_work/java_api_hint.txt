@@ -1,0 +1,2 @@
+Use the java_api tool to see what a Java class offers before you port it: java_api(class_name="WGS84Point") finds
+its file in ../source/ and lists its constructors, methods, constants and enum values with the Python names to use.

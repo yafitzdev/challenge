@@ -62,17 +62,18 @@ With a strong model on small repos, the score is about 90% from the start; part 
 | [05 retry package](results/05_retry/) | push to continue while test imports fail (a round that breaks more is undone); retry failing modules | 34 | 31 |
 | [06 decomposition package](results/06_decomposition/) | plan, then one short session per module with a self-test; retry as failure path | 66 | 46 |
 | [07 tools package](results/07_tools/) | a run_tests tool with a short structured report | 38 | 37 (dropped) |
+| [08 tools package v2](results/08_java_tools/) | java_api (Java class API with Python names) and port_check (Java members a module lacks) | 43 | 31 (dropped) |
 
 Steps 05 to 07 got a second run when push to continue was fixed (a round that broke imports was kept); per-repo
 numbers are in each step's README.
 
-Final harness: step 06. The tools package (07) did not help and was dropped. With the weak model every step adds points, and decomposition gives the largest jump
+Final harness: step 06. Neither tools package (07, 08) helped; both were dropped. With the weak model every step adds points, and decomposition gives the largest jump
 (mean 32.5 -> 56.0): a session that only has to port one class, with that class's tests in front of it, gets it right far
 more often.
 
 ### Holdout check
 
-[08](results/08_holdout/): the final harness against part 2's baseline on the 5 holdout repos no step looked at,
+[09](results/09_holdout/): the final harness against part 2's baseline on the 5 holdout repos no step looked at,
 Gemini, 1 run, 184 tests: **24 -> 55**, one repo fully migrated. The largest repo (ElSql, 97 tests) stays 0 in both:
 its plan session wrote no plan.
 

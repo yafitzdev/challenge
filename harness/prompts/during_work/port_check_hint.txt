@@ -1,0 +1,2 @@
+After writing a module, run port_check(module="src/.../module.py"): it lists every Java method or constant of the
+class that the module does not have yet. Add what is missing, then run the tests.
