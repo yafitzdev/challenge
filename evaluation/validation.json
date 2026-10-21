@@ -78,54 +78,6 @@
       "oracle_passable": "97/97",
       "empty_passable": "0/97",
       "ok": true
-    },
-    {
-      "repo": "Suryakant-Bharti_Important-Java-Concepts",
-      "oracle_passable": "no oracle",
-      "empty_passable": "0/15",
-      "ok": true
-    },
-    {
-      "repo": "1ssqq1lxr_iot_push",
-      "oracle_passable": "no oracle",
-      "empty_passable": "0/32",
-      "ok": true
-    },
-    {
-      "repo": "Netflix_dyno-queues",
-      "oracle_passable": "no oracle",
-      "empty_passable": "0/21",
-      "ok": true
-    },
-    {
-      "repo": "yinjihuan_netty-im",
-      "oracle_passable": "no oracle",
-      "empty_passable": "0/29",
-      "ok": true
-    },
-    {
-      "repo": "cyrildiagne_ar-cptext",
-      "oracle_passable": "no oracle",
-      "empty_passable": "0/22",
-      "ok": true
-    },
-    {
-      "repo": "googlearchive_android-BluetoothLeGatt",
-      "oracle_passable": "no oracle",
-      "empty_passable": "0/19",
-      "ok": true
-    },
-    {
-      "repo": "commonmark-java",
-      "oracle_passable": "no oracle",
-      "empty_passable": "0/652",
-      "ok": true
-    },
-    {
-      "repo": "snakeyaml-engine",
-      "oracle_passable": "no oracle",
-      "empty_passable": "0/402",
-      "ok": true
     }
   ]
 }

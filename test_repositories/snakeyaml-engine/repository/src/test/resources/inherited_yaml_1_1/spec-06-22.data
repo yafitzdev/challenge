@@ -1,4 +1,0 @@
-%TAG !e! tag:example.com,2000:app/
----
-# Spec BUG ??? - !e!foo "bar"
-!e!foo "bar"

@@ -213,7 +213,7 @@ def score_repo(repo, run_dir, exit_code, seconds):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('--split', choices=['sanity', 'development', 'holdout', 'hard', 'big'])
+    group.add_argument('--split', choices=['sanity', 'development', 'holdout'])
     group.add_argument('--repos', nargs='+')
     parser.add_argument('--config', type=Path, required=True, help='an experiment config, e.g. results/00_baseline/config.json')
     parser.add_argument('--run-name')

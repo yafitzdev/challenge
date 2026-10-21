@@ -18,17 +18,5 @@
     "tuenti_SmsRadar",
     "AllenDowney_ThinkJavaCode",
     "OpenGamma_ElSql"
-  ],
-  "hard": [
-    "Suryakant-Bharti_Important-Java-Concepts",
-    "1ssqq1lxr_iot_push",
-    "Netflix_dyno-queues",
-    "yinjihuan_netty-im",
-    "cyrildiagne_ar-cptext",
-    "googlearchive_android-BluetoothLeGatt"
-  ],
-  "big": [
-    "commonmark-java",
-    "snakeyaml-engine"
   ]
 }
