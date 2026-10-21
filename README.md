@@ -134,14 +134,14 @@ step. Development: the 3 development repos of phase 3 (113 tests). Holdout: the 
 | Step | Average score, development (113) | Average score, holdout (184) |
 |---|---|---|
 | 00 dumb harness | 0 | 16 |
-| 01 robustness | ⏳ | ⏳ |
+| 01 robustness | 22 | 9 |
 | 02 sandbox (harness baseline) | 0 | 24 |
-| 04 robustness v2 | 16 | ⏳ |
-| 05 retry | 32.5 | ⏳ |
+| 04 robustness v2 | 16 | 0 |
+| 05 retry | 32.5 | 45 |
 | 06 decomposition (final harness) | 56.0 | 55 |
 | 07 tools (dropped) | 37.5 | 46 |
-| 08 Java tools (dropped) | 37.0 | ⏳ |
-| 09 instructions (dropped) | 46.5 | ⏳ |
+| 08 Java tools (dropped) | 37.0 | 40 |
+| 09 instructions (dropped) | 46.5 | 35 |
 
 ---
 
