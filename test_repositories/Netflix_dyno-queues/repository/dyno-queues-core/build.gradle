@@ -1,5 +1,0 @@
-
-dependencies {
-	api 'com.netflix.dyno:dyno-core:1.7.2-rc2'
-    testImplementation "junit:junit:4.11"
-}

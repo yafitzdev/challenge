@@ -2,7 +2,7 @@
 
 Two checks per repo:
   1. The oracle (test_repositories/<repo>/oracle/, a reference Python port) must score as a successful migration
-     (every passable test passes). Repos without an oracle (hard and big sets) skip this check.
+     (every passable test passes). Repos without an oracle skip this check.
   2. An empty candidate must pass no passable test (no fake tests left).
 
 Usage: python evaluation/validate.py   -> writes evaluation/validation.json

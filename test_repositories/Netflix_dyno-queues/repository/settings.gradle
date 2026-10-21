@@ -1,2 +1,0 @@
-rootProject.name='dyno-queues'
-include 'dyno-queues-core', 'dyno-queues-redis'
