@@ -198,7 +198,9 @@ const sendPrompt = async (text) => {
   }
 };
 try {
-  await sendPrompt(toolHints ? `${job.prompt}\n\n${toolHints}` : job.prompt);
+  // With rules, every session also gets a fixed rule sheet (step 09, a prompt file named by the config).
+  const extra = [toolHints, cfg.rules ? prompt(cfg.rules) : ''].filter(Boolean).join('\n\n');
+  await sendPrompt(extra ? `${job.prompt}\n\n${extra}` : job.prompt);
   while (resumes.length < (cfg.resume_after_errors || 0) && !limit && turns < cfg.max_assistant_turns) {
     const last = session.messages.filter(m => m.role === 'assistant').at(-1);
     const reason = last?.stopReason;

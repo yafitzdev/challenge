@@ -1,0 +1,334 @@
+{
+  "run": "09_instructions_run2",
+  "config": "v2-09-instructions",
+  "repos": [
+    "kungfoo_geohash-java",
+    "awslabs_route53-infima",
+    "tamir7_Contacts"
+  ],
+  "successful_migrations": 0,
+  "raw_pass_rate": 0.39568345323741005,
+  "passable_pass_rate": 0.39823008849557523,
+  "per_repo": [
+    {
+      "repo": "kungfoo_geohash-java",
+      "agent_exit_code": 0,
+      "agent_seconds": 1590.4,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 14,
+        "from_plan": 0,
+        "added_by_harness": 14,
+        "modules": [
+          "src/geohash/geohash.py",
+          "src/geohash/bounding_box.py",
+          "src/geohash/wgs84point.py",
+          "src/geohash/queries/bounding_box_query.py",
+          "src/geohash/queries/circle_query.py",
+          "src/geohash/util/double_util.py",
+          "src/geohash/util/long_util.py",
+          "src/geohash/util/geohash_size_table.py",
+          "src/geohash/util/bounding_box_geohash_iterator.py",
+          "src/geohash/util/bounding_box_sampler.py",
+          "src/geohash/util/two_geohash_bounding_box.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 5,
+          "problems_after": 0,
+          "kept": true,
+          "problems": [
+            "from src.geohash.bounding_box import BoundingBox: ModuleNotFoundError: No module named 'src.geohash.bounding_box'",
+            "from src.geohash.util.bounding_box_geohash_iterator import BoundingBoxGeoHashIterator: ModuleNotFoundError: No module named 'src.geohash.bounding_box'",
+            "from src.geohash.util.bounding_box_sampler import BoundingBoxSampler: ModuleNotFoundError: No module named 'src.geohash.util.bounding_box_sampler'",
+            "from src.geohash.util.double_util import DoubleUtil: ImportError: cannot import name 'DoubleUtil' from 'src.geohash.util.double_util' (/tmp/migrate-mqkrvl_n/workspace/candidate/src/geohash/util/double_util.py)",
+            "from src.geohash.util.long_util import LongUtil: ModuleNotFoundError: No module named 'src.geohash.util.long_util'"
+          ]
+        },
+        {
+          "module": "src/geohash/bounding_box.py",
+          "attempt": 1,
+          "before": 5,
+          "after": 5,
+          "total": 11,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/bounding_box.py",
+          "attempt": 2,
+          "before": 5,
+          "after": 5,
+          "total": 11,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/wgs84point.py",
+          "attempt": 1,
+          "before": 9,
+          "after": 6,
+          "total": 15,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/wgs84point.py",
+          "attempt": 2,
+          "before": 9,
+          "after": 7,
+          "total": 15,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_geohash_iterator.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_geohash_iterator.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_sampler.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_sampler.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 19,
+      "tests_total": 53,
+      "raw_pass_rate": 0.3584905660377358,
+      "passable_passed": 19,
+      "passable_total": 41,
+      "passable_pass_rate": 0.4634146341463415,
+      "successful_migration": false
+    },
+    {
+      "repo": "awslabs_route53-infima",
+      "agent_exit_code": 0,
+      "agent_seconds": 163.7,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 3,
+        "from_plan": 0,
+        "added_by_harness": 3,
+        "modules": [
+          "src/awslabs_route53_infima/__init__.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 1,
+          "problems_after": 0,
+          "kept": true,
+          "problems": [
+            "from src.awslabs_route53_infima import Lattice, OneDimensionalLattice, SimpleSignatureShuffleSharder, TwoDimensionalLattice: ImportError: cannot import name 'Lattice' from 'src.awslabs_route53_infima' (/tmp/migrate-4ej52gct/workspace/candidate/src/awslabs_route53_infima/__init__.py)"
+          ]
+        },
+        {
+          "module": "src/awslabs_route53_infima/__init__.py",
+          "attempt": 1,
+          "before": 13,
+          "after": 13,
+          "total": 19,
+          "kept": false
+        },
+        {
+          "module": "src/awslabs_route53_infima/__init__.py",
+          "attempt": 2,
+          "before": 13,
+          "after": 13,
+          "total": 19,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 22,
+      "tests_total": 48,
+      "raw_pass_rate": 0.4583333333333333,
+      "passable_passed": 18,
+      "passable_total": 42,
+      "passable_pass_rate": 0.42857142857142855,
+      "successful_migration": false
+    },
+    {
+      "repo": "tamir7_Contacts",
+      "agent_exit_code": 0,
+      "agent_seconds": 189.3,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 5,
+        "from_plan": 0,
+        "added_by_harness": 5,
+        "modules": [
+          "src/contacts/address.py",
+          "src/contacts/email.py",
+          "src/contacts/event.py",
+          "src/contacts/phonenumber.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 2,
+          "problems_after": 2,
+          "kept": true,
+          "problems": [
+            "from src.contacts.event import Event: ModuleNotFoundError: No module named 'src.contacts.event'",
+            "from src.contacts.phonenumber import PhoneNumber: ModuleNotFoundError: No module named 'src.contacts.phonenumber'"
+          ]
+        },
+        {
+          "push": 2,
+          "problems_before": 2,
+          "problems_after": 0,
+          "kept": true,
+          "problems": [
+            "from src.contacts.event import Event: ImportError: cannot import name 'Event' from 'src.contacts.event' (/tmp/migrate-x_25id83/workspace/candidate/src/contacts/event.py)",
+            "from src.contacts.phonenumber import PhoneNumber: ImportError: cannot import name 'PhoneNumber' from 'src.contacts.phonenumber' (/tmp/migrate-x_25id83/workspace/candidate/src/contacts/phonenumber.py)"
+          ]
+        },
+        {
+          "module": "src/contacts/event.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/event.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/phonenumber.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/contacts/phonenumber.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 14,
+      "tests_total": 38,
+      "raw_pass_rate": 0.3684210526315789,
+      "passable_passed": 8,
+      "passable_total": 30,
+      "passable_pass_rate": 0.26666666666666666,
+      "successful_migration": false
+    }
+  ]
+}
