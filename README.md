@@ -1,30 +1,182 @@
-# Java → Python migration harness
+# Exxeta take-home challenge
 
-A harness around a coding agent (the [Pi SDK](https://www.npmjs.com/package/@earendil-works/pi-coding-agent)) that
-migrates small Java repositories to Python, plus a frozen evaluation that scores each migration with hidden tests.
-The task is described in [docs/challenge.pdf](docs/challenge.pdf).
+### A Java → Python migration harness
 
-## Layout
+---
 
-```
-test_repositories/<repo>/  repository/ (Java), public_tests/ (the agent sees these), hidden_tests/ (scoring only),
-                           project_structure.txt (the Python files to create), oracle/ (reference Python port, if any)
-evaluation/                the frozen scorer (evaluate.py), its test list (manifest.json), the repo split, validate.py
-harness/                   src/ (run.py is the entry point; agent.mjs drives the Pi agent), prompts/, package.json
-results/<step>/            one folder per step of the journey: config.json, runs/ (score summaries), README.md
-```
+## Summary
 
-## How we measure
+The task ([docs/challenge.pdf](docs/challenge.pdf)): build a lean, reproducible harness that specializes an existing
+coding agent for migrating whole repositories (here Java → Python), then improve it step by step and show with
+measurements which change improved the agent's work. Building a new benchmark is explicitly not part of the task;
+comparable, reproducible evaluation is.
 
-Each hidden test file is scored in its own pytest run (120 s per file), so a file that cannot be imported costs
-only its own tests, not the whole repo. Two numbers per run: passable hidden tests passed (passable = the reference
-port passes them), and successful migrations (repos where every passable test passes). `evaluation/validate.py`
-proves the scorer: every reference port scores 100% of passable tests, empty code scores 0%.
+---
+
+## The journey
+
+Three phases. Phase 1 builds the simplest possible harness. Phase 2 runs it with a strong model to find and fix flaws
+in the harness itself. Phase 3 runs the fixed harness with a weak model to find where the harness can make up for the
+model's weaknesses, and adds fix packages for them. After the phases, the results are checked on repositories that
+were never used while building.
+
+### Phase 1: the dumb harness
+
+The starting point is deliberately plain: hand an existing coding agent a Java repository and one prompt, let it work,
+then score what it wrote. No checks, no retries, no isolation.
+
+**The agent.** [Pi](https://www.npmjs.com/package/@earendil-works/pi-coding-agent) (`@earendil-works/pi-coding-agent`
+1.3.0), an open-source coding agent, used as a library ([harness/src/agent.mjs](harness/src/agent.mjs)). It talks to the
+model through an OpenAI-compatible API and has four tools: `read`, `write`, `edit` (exact text replacement) and `bash`.
+One session, at most 40 turns (a turn is one model answer, usually one tool call) and 600 seconds, thinking off, one
+plain prompt ([harness/prompts/task/baseline.txt](harness/prompts/task/baseline.txt)).
+
+**One run, per repository** ([harness/src/run.py](harness/src/run.py)):
+
+1. Stage a fresh workspace in a temp folder: `source/` (the Java repository), `candidate/` (where the Python goes; it
+   holds `project_structure.txt`, the list of Python files to create, and the public tests) and `CONTRACT.txt` (how
+   the result is scored). The hidden tests and the reference Python port are never copied in.
+2. Run one agent session in that workspace.
+3. Score `candidate/` with the frozen evaluator.
+
+**The test bench.** 21 small Java repositories from RepoTransBench, a public Java → Python migration benchmark. Each
+comes with public tests (the agent may read and run them) and hidden tests (only the scorer runs them). The
+repositories were split at random with a fixed seed ([evaluation/split.json](evaluation/split.json)), each group with
+one job:
+
+| Group | Repos | Job |
+|---|---|---|
+| sanity | 2 | tiny; only checks that the harness runs at all |
+| development | 6 | the repos we run, read the failures of, and tune on |
+| holdout | 5 | never looked at while building; only for the final checks |
+| hard, big | 6 + 2 | from an earlier version of the project; not used in this journey |
+
+**The score.** The frozen evaluator ([evaluation/evaluate.py](evaluation/evaluate.py)) replaces every test file the
+agent wrote with the frozen originals, then runs each public and hidden test file on its own (120 s per file), so one
+file that cannot be imported costs only its own tests. A test counts only if the reference Python port passes it
+("passable"); [evaluation/validate.py](evaluation/validate.py) proves the scorer: every reference port scores 100%,
+empty code 0%. Two numbers per run: **tests passed** (passable public and hidden tests together) and **successful
+migrations** (repos where every passable test passes).
+
+| Test set | Passable tests | of which hidden | of which public |
+|---|---|---|---|
+| 6 development repos (phase 2) | 184 | 109 | 75 |
+| 3 development repos (phase 3: geohash, route53, Contacts) | 113 | 73 | 40 |
+| 5 holdout repos | 184 | 145 | 39 |
+
+### Phase 2: strong model harness validation
+
+Run the dumb harness with a strong model (DeepSeek flash). When a strong model fails, the cause is usually the
+harness, not the model, so its failures expose harness flaws. Fix each flaw, run again, keep the fix if the run shows
+it works. 6 development repos, 2 runs per step.
+
+| Step | Flaw found | Fix | Run 1 | Run 2 |
+|---|---|---|---|---|
+| [00 dumb harness](results/00_baseline/) | | | 175 | 164 |
+| [01 robustness](results/01_robustness/) | one shell command that never returned used up the whole session; an answer cut off at the output limit ended the session | every shell command is stopped after 120 s; after an API error or a cut-off answer the agent is sent on with a short note, up to 3 times | 169 | 169 |
+| [02 sandbox](results/02_sandbox/) | the agent's `find /` listed the reference ports: nothing stopped it from reading the answers | Linux namespaces: the agent sees only its workspace; Java source, public tests and the system Python are read-only; its commands have no network | 161 | 163 |
+
+The score stays at about 90% throughout (the differences are run-to-run noise): a strong model on small repos needs
+little help. What phase 2 delivers is a harness that cannot lose a run to a stuck command and cannot be fooled by an
+agent that reads the answers. Step 02 is the **harness baseline** for phase 3.
+
+### Phase 3: weak model harness improvement
+
+Run the harness baseline with a weak model (Gemini 2.5 Flash Lite). It fails a lot, which shows where the harness can
+make up for the model's weaknesses. Add one fix package per weakness, run again, keep it only if it helps. To save
+money: 3 of the development repos (113 tests), 1 or 2 runs per step.
+
+| Step | Weakness found | Fix package | Run 1 | Run 2 |
+|---|---|---|---|---|
+| [03 harness baseline](results/03_weak_baseline/) | | step 02 with the weak model | 0 | |
+| [04 robustness v2](results/04_robustness_v2/) | writes its code next to `candidate/`, where nothing is scored; repeats one failing command | tools start inside `candidate/`; a link `candidate/candidate → candidate/` catches doubled paths; a note after the same command fails 3 times with the same error | 16 | |
+| [05 retry](results/05_retry/) | says it is done while modules or classes are missing; one missing class fails a whole test file | the harness tries every import of the public tests (no model call) and sends a fresh session back with the exact errors, up to 3 times, undoing a round that breaks more; then a module whose public tests fail is rewritten by a fresh session that may change only that file, up to 2 times, kept only if more tests pass | 34 | 31 |
+| [06 decomposition](results/06_decomposition/) | one session has to port the whole repo and loses track | one short session (15 turns) per Python module, in dependency order, each seeing only its Java class, the modules already written and its public tests, and porting the Java unit test of its class as a self-check; package files last; retry (05) as the failure path | 66 | 46 |
+| [07 tools](results/07_tools/) | | a `run_tests` tool that returns a short test report | 38 | 37 |
+| [08 Java tools](results/08_java_tools/) | | `java_api` (a Java class's members with Python names) and `port_check` (members a module still lacks) | 43 | 31 |
+| [09 instructions](results/09_instructions/) | | a Java → Python rule sheet in every session, built from the most common test errors | 48 | 45 |
+
+Steps 04 to 06 were kept, each on top of the one before. 07 to 09 were each tried on top of 06, scored below it and
+were removed. Decomposition gives the largest jump (mean 32.5 → 56.0): a session that only has to port one class, with
+that class's tests in front of it, gets it right far more often. The module list is the harness's own: on geohash the
+model's plan session never produced a usable plan, and the harness built the list from `project_structure.txt` and
+the modules the public tests import. Step 06 is the **final harness**. Per-repo numbers and failure analyses are in
+each step's README.
+
+### Results
+
+Passable tests passed after every step, split into public tests (the agent can read and run them) and hidden tests
+(only the scorer runs them). Holdout = the 5 repos never looked at while building
+([results/10_holdout](results/10_holdout/)).
+
+**Phase 2, strong model (DeepSeek flash), 6 development repos**
+
+| Step | Run | Public (75) | Hidden (109) | Total (184) | Successful migrations (of 6) |
+|---|---|---|---|---|---|
+| 00 dumb harness | 1 | 75 | 100 | 175 | 3 |
+| | 2 | 72 | 92 | 164 | 2 |
+| 01 robustness | 1 | 72 | 97 | 169 | 3 |
+| | 2 | 72 | 97 | 169 | 2 |
+| 02 sandbox (harness baseline) | 1 | 67 | 94 | 161 | 2 |
+| | 2 | 70 | 93 | 163 | 2 |
+
+Holdout with the strong model: not run.
+
+**Phase 3, weak model (Gemini 2.5 Flash Lite), 3 development repos**
+
+| Step | Run | Public (40) | Hidden (73) | Total (113) |
+|---|---|---|---|---|
+| 00 dumb harness | 1 | 0 | 0 | 0 |
+| 03 harness baseline (= 02) | 1 | 0 | 0 | 0 |
+| 04 robustness v2 | 1 | 8 | 8 | 16 |
+| 05 retry | 1 | 19 | 15 | 34 |
+| | 2 | 15 | 16 | 31 |
+| 06 decomposition (final harness) | 1 | 33 | 33 | 66 |
+| | 2 | 24 | 22 | 46 |
+| 07 tools (dropped) | 1 | 23 | 15 | 38 |
+| | 2 | 17 | 20 | 37 |
+| 08 Java tools (dropped) | 1 | 22 | 21 | 43 |
+| | 2 | 16 | 15 | 31 |
+| 09 instructions (dropped) | 1 | 25 | 23 | 48 |
+| | 2 | 24 | 21 | 45 |
+
+**Holdout, weak model, 1 run each**
+
+| Harness | Public (39) | Hidden (145) | Total (184) | Successful migrations (of 5) |
+|---|---|---|---|---|
+| 00 dumb harness | 8 | 8 | 16 | 0 |
+| 03 harness baseline (= 02) | 7 | 17 | 24 | 0 |
+| 06 final harness | 22 | 33 | **55** | **1** |
+| 07 tools (dropped) | 14 | 32 | 46 | 0 |
+
+The hidden tests are harder than the public ones the agent can see: the final harness passes 82% and 60% of the
+public tests in its two development runs, but 45% and 30% of the hidden ones; on the holdout 56% of the public
+against 23% of the hidden.
+
+No development repo was fully migrated by the weak model in any run. On the holdout the final harness migrated 1 of 5
+fully (signaturepad, 18 of 18), the dumb harness and the harness baseline none.
+
+**Per phase**
+
+| Result of | Strong model, dev (184) | Weak model, dev (113) | Weak model, holdout (184) |
+|---|---|---|---|
+| Phase 1: dumb harness (00) | 169.5 | 0 | 16 |
+| Phase 2: harness baseline (02) | 162.0 | 0 | 24 |
+| Phase 3: final harness (06) | not run | 56.0 | 55 |
+
+With the strong model the harness has little to add on small repositories. With the weak model the final harness goes
+from nothing to about half of the development tests, and from 16 to 55 of 184 on repositories it was never tuned on.
+
+Limits: 1 or 2 runs per step; the same configuration varied by up to 20 tests between runs (06: 66 and 46), so only
+differences well above that count. Phase 2 was not checked on the holdout, and the final harness was not run with the
+strong model.
+
+---
 
 ## Run it
 
-Needs Linux, Python 3.12+ and Node 22, and root for the sandbox (step 02 on; it uses mount namespaces). Part 1
-configs call DeepSeek (`DEEPSEEK_API_KEY`), part 2 configs call Gemini through OpenRouter (`OPENROUTER_API_KEY`).
+Needs Linux, Python 3.12+, Node 22, and root for the sandbox (step 02 on; it uses mount namespaces). Phase 2 configs
+call DeepSeek (`DEEPSEEK_API_KEY`), phase 3 configs call Gemini through OpenRouter (`OPENROUTER_API_KEY`).
 
 ```bash
 python -m pip install -r evaluation/requirements.txt
@@ -34,84 +186,9 @@ cp .env.example .env        # then put your DeepSeek and OpenRouter keys in .env
 python evaluation/validate.py                     # proves the scorer
 python harness/src/run.py --split development --config results/00_baseline/config.json
 python harness/src/run.py --repos kungfoo_geohash-java awslabs_route53-infima tamir7_Contacts \
-    --config results/06_decomposition/config.json                         # final harness, part 2 dev repos
+    --config results/06_decomposition/config.json                         # final harness, phase 3 repos
 python harness/src/run.py --split holdout --config results/06_decomposition/config.json   # final harness, holdout
 ```
 
-`--split` is one of `sanity`, `development`, `holdout`, `hard`, `big` (see `evaluation/split.json`);
-`--repos a b` runs single repos. Raw output goes to `runs/<name>/` (git-ignored).
-
-## Journey
-
-Two parts. Part 1 makes the harness measure honestly, with a strong model (DeepSeek flash, 6 development repos,
-184 passable hidden tests, 2 runs per step). Part 2 makes it help a weak model (Gemini 2.5 Flash Lite, 3
-development repos, 113 tests, 1 or 2 runs per step, to save money). Each kept step builds on the one before;
-a dropped step is measured on top of step 06 and then removed.
-
-### Part 1: a trustworthy harness (strong model)
-
-| Step | Change | Run 1 | Run 2 | Decision |
-|---|---|---|---|---|
-| [00 baseline](results/00_baseline/) | plain Pi agent (read, bash, edit, write), 40 turns, 600 s, plain prompt | 175 | 164 | starting point (mean 169.5 of 184) |
-| [01 robustness](results/01_robustness/) | 120 s per shell command; resume after a provider error or output-limit cut | 169 | 169 | keep: no change on dev (mean 169.0), removes two ways to lose a repo run |
-| [02 sandbox](results/02_sandbox/) | agent sees only its workspace; inputs and /usr read-only; no network for commands | 161 | 163 | keep: integrity (mean 162.0, mostly noise) |
-
-With a strong model on small repos, the score is about 90% from the start; part 1 is about trust, not points.
-
-### Part 2: a harness that helps a weak model
-
-| Step | Change | Run 1 | Run 2 | Decision |
-|---|---|---|---|---|
-| [03 baseline](results/03_weak_baseline/) | part 1's harness, weak model | 0 | | starting point |
-| [04 robustness v2](results/04_robustness_v2/) | start in candidate/, candidate link, loop breaker | 16 | | keep |
-| [05 retry package](results/05_retry/) | push to continue while test imports fail (a round that breaks more is undone); retry failing modules | 34 | 31 | keep (mean 32.5) |
-| [06 decomposition package](results/06_decomposition/) | plan, then one short session per module with a self-test; retry as failure path | 66 | 46 | keep, final (mean 56.0) |
-| [07 tools package](results/07_tools/) | a run_tests tool with a short structured report | 38 | 37 | drop (mean 37.5) |
-| [08 tools package v2](results/08_java_tools/) | java_api (Java class API with Python names) and port_check (Java members a module lacks) | 43 | 31 | drop (mean 37.0) |
-| [09 instructions package](results/09_instructions/) | a Java-to-Python rule sheet in every session, built from the most common test errors | 48 | 45 | drop (mean 46.5) |
-
-Run 2 of steps 05 to 07 came after a fix to push to continue: in the first version, a round that broke more imports
-was kept, now it is undone. Per-repo numbers and failures are in each step's README.
-
-Final harness: step 06. Every kept step adds points, and decomposition gives the largest jump (mean 32.5 -> 56.0):
-a session that only has to port one class, with that class's tests in front of it, gets it right far more often.
-The tools packages (07, 08) and the instructions package (09) scored below 06 and were dropped: the weak model
-used the tools and saw the rules, but extra instructions and tool output did not make its ports more complete.
-
-Successful migrations (every passable test passes): part 1, 2 or 3 of 6 repos per run; part 2, none of the 3
-repos in any run, so the test pass rate is the measure there (06: 58.4% and 40.7% of 113 tests).
-
-### Holdout check
-
-[10](results/10_holdout/): on the 5 holdout repos no step looked at, Gemini, 1 run each, 184 tests: the plain agent
-with none of our fixes **16**, part 1's harness **24**, the final harness **55** (8.7% -> 13.0% -> 29.9%);
-successful migrations 0 -> 0 -> 1 of 5. The largest repo (ElSql, 97 tests) stays 0 in all three: its plan session
-wrote no plan.
-
-### What caused what
-
-| Change | Effect | Evidence |
-|---|---|---|
-| 01 command timeout, resume after errors | no change on dev; a repo run is no longer lost to a hung command | jnanoid: a hung test command was stopped after 120 s, 9 -> 21 of 22 |
-| 02 sandbox | score unchanged (noise); the agent can no longer see the reference ports or hidden tests | in step 01 a `find /` listed reference ports; since step 02 the run audit counts no read of ports or hidden tests |
-| 04 start in candidate/, link, loop breaker | 0 -> 16 | the weak model had written its code outside candidate/, where nothing is scored |
-| 05 push to continue, module retries | 16 -> 32.5 | route53 0 -> 18 in run 1 once the missing `Lattice` import was pushed; Contacts 0 -> 16 and 9 |
-| 06 decomposition | 32.5 -> 56.0; holdout 24 -> 55 | one short session per class: Contacts 24 and 26 of 30, signaturepad 18 of 18 |
-
-Limits: 1 or 2 runs per part-2 step, and the same config varied by 20 tests (06: 66 and 46), so only differences
-well above that count. With the weak model no development repo was fully migrated in any run.
-
-### What still fails (weak model)
-
-From the error tally over all Gemini runs ([09](results/09_instructions/)):
-
-- Missing modules or names: a test imports something the port never wrote or re-exported (`ModuleNotFoundError`
-  95 times, `cannot import name` about 30).
-- Static members turned into instance members, or left out (`type object 'X' has no attribute 'y'`, 61 times).
-- Incomplete classes: the class exists but lacks Java methods (route53: `Lattice` has no `get_all_endpoints`).
-- Nested types and enums flattened or renamed (Contacts: `PhoneNumber.Type`).
-
-### Known gaps
-
-- An empty plan leaves decomposition with nothing to split (holdout, ElSql).
-- 1 or 2 runs per part-2 step: the same config varied by 20 tests (step 06), so only large differences count.
+`--split` is one of `sanity`, `development`, `holdout`, `hard`, `big`; `--repos a b` runs single repos. Raw output goes
+to `runs/<name>/` (git-ignored); each step's `results/<step>/` keeps its config, run summaries and README.
