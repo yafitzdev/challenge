@@ -1,0 +1,395 @@
+{
+  "run": "08_holdout_final",
+  "config": "v2-07-tools",
+  "repos": [
+    "gcacace_android-signaturepad",
+    "bmwcarit_hmm-lib",
+    "tuenti_SmsRadar",
+    "AllenDowney_ThinkJavaCode",
+    "OpenGamma_ElSql"
+  ],
+  "successful_migrations": 0,
+  "raw_pass_rate": 0.29508196721311475,
+  "passable_pass_rate": 0.25,
+  "per_repo": [
+    {
+      "repo": "gcacace_android-signaturepad",
+      "agent_exit_code": 0,
+      "agent_seconds": 128.2,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 3,
+        "from_plan": 2,
+        "added_by_harness": 1,
+        "modules": [
+          "src/geohash/util/long_util.py",
+          "src/geohash/geohash.py",
+          "src/signaturepad/utils.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 1,
+          "problems_after": 0,
+          "problems": [
+            "from src.signaturepad.utils import Bezier, ControlTimedPoints, TimedPoint: ModuleNotFoundError: No module named 'src.signaturepad.utils'"
+          ]
+        },
+        {
+          "module": "src/signaturepad/utils.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 9,
+          "kept": false
+        },
+        {
+          "module": "src/signaturepad/utils.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 2,
+          "total": 9,
+          "kept": true
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 4,
+      "tests_total": 18,
+      "raw_pass_rate": 0.2222222222222222,
+      "passable_passed": 4,
+      "passable_total": 18,
+      "passable_pass_rate": 0.2222222222222222,
+      "successful_migration": false
+    },
+    {
+      "repo": "bmwcarit_hmm-lib",
+      "agent_exit_code": 0,
+      "agent_seconds": 334.4,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 6,
+        "from_plan": 0,
+        "added_by_harness": 6,
+        "modules": [
+          "src/bmwcarit_hmm/transition.py",
+          "src/bmwcarit_hmm/forward_backward_algorithm.py",
+          "src/bmwcarit_hmm/sequence_state.py",
+          "src/bmwcarit_hmm/utils.py",
+          "src/bmwcarit_hmm/viterbi_algorithm.py"
+        ]
+      },
+      "retries": [],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 17,
+      "tests_total": 30,
+      "raw_pass_rate": 0.5666666666666667,
+      "passable_passed": 8,
+      "passable_total": 19,
+      "passable_pass_rate": 0.42105263157894735,
+      "successful_migration": false
+    },
+    {
+      "repo": "tuenti_SmsRadar",
+      "agent_exit_code": 0,
+      "agent_seconds": 555.4,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 11,
+        "from_plan": 2,
+        "added_by_harness": 9,
+        "modules": [
+          "src/geohash/util/long_util.py",
+          "src/geohash/geohash.py",
+          "src/smsradar/sms.py",
+          "src/smsradar/shared_preferences_sms_storage.py",
+          "src/smsradar/sms_storage.py",
+          "src/smsradar/sms_cursor_parser.py",
+          "src/smsradar/time_provider.py",
+          "src/smsradar/sms_listener.py",
+          "src/smsradar/sms_observer.py",
+          "src/smsradar/sms_radar_service.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 6,
+          "problems_after": 0,
+          "problems": [
+            "from src.smsradar.sms import Sms, SmsType: ModuleNotFoundError: No module named 'src.smsradar.sms_type'",
+            "from src.smsradar.sms_cursor_parser import SmsCursorParser: ModuleNotFoundError: No module named 'src.smsradar.sms_cursor_parser'",
+            "from src.smsradar.sms_listener import SmsListener: ModuleNotFoundError: No module named 'src.smsradar.sms_listener'",
+            "from src.smsradar.sms_radar_service import SmsRadarService: ImportError: cannot import name 'SmsRadarService' from 'src.smsradar.sms_radar_service' (/tmp/migrate-d8zq_8a2/workspace/candidate/src/smsradar/sms_radar_service.py)",
+            "from src.smsradar.sms_storage import SmsStorage: ModuleNotFoundError: No module named 'src.smsradar.sms_storage'",
+            "from src.smsradar.time_provider import TimeProvider: ModuleNotFoundError: No module named 'src.smsradar.time_provider'"
+          ]
+        },
+        {
+          "module": "src/smsradar/sms.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 12,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 12,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_cursor_parser.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_cursor_parser.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_listener.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_listener.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_radar_service.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_radar_service.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 1,
+          "total": 1,
+          "kept": true
+        },
+        {
+          "module": "src/smsradar/sms_storage.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_storage.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/time_provider.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 2,
+          "total": 2,
+          "kept": true
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 14,
+      "tests_total": 48,
+      "raw_pass_rate": 0.2916666666666667,
+      "passable_passed": 4,
+      "passable_total": 16,
+      "passable_pass_rate": 0.25,
+      "successful_migration": false
+    },
+    {
+      "repo": "AllenDowney_ThinkJavaCode",
+      "agent_exit_code": 0,
+      "agent_seconds": 152.3,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 4,
+        "from_plan": 4,
+        "added_by_harness": 0,
+        "modules": [
+          "src/ch11/time.py",
+          "src/ch01/hello.py",
+          "src/ap01/series.py",
+          "src/ch03/convert.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 2,
+          "problems_after": 0,
+          "problems": [
+            "from src.ch01.hello import Hello: ModuleNotFoundError: No module named 'src.ch01.hello'",
+            "from src.ch03.convert import Convert: ModuleNotFoundError: No module named 'src.ch03.convert'"
+          ]
+        },
+        {
+          "module": "src/ch01/hello.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 1,
+          "total": 1,
+          "kept": true
+        },
+        {
+          "module": "src/ch11/time.py",
+          "attempt": 1,
+          "before": 5,
+          "after": 5,
+          "total": 9,
+          "kept": false
+        },
+        {
+          "module": "src/ch11/time.py",
+          "attempt": 2,
+          "before": 5,
+          "after": 5,
+          "total": 9,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 31,
+      "tests_total": 45,
+      "raw_pass_rate": 0.6888888888888889,
+      "passable_passed": 24,
+      "passable_total": 34,
+      "passable_pass_rate": 0.7058823529411765,
+      "successful_migration": false
+    },
+    {
+      "repo": "OpenGamma_ElSql",
+      "agent_exit_code": 0,
+      "agent_seconds": 289.0,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 6,
+        "from_plan": 5,
+        "added_by_harness": 1,
+        "modules": [
+          "src/geohash/util/long_util.py",
+          "src/geohash/geohash.py",
+          "src/ContainerSqlFragment.py",
+          "src/ElSqlBundle.py",
+          "src/SpringSqlParams.py",
+          "src/opengamma/elsql/__init__.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 1,
+          "problems_after": 0,
+          "problems": [
+            "from src.opengamma.elsql import ContainerSqlFragment, ElSql, ElSqlBundle, ElSqlConfig, MapSqlParameterSource, SpringSqlParams, SqlFragment: ModuleNotFoundError: No module named 'src.opengamma.elsql.ContainerSqlFragment'"
+          ]
+        },
+        {
+          "module": "src/opengamma/elsql/__init__.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 11,
+          "kept": false
+        },
+        {
+          "module": "src/opengamma/elsql/__init__.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 11,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 6,
+      "tests_total": 103,
+      "raw_pass_rate": 0.05825242718446602,
+      "passable_passed": 6,
+      "passable_total": 97,
+      "passable_pass_rate": 0.061855670103092786,
+      "successful_migration": false
+    }
+  ]
+}

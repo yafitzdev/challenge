@@ -1,4 +1,4 @@
-# 07 Holdout check
+# 08 Holdout check
 
 The final harness (step 06) against part 2's baseline (step 03) on the 5 holdout repos, which no step looked at.
 Gemini 2.5 Flash Lite, 1 run each, 184 passable hidden tests. Configs:

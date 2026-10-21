@@ -1,0 +1,3 @@
+Run tests with the run_tests tool: it runs them the way the evaluation does and returns a short report (passed and
+failed per file, the first error line of each failing test, and modules that are missing). Pass a file to run just
+that file, e.g. run_tests(path="public_tests/test_x_public.py").

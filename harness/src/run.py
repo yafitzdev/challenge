@@ -116,7 +116,9 @@ def run_agent(config, workspace, output, prompt=None):
     limit = config.get('command_timeout_seconds')
     job = {'config': config, 'workspace': str(workspace), 'output': str(output),
            'bash': str(HARNESS / 'src/timeout-bash.sh') if limit else shutil.which('bash'),
-           'prompt': prompt or prompt_path(config).read_text(encoding='utf-8')}
+           'prompt': prompt or prompt_path(config).read_text(encoding='utf-8'),
+           # The run_tests tool's command (run_tests.py); only used when the config lists run_tests in its tools.
+           'run_tests': [sys.executable, str(HARNESS / 'src/run_tests.py'), str(workspace / 'candidate')]}
     job_file = output / 'job.json'
     job_file.write_text(json.dumps(job, indent=2), encoding='utf-8')
     # NODE_USE_ENV_PROXY makes Node's fetch use HTTPS_PROXY when one is set (the cloud); no effect otherwise.

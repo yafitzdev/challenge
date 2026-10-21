@@ -1,0 +1,337 @@
+{
+  "run": "07_tools",
+  "config": "v2-07-tools",
+  "repos": [
+    "kungfoo_geohash-java",
+    "awslabs_route53-infima",
+    "tamir7_Contacts"
+  ],
+  "successful_migrations": 0,
+  "raw_pass_rate": 0.3237410071942446,
+  "passable_pass_rate": 0.336283185840708,
+  "per_repo": [
+    {
+      "repo": "kungfoo_geohash-java",
+      "agent_exit_code": 0,
+      "agent_seconds": 982.2,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 14,
+        "from_plan": 0,
+        "added_by_harness": 14,
+        "modules": [
+          "src/geohash/geohash.py",
+          "src/geohash/bounding_box.py",
+          "src/geohash/wgs84point.py",
+          "src/geohash/queries/bounding_box_query.py",
+          "src/geohash/queries/circle_query.py",
+          "src/geohash/util/double_util.py",
+          "src/geohash/util/long_util.py",
+          "src/geohash/util/geohash_size_table.py",
+          "src/geohash/util/bounding_box_geohash_iterator.py",
+          "src/geohash/util/bounding_box_sampler.py",
+          "src/geohash/util/two_geohash_bounding_box.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 2,
+          "problems_after": 7,
+          "problems": [
+            "from src.geohash.util.bounding_box_geohash_iterator import BoundingBoxGeoHashIterator: ModuleNotFoundError: No module named 'src.geohash.util.bounding_box_geohash_iterator'",
+            "from src.geohash.util.bounding_box_sampler import BoundingBoxSampler: SyntaxError: invalid hexadecimal literal"
+          ]
+        },
+        {
+          "push": 2,
+          "problems_before": 7,
+          "problems_after": 7,
+          "problems": [
+            "from src.geohash.bounding_box import BoundingBox: ImportError: cannot import name 'GeoHash' from 'src.geohash.geohash' (/tmp/migrate-lqwdn1rl/workspace/candidate/src/geohash/geohash.py)",
+            "from src.geohash.util.bounding_box_geohash_iterator import BoundingBoxGeoHashIterator: ImportError: cannot import name 'GeoHash' from 'src.geohash.geohash' (/tmp/migrate-lqwdn1rl/workspace/candidate/src/geohash/geohash.py)",
+            "from src.geohash.util.bounding_box_sampler import BoundingBoxSampler: ImportError: cannot import name 'GeoHash' from 'src.geohash.geohash' (/tmp/migrate-lqwdn1rl/workspace/candidate/src/geohash/geohash.py)",
+            "from src.geohash.util.double_util import DoubleUtil: ImportError: cannot import name 'GeoHash' from 'src.geohash.geohash' (/tmp/migrate-lqwdn1rl/workspace/candidate/src/geohash/geohash.py)",
+            "from src.geohash.util.geohash_size_table import GeoHashSizeTable: ImportError: cannot import name 'GeoHash' from 'src.geohash.geohash' (/tmp/migrate-lqwdn1rl/workspace/candidate/src/geohash/geohash.py)",
+            "from src.geohash.util.long_util import LongUtil: ImportError: cannot import name 'GeoHash' from 'src.geohash.geohash' (/tmp/migrate-lqwdn1rl/workspace/candidate/src/geohash/geohash.py)",
+            "from src.geohash.wgs84point import WGS84Point: ImportError: cannot import name 'GeoHash' from 'src.geohash.geohash' (/tmp/migrate-lqwdn1rl/workspace/candidate/src/geohash/geohash.py)"
+          ]
+        },
+        {
+          "push": 3,
+          "problems_before": 7,
+          "problems_after": 7,
+          "problems": [
+            "from src.geohash.bounding_box import BoundingBox: SyntaxError: invalid syntax",
+            "from src.geohash.util.bounding_box_geohash_iterator import BoundingBoxGeoHashIterator: SyntaxError: invalid syntax",
+            "from src.geohash.util.bounding_box_sampler import BoundingBoxSampler: SyntaxError: invalid syntax",
+            "from src.geohash.util.double_util import DoubleUtil: SyntaxError: invalid syntax",
+            "from src.geohash.util.geohash_size_table import GeoHashSizeTable: SyntaxError: invalid syntax",
+            "from src.geohash.util.long_util import LongUtil: SyntaxError: invalid syntax",
+            "from src.geohash.wgs84point import WGS84Point: SyntaxError: invalid syntax"
+          ]
+        },
+        {
+          "module": "src/geohash/bounding_box.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/bounding_box.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/wgs84point.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/wgs84point.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_geohash_iterator.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_geohash_iterator.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_sampler.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/bounding_box_sampler.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/double_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/geohash_size_table.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/geohash/util/long_util.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 53,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 41,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "awslabs_route53-infima",
+      "agent_exit_code": 0,
+      "agent_seconds": 155.8,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 3,
+        "from_plan": 0,
+        "added_by_harness": 3,
+        "modules": [
+          "src/awslabs_route53_infima/__init__.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 1,
+          "problems_after": 1,
+          "problems": [
+            "from src.awslabs_route53_infima import Lattice, OneDimensionalLattice, SimpleSignatureShuffleSharder, TwoDimensionalLattice: ModuleNotFoundError: No module named 'src.awslabs_route53_infima.lattice'"
+          ]
+        },
+        {
+          "push": 2,
+          "problems_before": 1,
+          "problems_after": 0,
+          "problems": [
+            "from src.awslabs_route53_infima import Lattice, OneDimensionalLattice, SimpleSignatureShuffleSharder, TwoDimensionalLattice: ImportError: cannot import name 'OneDimensionalLattice' from 'src.awslabs_route53_infima.lattice' (/tmp/migrate-duh4yvl0/workspace/candidate/src/awslabs_route53_infima/lattice.py)"
+          ]
+        },
+        {
+          "module": "src/awslabs_route53_infima/__init__.py",
+          "attempt": 1,
+          "before": 12,
+          "after": 12,
+          "total": 19,
+          "kept": false
+        },
+        {
+          "module": "src/awslabs_route53_infima/__init__.py",
+          "attempt": 2,
+          "before": 12,
+          "after": 4,
+          "total": 19,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 19,
+      "tests_total": 48,
+      "raw_pass_rate": 0.3958333333333333,
+      "passable_passed": 19,
+      "passable_total": 42,
+      "passable_pass_rate": 0.4523809523809524,
+      "successful_migration": false
+    },
+    {
+      "repo": "tamir7_Contacts",
+      "agent_exit_code": 0,
+      "agent_seconds": 189.4,
+      "agent_completed": null,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": null,
+      "usage": null,
+      "resumes": null,
+      "decompose": {
+        "planned": 5,
+        "from_plan": 0,
+        "added_by_harness": 5,
+        "modules": [
+          "src/contacts/address.py",
+          "src/contacts/email.py",
+          "src/contacts/event.py",
+          "src/contacts/phonenumber.py"
+        ]
+      },
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 1,
+          "problems_after": 0,
+          "problems": [
+            "from src.contacts.email import Email: NameError: name 'Email' is not defined"
+          ]
+        },
+        {
+          "module": "src/contacts/email.py",
+          "attempt": 1,
+          "before": 2,
+          "after": 3,
+          "total": 5,
+          "kept": true
+        },
+        {
+          "module": "src/contacts/email.py",
+          "attempt": 2,
+          "before": 3,
+          "after": 3,
+          "total": 5,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 26,
+      "tests_total": 38,
+      "raw_pass_rate": 0.6842105263157895,
+      "passable_passed": 19,
+      "passable_total": 30,
+      "passable_pass_rate": 0.6333333333333333,
+      "successful_migration": false
+    }
+  ]
+}
