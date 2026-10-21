@@ -1,0 +1,186 @@
+{
+  "run": "weak00_holdout",
+  "config": "v2-00-baseline-weak",
+  "repos": [
+    "gcacace_android-signaturepad",
+    "bmwcarit_hmm-lib",
+    "tuenti_SmsRadar",
+    "AllenDowney_ThinkJavaCode",
+    "OpenGamma_ElSql"
+  ],
+  "successful_migrations": 0,
+  "raw_pass_rate": 0.0942622950819672,
+  "passable_pass_rate": 0.08695652173913043,
+  "per_repo": [
+    {
+      "repo": "gcacace_android-signaturepad",
+      "agent_exit_code": 0,
+      "agent_seconds": 35.1,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 4,
+      "usage": {
+        "input": 2850,
+        "output": 78,
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "totalTokens": 2928,
+        "reasoning": 0
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 18,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 18,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "bmwcarit_hmm-lib",
+      "agent_exit_code": 0,
+      "agent_seconds": 237.0,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 37,
+      "usage": {
+        "input": 77389,
+        "output": 8064,
+        "cacheRead": 166427,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 251880
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 14,
+      "tests_total": 30,
+      "raw_pass_rate": 0.4666666666666667,
+      "passable_passed": 13,
+      "passable_total": 19,
+      "passable_pass_rate": 0.6842105263157895,
+      "successful_migration": false
+    },
+    {
+      "repo": "tuenti_SmsRadar",
+      "agent_exit_code": 0,
+      "agent_seconds": 250.9,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 32,
+      "usage": {
+        "input": 66115,
+        "output": 14985,
+        "cacheRead": 177975,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 259075
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 2,
+        "output_shows_project": 0
+      },
+      "tests_passed": 7,
+      "tests_total": 48,
+      "raw_pass_rate": 0.14583333333333334,
+      "passable_passed": 3,
+      "passable_total": 16,
+      "passable_pass_rate": 0.1875,
+      "successful_migration": false
+    },
+    {
+      "repo": "AllenDowney_ThinkJavaCode",
+      "agent_exit_code": 0,
+      "agent_seconds": 65.2,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 27,
+      "usage": {
+        "input": 95055,
+        "output": 6618,
+        "cacheRead": 92041,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 193714
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 2,
+      "tests_total": 45,
+      "raw_pass_rate": 0.044444444444444446,
+      "passable_passed": 0,
+      "passable_total": 34,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "OpenGamma_ElSql",
+      "agent_exit_code": 0,
+      "agent_seconds": 43.1,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 7,
+      "usage": {
+        "input": 22177,
+        "output": 1971,
+        "cacheRead": 34026,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 58174
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": null,
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 103,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 97,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    }
+  ]
+}

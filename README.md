@@ -83,9 +83,10 @@ repos in any run, so the test pass rate is the measure there (06: 58.4% and 40.7
 
 ### Holdout check
 
-[10](results/10_holdout/): the final harness against part 2's baseline on the 5 holdout repos no step looked at,
-Gemini, 1 run, 184 tests: **24 -> 55** (13.0% -> 29.9%), successful migrations 0 -> 1 of 5. The largest repo (ElSql, 97 tests) stays 0 in both:
-its plan session wrote no plan.
+[10](results/10_holdout/): on the 5 holdout repos no step looked at, Gemini, 1 run each, 184 tests: the plain agent
+with none of our fixes **16**, part 1's harness **24**, the final harness **55** (8.7% -> 13.0% -> 29.9%);
+successful migrations 0 -> 0 -> 1 of 5. The largest repo (ElSql, 97 tests) stays 0 in all three: its plan session
+wrote no plan.
 
 ### What caused what
 
