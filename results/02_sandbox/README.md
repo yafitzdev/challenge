@@ -12,9 +12,13 @@ meant to use. Config: [config.json](config.json) (step 01 plus `sandbox: true`).
 Checked before the runs: inside the sandbox the project folder does not exist, writing to source/ fails with
 "Read-only file system", and `curl` cannot connect, while Pi's own requests go through.
 
+Hardened after all runs (review, 2026-10-22): the agent now runs as the unprivileged user nobody, so it cannot undo
+these mounts (`umount /home` fails), and the project folder is hidden wherever the repo is cloned. In the measured runs
+the agent ran as root; no audit shows it reaching anything outside the workspace.
+
 ## Result
 
-6 development repos, 184 passable hidden tests.
+6 development repos, 184 passable tests (public and hidden).
 
 | Repo | Step 01 run 1 | Step 01 run 2 | Run 1 | Run 2 |
 |---|---|---|---|---|

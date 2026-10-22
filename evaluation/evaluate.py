@@ -7,6 +7,9 @@ manifest counts, so a test that is missing or never runs counts as failed.
 v2 (2026-10-18, Yan's decision): each test file runs in its own pytest process. Before, one
 file that failed to import stopped the whole run and every test of the repo counted as failed.
 v3 (2026-10-19): new data layout, test_repositories/<repo>/{repository,public_tests,hidden_tests}; same files, same tests.
+v4 (2026-10-22): the tests run isolated (isolate.sh: no project folder, no network, unprivileged user), and
+top-level folders or files that would replace pytest or a standard-library module are dropped. Re-scoring every stored
+run with v4 gives the same numbers.
 
 Usage:
     python evaluation/evaluate.py --repo aventrix_jnanoid --candidate path/to/candidate [--output result.json]
@@ -30,6 +33,9 @@ TEST_DIRS = ('hidden_tests', 'public_tests')
 # Files a candidate could use to change how pytest or Python behaves, instead of writing real code.
 TAMPER_FILES = {'conftest.py', 'pytest.ini', 'tox.ini', 'setup.cfg', 'pyproject.toml',
                 'sitecustomize.py', 'usercustomize.py', 'pytest.py'}
+# Top-level names that would replace pytest or a module it uses, if the candidate shipped them (they are on PYTHONPATH).
+SHADOW_NAMES = set(sys.stdlib_module_names) | {'pytest', '_pytest', 'pluggy', 'iniconfig', 'packaging', 'py'}
+ISOLATE = Path(__file__).resolve().parent / 'isolate.sh'
 
 
 def sha256(path):
@@ -56,6 +62,10 @@ def stage(repo, candidate, work):
     """Copy the candidate's code, drop its tests and config files, add the frozen tests."""
     ignore = shutil.ignore_patterns('__pycache__', '.pytest_cache', *TEST_DIRS, *TAMPER_FILES)
     shutil.copytree(candidate, work, ignore=ignore)
+    for base in (work, work / 'src'):
+        for entry in base.iterdir() if base.is_dir() else ():
+            if entry.name.endswith('.pth') or (entry.name.removesuffix('.py') in SHADOW_NAMES and entry.name != 'src'):
+                shutil.rmtree(entry) if entry.is_dir() else entry.unlink()
     for name in TEST_DIRS:
         frozen = DATA / repo / name
         if frozen.exists():
@@ -89,8 +99,8 @@ def run_pytest(work):
     outcomes, logs, timed_out = {}, [], False
     for i, test_file in enumerate(test_files(work)):
         report = work / f'.junit-{i}.xml'
-        cmd = [sys.executable, '-m', 'pytest', '-q', '-p', 'no:cacheprovider', '--noconftest',
-               f'--junitxml={report}', test_file]
+        cmd = ['bash', str(ISOLATE), str(work), '--', sys.executable, '-m', 'pytest', '-q', '-p', 'no:cacheprovider',
+               '--noconftest', f'--junitxml={report}', test_file]
         try:
             proc = subprocess.run(cmd, cwd=work, env=env, capture_output=True, text=True,
                                   encoding='utf-8', errors='replace', timeout=FILE_TIMEOUT_SECONDS)

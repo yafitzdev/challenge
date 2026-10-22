@@ -5,14 +5,17 @@ Instead of one long session for the whole repository, the work is split into sma
 hallucinations, better code. Config: [config.json](config.json) (step 05 plus `decompose`). Run summary:
 [runs/](runs/).
 
-1. **Plan.** A short session (15 turns) reads the Java repository and writes plan.json: one entry per Python module,
-   with the Java file it ports and the modules it depends on ([decompose_plan](../../harness/prompts/task/decompose_plan.txt)).
-   The harness adds every module that project_structure.txt lists or a public test imports.
-2. **Modules.** In dependency order, a fresh session (15 turns, 300 s) writes one module
-   ([write_module](../../harness/prompts/during_work/write_module.txt)). It is told which modules exist and which
-   public tests cover this one, and it ports the Java unit test of its class to a scratch file and runs it
-   (`self_test`), so modules without public tests have a check too. Only that one file is kept. Package
-   `__init__.py` files come last, so the classes they re-export exist.
+1. **Module list.** A short session (15 turns) is asked to write plan.json: one entry per Python module, with the
+   Java file it ports and the modules it depends on ([decompose_plan](../../harness/prompts/task/decompose_plan.txt)).
+   The harness adds every module that project_structure.txt lists or a public test imports. In all 11 repo runs of
+   this config (2 development runs, 1 holdout run) the plan session produced no usable entry, so the list was the
+   harness's own: geohash 14 modules, Contacts 5, route53 only package files.
+2. **Modules.** One fresh session (15 turns, 300 s) per listed module, package `__init__.py` files last, so the
+   classes they re-export exist ([write_module](../../harness/prompts/during_work/write_module.txt)). With no plan,
+   no module has a Java file or dependencies attached: the session finds its Java class in `../source/` itself. It is
+   told which modules exist and which public tests cover this one, and it ports the Java unit test of its class to a
+   scratch file and runs it (`self_test`), so modules without public tests have a check too. Only that one file is
+   kept. Empty package files the tests do not import need no session.
 3. **Retry package** (step 05) as the failure path.
 
 ## Result
@@ -27,8 +30,10 @@ hallucinations, better code. Config: [config.json](config.json) (step 05 plus `d
 Mean 56.0 against 32.5 for step 05. Run 2 is after the push undo (step 05); in run 1 no push round made things
 worse, so the undo would not have changed it.
 
-The thesis holds with the weak model. Each session only has to get one class right, and it has the Java class and
-that class's tests in front of it. It is slower: geohash took 12 minutes against 2 to 10 with one session.
+The thesis holds with the weak model. Each session only has to get one module right, with that module's tests in
+front of it. The gain comes from geohash and Contacts, where the list had 14 and 5 modules; on route53 it held only
+package files, so decomposition changed little there. It is slower: geohash took 12 minutes against 2 to 10 with one
+session.
 
 The two runs differ by 20 tests, mostly route53 (17 and 5): its tests import every class through the package, so
 one incomplete class costs many tests. What still fails: classes that are written but incomplete (route53: `Lattice`

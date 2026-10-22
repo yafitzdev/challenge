@@ -14,9 +14,10 @@ import { Type } from 'typebox';
 if (process.env.HTTPS_PROXY || process.env.https_proxy) setGlobalDispatcher(new EnvHttpProxyAgent());
 
 const job = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
-// Every text the harness sends to a model lives in harness/prompts/.
+// Every text the harness sends to a model lives in harness/prompts/; {name} placeholders are filled from vars.
 const PROMPTS = new URL('../prompts/', import.meta.url);
-const prompt = (name) => fs.readFileSync(new URL(`${name}.txt`, PROMPTS), 'utf8').replace(/\n$/, '');
+const prompt = (name, vars = {}) => fs.readFileSync(new URL(`${name}.txt`, PROMPTS), 'utf8').replace(/\n$/, '')
+  .replace(/\{(\w+)\}/g, (match, k) => (k in vars ? String(vars[k]) : match));
 const checkOnly = process.argv.includes('--check');
 const cfg = job.config;
 // run.py passes the key for the config's provider as MODEL_API_KEY.
@@ -171,13 +172,13 @@ session.subscribe((event) => {
   }
 });
 // With resume_after_errors, a session that ends on a provider error or on the output limit (a reply cut off at
-// max_output_tokens, which ends the Pi session) is sent on, up to that many times. Baseline: one output-limit end
-// left a repo with no code (results/00_baseline/README.md).
+// max_output_tokens, which ends the Pi session) is sent on, up to that many times. Baseline run 3: one output-limit
+// end left a repo with no code (results/00_baseline/README.md).
 const resumes = [];
 const RESUME_PROMPTS = { error: 'during_work/provider_error', length: 'during_work/output_limit' };
 // Not a lever, so it is on for every config: when the provider is rate-limited (HTTP 429), wait and send the agent
 // on. The wait does not count against the session's time limit. Gemini through OpenRouter was rate-limited upstream
-// even with one agent at a time (results/03_weak_baseline/).
+// (HTTP 429) even with one agent at a time.
 const rateLimitWaits = [];
 let pausedMs = 0;
 const RATE_LIMIT_WAITS_SECONDS = [30, 60, 90, 120, 180];

@@ -18,9 +18,15 @@ Config: [config.json](config.json) (step 03 plus the keys below). Run summary: [
 | tamir7_Contacts | 0/30 | 0/30 |
 | **Total** | **0** | **16** |
 
-geohash now gets working code (16 of 41; the session used all 42 turns). The other two are still 0:
+geohash now gets working code (16 of 41; the session used all its turns: 40, plus 2 answers after the provider
+errors that robustness resumed). The other two are still 0:
 
 - route53: the package `__init__.py` does not export the classes the tests import (`cannot import name 'Lattice'`).
 - Contacts: every module imports, but the API is wrong (`PhoneNumber() takes no arguments`, no `Event.Type`).
 
 **Decision: keep.** Next failure to fix: the agent stops while imports are still broken (step 05).
+
+**Bug found after the runs.** The loop-breaker note reached the agent with its placeholders unfilled (`{tool}`,
+`{count}`, `{call}`, `{cwd}`) in this step and every later one: the prompt loader in agent.mjs ignored the values.
+The agent still got the instruction to stop repeating the call and check where it is, just without the details.
+Fixed afterwards in agent.mjs; the measured runs used the unfilled note.

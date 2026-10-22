@@ -1,10 +1,10 @@
-# 03 Weak-model baseline
+# 03 Basic harness with the weak model (checkpoint 1)
 
-Part 2 starts here: part 1's harness (step 02, sandbox) unchanged, with a weak model, Gemini 2.5 Flash Lite (via
+Phase 3 starts here: the basic harness from phase 2 (step 02, sandbox) unchanged, with a weak model, Gemini 2.5 Flash Lite (via
 OpenRouter). Config: [config.json](config.json) (step 02 with the model swapped). Run summary: [runs/](runs/).
 
-To save money, part 2 runs once per step on 3 development repos: geohash (the largest), route53 (the most
-modules), Contacts (small). 113 passable hidden tests.
+To save money, phase 3 runs once per step on 3 development repos: geohash (the largest), route53 (the most
+modules), Contacts (small). 113 passable tests (public and hidden).
 
 ## Result
 

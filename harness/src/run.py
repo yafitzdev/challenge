@@ -35,8 +35,9 @@ from decompose import PLAN_FILE, decompose  # noqa: E402
 from retry import retry_failing  # noqa: E402
 
 AGENT = HARNESS / 'src/agent.mjs'
-# The cloud proxy injects the real key for the model API, so a placeholder is enough there.
-DUMMY_KEY = 'dummy-key-replaced-by-proxy'
+# Only where a proxy injects the real key into every model request (set HARNESS_KEY_FROM_PROXY=1) may a run go
+# without a key; everywhere else a missing key stops the run instead of producing zeros.
+PROXY_KEY_PLACEHOLDER = 'placeholder-key-replaced-by-proxy'
 
 CONTRACT = """\
 Evaluation contract
@@ -58,18 +59,25 @@ CONFIG_KEYS = {
     'command_timeout_seconds', 'resume_after_errors', 'sandbox',
     'start_in_candidate', 'candidate_link', 'loop_breaker', 'retry', 'decompose', 'rules',
 }
+NESTED_KEYS = {
+    'retry': {'attempts', 'max_assistant_turns', 'timeout_seconds', 'push_to_continue'},
+    'decompose': {'plan_turns', 'max_assistant_turns', 'timeout_seconds', 'self_test'},
+}
 
 
 def load_config(path):
     config = json.loads(path.read_text(encoding='utf-8'))
     unknown = sorted(config.keys() - CONFIG_KEYS)
+    for key, allowed in NESTED_KEYS.items():
+        if isinstance(config.get(key), dict):
+            unknown += [f'{key}.{k}' for k in sorted(config[key].keys() - allowed)]
     if unknown:
         raise SystemExit(f'{path}: unknown config keys {", ".join(unknown)}')
     return config
 
 
 def api_key(config):
-    """Real key from the environment or .env (Yan's PC); otherwise the proxy placeholder (cloud)."""
+    """The model API key from the environment or from .env."""
     var = config.get('api_key_env', 'DEEPSEEK_API_KEY')
     if os.environ.get(var):
         return os.environ[var]
@@ -79,7 +87,9 @@ def api_key(config):
             name, _, value = line.partition('=')
             if name.strip() == var and value.strip():
                 return value.strip()
-    return DUMMY_KEY
+    if os.environ.get('HARNESS_KEY_FROM_PROXY') == '1':
+        return PROXY_KEY_PLACEHOLDER
+    raise SystemExit(f'{var} is not set: put it in the environment or in .env (see .env.example)')
 
 
 def stage(repo, workspace, config):
@@ -107,7 +117,7 @@ def keep_candidate(folder, names):
 
 
 def prompt_path(config):
-    """Each config names its prompt file, so one config file fully describes a harness version."""
+    """Each config names its prompt file; with the commit recorded in summary.json it describes a harness version."""
     return HARNESS / 'prompts' / config.get('prompt_file', 'task/baseline.txt')
 
 
@@ -146,14 +156,15 @@ def audit_events(output):
     """Flag tool calls that reached for things the agent must not use. A flag means: read the log."""
     # The main session's events plus those of every retry session (retries/<module>-<n>/events.jsonl).
     text = ''.join(f.read_text(encoding='utf-8') for f in sorted(output.rglob('events.jsonl')))
-    patterns = {'oracles': r'/oracle\b', 'project_folder': r'challenge_v2|test_repositories',
+    project = re.escape(ROOT.name)  # the project folder, whatever name it was cloned under
+    patterns = {'oracles': r'/oracle\b', 'project_folder': rf'{project}|test_repositories',
                 'hidden_tests': r'hidden_tests', 'package_install': r'pip install|npm install'}
     events = [json.loads(line) for line in text.splitlines()]
     calls = [json.dumps(e.get('args', '')) for e in events if e.get('type') == 'tool_execution_start']
     flags = {name: sum(bool(re.search(p, c)) for c in calls) for name, p in patterns.items()}
     # Also scan what came back: a broad command like `find /` can show project paths without naming them.
     outputs = [json.dumps(e.get('result', '')) for e in events if e.get('type') == 'tool_execution_end']
-    flags['output_shows_project'] = sum(bool(re.search(r'/oracle/|hidden_tests/|challenge_v2|test_repositories', o))
+    flags['output_shows_project'] = sum(bool(re.search(rf'/oracle/|hidden_tests/|{project}|test_repositories', o))
                                         for o in outputs)
     return flags
 
@@ -210,10 +221,21 @@ def score_repo(repo, run_dir, exit_code, seconds):
     return row
 
 
+def harness_commit():
+    """The git commit a run used, with '+uncommitted' when harness/ or evaluation/ had local changes."""
+    try:
+        head = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        dirty = subprocess.run(['git', 'status', '--porcelain', '--', 'harness', 'evaluation'], cwd=ROOT,
+                               capture_output=True, text=True).stdout.strip()
+        return (head + ('+uncommitted' if dirty else '')) or None
+    except OSError:
+        return None
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('--split', choices=['sanity', 'development', 'holdout', 'hard', 'big'])
+    group.add_argument('--split', choices=['sanity', 'development', 'holdout'])
     group.add_argument('--repos', nargs='+')
     parser.add_argument('--config', type=Path, required=True, help='an experiment config, e.g. results/00_baseline/config.json')
     parser.add_argument('--run-name')
@@ -237,7 +259,7 @@ def main():
     total = sum(r['tests_total'] for r in rows)
     p_passed = sum(r['passable_passed'] for r in rows)
     p_total = sum(r['passable_total'] for r in rows)
-    summary = {'run': name, 'config': config['version'], 'repos': repos,
+    summary = {'run': name, 'config': config['version'], 'harness_commit': harness_commit(), 'repos': repos,
                'successful_migrations': sum(r['successful_migration'] for r in rows),
                'raw_pass_rate': passed / total, 'passable_pass_rate': p_passed / p_total,
                'per_repo': rows}

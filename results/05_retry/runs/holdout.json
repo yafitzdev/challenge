@@ -1,0 +1,442 @@
+{
+  "run": "holdout_05",
+  "config": "v2-05-retry",
+  "repos": [
+    "gcacace_android-signaturepad",
+    "bmwcarit_hmm-lib",
+    "tuenti_SmsRadar",
+    "AllenDowney_ThinkJavaCode",
+    "OpenGamma_ElSql"
+  ],
+  "successful_migrations": 1,
+  "raw_pass_rate": 0.22950819672131148,
+  "passable_pass_rate": 0.24456521739130435,
+  "per_repo": [
+    {
+      "repo": "gcacace_android-signaturepad",
+      "agent_exit_code": 0,
+      "agent_seconds": 241.0,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 39,
+      "usage": {
+        "input": 60094,
+        "output": 9192,
+        "cacheRead": 276670,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 345956
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": [],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 18,
+      "tests_total": 18,
+      "raw_pass_rate": 1.0,
+      "passable_passed": 18,
+      "passable_total": 18,
+      "passable_pass_rate": 1.0,
+      "successful_migration": true
+    },
+    {
+      "repo": "bmwcarit_hmm-lib",
+      "agent_exit_code": 0,
+      "agent_seconds": 47.2,
+      "agent_completed": true,
+      "agent_limit": null,
+      "agent_error": null,
+      "assistant_turns": 9,
+      "usage": {
+        "input": 7275,
+        "output": 162,
+        "cacheRead": 1569,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 9006
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": [],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 30,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 19,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    },
+    {
+      "repo": "tuenti_SmsRadar",
+      "agent_exit_code": 1,
+      "agent_seconds": 559.5,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 68529,
+        "output": 7114,
+        "cacheRead": 173590,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 249233
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 7,
+          "problems_after": 1,
+          "kept": true,
+          "problems": [
+            "from src.smsradar.shared_preferences_sms_storage import SharedPreferencesSmsStorage: ModuleNotFoundError: No module named 'src'",
+            "from src.smsradar.sms import Sms, SmsType: ModuleNotFoundError: No module named 'src'",
+            "from src.smsradar.sms_cursor_parser import SmsCursorParser: ModuleNotFoundError: No module named 'src'",
+            "from src.smsradar.sms_listener import SmsListener: ModuleNotFoundError: No module named 'src'",
+            "from src.smsradar.sms_radar_service import SmsRadarService: ModuleNotFoundError: No module named 'src'",
+            "from src.smsradar.sms_storage import SmsStorage: ModuleNotFoundError: No module named 'src'",
+            "from src.smsradar.time_provider import TimeProvider: ModuleNotFoundError: No module named 'src'"
+          ]
+        },
+        {
+          "push": 2,
+          "problems_before": 1,
+          "problems_after": 0,
+          "kept": true,
+          "problems": [
+            "from src.smsradar.sms_radar_service import SmsRadarService: ImportError: cannot import name 'SmsRadarService' from 'src.smsradar.sms_radar_service' (/tmp/migrate-chajnl0s/workspace/candidate/src/smsradar/sms_radar_service.py)"
+          ]
+        },
+        {
+          "module": "src/smsradar/shared_preferences_sms_storage.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/shared_preferences_sms_storage.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 12,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 3,
+          "total": 12,
+          "kept": true
+        },
+        {
+          "module": "src/smsradar/sms_cursor_parser.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_cursor_parser.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 2,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_listener.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_listener.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_storage.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/sms_storage.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/smsradar/time_provider.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 2,
+          "total": 2,
+          "kept": true
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 16,
+      "tests_total": 48,
+      "raw_pass_rate": 0.3333333333333333,
+      "passable_passed": 10,
+      "passable_total": 16,
+      "passable_pass_rate": 0.625,
+      "successful_migration": false
+    },
+    {
+      "repo": "AllenDowney_ThinkJavaCode",
+      "agent_exit_code": 1,
+      "agent_seconds": 421.1,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 122134,
+        "output": 5218,
+        "cacheRead": 88356,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 215708
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 4,
+          "problems_after": 4,
+          "kept": true,
+          "problems": [
+            "from src.ap01.series import Series: ModuleNotFoundError: No module named 'src'",
+            "from src.ch01.hello import Hello: ModuleNotFoundError: No module named 'src'",
+            "from src.ch03.convert import Convert: ModuleNotFoundError: No module named 'src'",
+            "from src.ch11.time import Time: ModuleNotFoundError: No module named 'src'"
+          ]
+        },
+        {
+          "push": 2,
+          "problems_before": 4,
+          "problems_after": 2,
+          "kept": true,
+          "problems": [
+            "from src.ap01.series import Series: ImportError: cannot import name 'Series' from 'src.ap01.series' (unknown location)",
+            "from src.ch01.hello import Hello: ImportError: cannot import name 'Hello' from 'src.ch01.hello' (unknown location)",
+            "from src.ch03.convert import Convert: ImportError: cannot import name 'Convert' from 'src.ch03.convert' (unknown location)",
+            "from src.ch11.time import Time: ImportError: cannot import name 'Time' from 'src.ch11.time' (unknown location)"
+          ]
+        },
+        {
+          "push": 3,
+          "problems_before": 2,
+          "problems_after": 2,
+          "kept": true,
+          "problems": [
+            "from src.ch03.convert import Convert: ImportError: cannot import name 'Convert' from 'src.ch03.convert' (unknown location)",
+            "from src.ch11.time import Time: ImportError: cannot import name 'Time' from 'src.ch11.time' (unknown location)"
+          ]
+        },
+        {
+          "module": "src/ch03/convert/__init__.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/ch03/convert/__init__.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/ch01/hello/__init__.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 1,
+          "kept": false
+        },
+        {
+          "module": "src/ch01/hello/__init__.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 1,
+          "total": 1,
+          "kept": true
+        },
+        {
+          "module": "src/ap01/series/__init__.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/ap01/series/__init__.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 5,
+          "kept": false
+        },
+        {
+          "module": "src/ch11/time/__init__.py",
+          "attempt": 1,
+          "before": 7,
+          "after": 5,
+          "total": 9,
+          "kept": false
+        },
+        {
+          "module": "src/ch11/time/__init__.py",
+          "attempt": 2,
+          "before": 7,
+          "after": 5,
+          "total": 9,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 22,
+      "tests_total": 45,
+      "raw_pass_rate": 0.4888888888888889,
+      "passable_passed": 17,
+      "passable_total": 34,
+      "passable_pass_rate": 0.5,
+      "successful_migration": false
+    },
+    {
+      "repo": "OpenGamma_ElSql",
+      "agent_exit_code": 1,
+      "agent_seconds": 647.9,
+      "agent_completed": false,
+      "agent_limit": "assistant_turn_limit",
+      "agent_error": "This operation was aborted",
+      "assistant_turns": 41,
+      "usage": {
+        "input": 92969,
+        "output": 15807,
+        "cacheRead": 429846,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 538622
+      },
+      "resumes": [],
+      "decompose": null,
+      "retries": [
+        {
+          "push": 1,
+          "problems_before": 1,
+          "problems_after": 1,
+          "kept": true,
+          "problems": [
+            "from src.opengamma.elsql import ContainerSqlFragment, ElSql, ElSqlBundle, ElSqlConfig, MapSqlParameterSource, SpringSqlParams, SqlFragment: ModuleNotFoundError: No module named 'src'"
+          ]
+        },
+        {
+          "push": 2,
+          "problems_before": 1,
+          "problems_after": 1,
+          "kept": true,
+          "problems": [
+            "from src.opengamma.elsql import ContainerSqlFragment, ElSql, ElSqlBundle, ElSqlConfig, MapSqlParameterSource, SpringSqlParams, SqlFragment: ModuleNotFoundError: No module named 'java'"
+          ]
+        },
+        {
+          "push": 3,
+          "problems_before": 1,
+          "problems_after": 1,
+          "kept": true,
+          "problems": [
+            "from src.opengamma.elsql import ContainerSqlFragment, ElSql, ElSqlBundle, ElSqlConfig, MapSqlParameterSource, SpringSqlParams, SqlFragment: ModuleNotFoundError: No module named 'java'"
+          ]
+        },
+        {
+          "module": "src/opengamma/elsql/__init__.py",
+          "attempt": 1,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        },
+        {
+          "module": "src/opengamma/elsql/__init__.py",
+          "attempt": 2,
+          "before": 0,
+          "after": 0,
+          "total": 3,
+          "kept": false
+        }
+      ],
+      "audit": {
+        "oracles": 0,
+        "project_folder": 0,
+        "hidden_tests": 0,
+        "package_install": 0,
+        "output_shows_project": 0
+      },
+      "tests_passed": 0,
+      "tests_total": 103,
+      "raw_pass_rate": 0.0,
+      "passable_passed": 0,
+      "passable_total": 97,
+      "passable_pass_rate": 0.0,
+      "successful_migration": false
+    }
+  ]
+}

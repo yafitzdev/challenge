@@ -22,6 +22,8 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 PROMPTS = Path(__file__).resolve().parents[1] / 'prompts'
+# The candidate's code runs isolated, the same way the evaluator runs it (no project folder, no network, unprivileged).
+ISOLATE = Path(__file__).resolve().parents[2] / 'evaluation/isolate.sh'
 TEST_TIMEOUT_SECONDS = 120
 MAX_FAILURE_LINES = 15
 
@@ -30,7 +32,7 @@ def test_env(candidate):
     """The environment the evaluator runs tests in."""
     env = {k: v for k, v in os.environ.items() if not k.startswith(('PYTHON', 'PYTEST'))}
     env.update(PYTHONPATH=os.pathsep.join([str(candidate), str(candidate / 'src')]), PYTHONHASHSEED='0',
-               PYTHONDONTWRITEBYTECODE='1', PYTEST_DISABLE_PLUGIN_AUTOLOAD='1')
+               PYTHONDONTWRITEBYTECODE='1', PYTEST_DISABLE_PLUGIN_AUTOLOAD='1', PYTHONIOENCODING='utf-8')
     return env
 
 
@@ -39,8 +41,8 @@ def run_test_file(candidate, test_file):
     env = test_env(candidate)
     with tempfile.TemporaryDirectory() as tmp:
         xml = Path(tmp) / 'report.xml'
-        cmd = [sys.executable, '-m', 'pytest', '-q', '-p', 'no:cacheprovider', '--noconftest', '--tb=short',
-               f'--junitxml={xml}', test_file]
+        cmd = ['bash', str(ISOLATE), str(candidate), tmp, '--', sys.executable, '-m', 'pytest', '-q', '-p',
+               'no:cacheprovider', '--noconftest', '--tb=short', f'--junitxml={xml}', test_file]
         try:
             subprocess.run(cmd, cwd=candidate, env=env, capture_output=True, text=True, encoding='utf-8',
                            errors='replace', timeout=TEST_TIMEOUT_SECONDS)
@@ -111,7 +113,8 @@ def import_problems(candidate):
     for module, names in sorted(test_imports(candidate).items()):
         code = f'from {module} import {", ".join(sorted(names))}' if names else f'import {module}'
         try:
-            proc = subprocess.run([sys.executable, '-c', code], cwd=candidate, env=test_env(candidate),
+            proc = subprocess.run(['bash', str(ISOLATE), str(candidate), '--', sys.executable, '-c', code],
+                                  cwd=candidate, env=test_env(candidate),
                                   capture_output=True, text=True, encoding='utf-8', errors='replace',
                                   timeout=TEST_TIMEOUT_SECONDS)
         except subprocess.TimeoutExpired:
@@ -125,7 +128,7 @@ def import_problems(candidate):
 
 def push_to_continue(session_config, workspace, output, run_agent, rounds):
     """Send fresh sessions back to the repository while imports fail. Returns one record per round.
-    A round that leaves more broken imports than before is undone (step 07: one round turned 2 into 7)."""
+    A round that leaves more broken imports than before is undone (step 05: one round turned 1 into 7)."""
     candidate = workspace / 'candidate'
     template = (PROMPTS / 'during_work/push_to_continue.txt').read_text(encoding='utf-8')
     records = []
