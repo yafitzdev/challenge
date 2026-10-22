@@ -127,15 +127,13 @@ each step's README.
 
 ## Results
 
-Every step with the weak model (Gemini 2.5 Flash Lite). Score = passable tests passed, averaged over the runs of a
-step. Development: the 3 development repos of phase 3 (113 tests). Holdout: the 5 repos never looked at while building
-(184 tests).
+Phase 3 with the weak model (Gemini 2.5 Flash Lite), starting from the harness baseline that phase 2 built with the
+strong model. Score = passable tests passed, averaged over the runs of a step. Development: the 3 development repos of
+phase 3 (113 tests). Holdout: the 5 repos never looked at while building (184 tests).
 
 | Step | Average score, development (113) | Average score, holdout (184) |
 |---|---|---|
-| 00 dumb harness | 0 | 16 |
-| 01 robustness | 22 | 9 |
-| 02 sandbox (harness baseline) | 0 | 24 |
+| 02 harness baseline | 0 | 24 |
 | 04 robustness v2 | 16 | 0 |
 | 05 retry | 32.5 | 45 |
 | 06 decomposition (final harness) | 56.0 | 55 |
