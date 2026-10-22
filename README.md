@@ -79,13 +79,14 @@ migrations** (repos where every passable test passes).
 
 Run the dumb harness with a strong model (DeepSeek flash). When a strong model fails, the cause is usually the
 harness, not the model, so its failures expose harness flaws. Fix each flaw, run again, keep the fix if the run shows
-it works. 6 development repos (184 tests), average score of 2 runs per step.
+it works. Development: 6 development repos (184 tests), average score of 2 runs per step. Holdout: the 5 holdout
+repos (184 tests), 1 run per step.
 
-| Step | Flaw found | Fix | Average score |
-|---|---|---|---|
-| [00 dumb harness](results/00_baseline/) | | | 169.5 |
-| [01 robustness](results/01_robustness/) | one shell command that never returned used up the whole session; an answer cut off at the output limit ended the session | every shell command is stopped after 120 s; after an API error or a cut-off answer the agent is sent on with a short note, up to 3 times | 169.0 |
-| [02 sandbox](results/02_sandbox/) | the agent's `find /` listed the reference ports: nothing stopped it from reading the answers | Linux namespaces: the agent sees only its workspace; Java source, public tests and the system Python are read-only; its commands have no network | 162.0 |
+| Step | Flaw found | Fix | Development (184) | Holdout (184) |
+|---|---|---|---|---|
+| [00 dumb harness](results/00_baseline/) | | | 169.5 | 173 |
+| [01 robustness](results/01_robustness/) | one shell command that never returned used up the whole session; an answer cut off at the output limit ended the session | every shell command is stopped after 120 s; after an API error or a cut-off answer the agent is sent on with a short note, up to 3 times | 169.0 | 179 |
+| [02 sandbox](results/02_sandbox/) | the agent's `find /` listed the reference ports: nothing stopped it from reading the answers | Linux namespaces: the agent sees only its workspace; Java source, public tests and the system Python are read-only; its commands have no network | 162.0 | 179 |
 
 The score stays at about 90% throughout (the differences are run-to-run noise): a strong model on small repos needs
 little help. What phase 2 delivers is a harness that cannot lose a run to a stuck command and cannot be fooled by an
