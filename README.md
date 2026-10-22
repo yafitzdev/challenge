@@ -1,6 +1,4 @@
-# Exxeta take-home challenge
-
-### A Java → Python migration harness
+# A Java → Python migration harness
 
 ---
 
